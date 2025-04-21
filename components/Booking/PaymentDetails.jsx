@@ -246,18 +246,17 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
     const createPaymentIntent = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("/api/create-payment-intent", {
+        const res = await fetch("/api/create-payment-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            amount: bookingData?.cleaningDetails?.totalPrice || "119",
-            customerDetails: bookingData?.customerDetails || {},
+            amount: Math.round(bookingData.cleaningDetails.totalPrice * 100),
           }),
         });
 
-        const data = await response.json();
+        const data = await res.json();
 
-        if (!response.ok) {
+        if (!res.ok) {
           throw new Error(data.error || "Failed to create payment intent");
         }
 

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { BookingSummary } from ".";
-import { calculateTotalPrice } from "@/lib/services";
+import { calculateTotalCost } from "@/lib/services";
 import { fetchAvailableSlots, scheduleEvent } from "@/lib/calendly";
 import { BsCalendarDate } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
@@ -42,6 +42,17 @@ export default function CleaningDetails({ onNext, bookingData }) {
     bookingData?.cleaningDetails?.time || "07:00 AM"
   );
   const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const hourlyRate = cleaningType === "Deep Clean" ? 65 : 55;
+    const calculatedPrice = calculateTotalCost(
+      bedrooms,
+      bathrooms,
+      hourlyRate,
+      cleaningType
+    );
+    setTotalPrice(calculatedPrice);
+  }, [bedrooms, bathrooms, selectedMethod, cleaningType]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState(null);
