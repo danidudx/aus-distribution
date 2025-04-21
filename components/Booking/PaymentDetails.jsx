@@ -10,6 +10,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { set } from "sanity";
 
 // Load Stripe outside of component render to avoid recreating Stripe object on every render
 const stripePromise = loadStripe(
@@ -240,36 +241,55 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
-    // Create a payment intent as soon as the page loads
-    const createPaymentIntent = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch("/api/create-payment-intent", {
+
+        // First calculate total cost
+        const totalCostResponse = await fetch("/api/calculate-cost", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            amount: Math.round(bookingData.cleaningDetails.totalPrice * 100),
+            cleaningDetails: bookingData.cleaningDetails,
           }),
         });
+        const totalCostData = await totalCostResponse.json();
+        console.log("Total cost data:", totalCostData.totalCost);
+        setTotalCost(totalCostData.totalCost);
 
-        const data = await res.json();
+        // Then create payment intent with the calculated cost
+        const paymentIntentResponse = await fetch(
+          "/api/create-payment-intent",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              amount: Math.round(totalCostData.totalCost * 100),
+            }),
+          }
+        );
 
-        if (!res.ok) {
-          throw new Error(data.error || "Failed to create payment intent");
+        const paymentIntentData = await paymentIntentResponse.json();
+
+        if (!paymentIntentResponse.ok) {
+          throw new Error(
+            paymentIntentData.error || "Failed to create payment intent"
+          );
         }
 
-        setClientSecret(data.clientSecret);
+        setClientSecret(paymentIntentData.clientSecret);
       } catch (err) {
         setError(err.message || "Something went wrong");
-        console.error("Error creating payment intent:", err);
+        console.error("Error processing payment:", err);
       } finally {
         setIsLoading(false);
       }
     };
 
-    createPaymentIntent();
+    fetchData();
   }, [bookingData]);
 
   const appearance = {

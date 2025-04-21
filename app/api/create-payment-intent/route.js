@@ -1,6 +1,6 @@
+// app/api/create-payment-intent/route.js
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { calculateTotalCost } from "@/lib/services";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -11,7 +11,7 @@ export async function POST(request) {
     // Validate the amount
     if (!amount || isNaN(parseFloat(amount))) {
       return NextResponse.json(
-        { error: "Invalid amount provided" },
+        { error: "Valid amount is required" },
         { status: 400 }
       );
     }
@@ -19,22 +19,11 @@ export async function POST(request) {
     // Convert amount to cents (Stripe requires amounts in cents)
     const amountInCents = Math.round(parseFloat(amount) * 100);
 
-    // Validate amount with server-side calculation
-    const hourlyRate = customerDetails?.cleaningType === "Deep Clean" ? 65 : 55;
-    const validatedAmount = amount;
-
-    if (amount !== validatedAmount) {
-      return NextResponse.json(
-        { error: "Amount validation failed" },
-        { status: 400 }
-      );
-    }
-
-    // Create Payment Intent with validated amount
+    // Create Payment Intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
       currency,
-      receipt_email: customerDetails?.email, // Automatically sends receipt
+      receipt_email: customerDetails?.email,
       metadata: {
         customerName:
           `${customerDetails?.firstName || ""} ${customerDetails?.lastName || ""}`.trim(),
@@ -42,6 +31,8 @@ export async function POST(request) {
         customerPhone: customerDetails?.phone || "",
         customerAddress: customerDetails?.address || "",
         customerSuburb: customerDetails?.suburb || "",
+        cleaningType: customerDetails?.cleaningType || "",
+        frequency: customerDetails?.frequency || "",
       },
       automatic_payment_methods: {
         enabled: true,
@@ -54,7 +45,7 @@ export async function POST(request) {
   } catch (error) {
     console.error("Error creating payment intent:", error);
     return NextResponse.json(
-      { error: error.message || "Something went wrong" },
+      { error: error.message || "Payment processing failed" },
       { status: 500 }
     );
   }
