@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { BookingSummary } from ".";
-import { calculateTotalCost } from "@/lib/services";
+import { calculateTotalCost, calculateDuration } from "@/lib/services";
 import { fetchAvailableSlots, scheduleEvent } from "@/lib/calendly";
 import { BsCalendarDate } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
@@ -16,6 +16,7 @@ const SERVICES = [
 ];
 
 export default function CleaningDetails({ onNext, bookingData }) {
+  const [duration, setTotalDuration] = useState(0);
   const [selectedServices, setSelectedServices] = useState(
     bookingData?.cleaningDetails?.selectedServices || []
   );
@@ -44,14 +45,20 @@ export default function CleaningDetails({ onNext, bookingData }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    const hourlyRate = cleaningType === "Deep Clean" ? 65 : 55;
+    const hourlyRate = process.env.HOURLY_RATE;
     const calculatedPrice = calculateTotalCost(
       bedrooms,
       bathrooms,
       hourlyRate,
       cleaningType
     );
-    setTotalPrice(calculatedPrice);
+    const calculatedDuration = calculateDuration(
+      bedrooms,
+      bathrooms,
+      hourlyRate,
+      cleaningType
+    );
+    setTotalDuration(calculatedDuration);
   }, [bedrooms, bathrooms, selectedMethod, cleaningType]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
@@ -143,6 +150,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
         time,
         selectedServices,
         totalPrice,
+        duration,
       };
       onNext({ cleaningDetails });
     } else {

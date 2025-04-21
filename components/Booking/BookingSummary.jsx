@@ -1,10 +1,53 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { calculateTotalCost, calculateDuration } from "@/lib/services";
+
 export default function BookingSummary({ bookingData }) {
+  const [totalPrice, setTotalPrice] = useState(119);
+  const [duration, setDuration] = useState("Unavailable");
+
   // Default values for when no booking data is provided
   const cleaningDetails = bookingData?.cleaningDetails || {};
   const customerDetails = bookingData?.customerDetails || {};
   const paymentDetails = bookingData?.paymentDetails || {};
+
+  useEffect(() => {
+    if (cleaningDetails.bedrooms && cleaningDetails.bathrooms) {
+      const hourlyRate = 60; // Default hourly rate
+      const calculatedPrice = calculateTotalCost(
+        cleaningDetails.bedrooms,
+        cleaningDetails.bathrooms,
+        hourlyRate,
+        cleaningDetails.type
+      );
+      const calculatedDuration = calculateDuration(
+        cleaningDetails.bedrooms,
+        cleaningDetails.bathrooms,
+        hourlyRate,
+        cleaningDetails.type
+      );
+
+      // Apply frequency discount
+      let finalPrice = calculatedPrice;
+      if (
+        cleaningDetails.frequency === "Weekly" ||
+        cleaningDetails.frequency === "Fortnightly"
+      ) {
+        finalPrice *= 0.9; // 10% discount
+      } else if (cleaningDetails.frequency === "Monthly") {
+        finalPrice *= 0.95; // 5% discount
+      }
+
+      setTotalPrice(Math.round(finalPrice));
+      setDuration(calculatedDuration.toFixed(1));
+    }
+  }, [
+    cleaningDetails.bedrooms,
+    cleaningDetails.bathrooms,
+    cleaningDetails.type,
+    cleaningDetails.frequency,
+  ]);
 
   // Format date for display if available
   const formatDate = (dateString) => {
@@ -193,15 +236,9 @@ export default function BookingSummary({ bookingData }) {
 
         <div className="bg-[#FFC914] text-[#0B2F3D] mt-10 xl:px-8 xl:py-3 py-2 rounded-full font-[Montserrat] text-xl font-normal leading-[150%] border-2 border-[#0B2F3D] flex items-center justify-center gap-4">
           <span>
-            Total:{" "}
-            <span className="xl:font-semibold">
-              {cleaningDetails.totalPrice
-                ? `$${cleaningDetails.totalPrice}`
-                : "$119"}{" "}
-              |{" "}
-            </span>{" "}
+            Total: <span className="xl:font-semibold">${totalPrice} | </span>{" "}
             Duration:
-            <span className="xl:font-semibold"> 2h</span>
+            <span className="xl:font-semibold"> {duration} hrs | </span>
           </span>
         </div>
       </div>
