@@ -1,16 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { BookingSummary } from ".";
-import { fetchServices, calculateTotalPrice } from "@/lib/services";
+import { calculateTotalPrice } from "@/lib/services";
 import { fetchAvailableSlots, scheduleEvent } from "@/lib/calendly";
 import { BsCalendarDate } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
 
+// Predefined services
+const SERVICES = [
+  { id: 1, name: "Standard Clean", basePrice: 119, options: [] },
+  { id: 2, name: "Deep Clean", basePrice: 159, options: [] },
+  { id: 3, name: "Vacate Clean", basePrice: 199, options: [] },
+];
+
 export default function CleaningDetails({ onNext, bookingData }) {
-  const [services, setServices] = useState([]);
-  const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedServices, setSelectedServices] = useState(
+    bookingData?.cleaningDetails?.selectedServices || []
+  );
   const [selectedMethod, setSelectedMethod] = useState(
     bookingData?.cleaningDetails?.method || "By Size"
   );
@@ -39,81 +47,107 @@ export default function CleaningDetails({ onNext, bookingData }) {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({
+    date: "",
+    time: "",
+    method: "",
+    bedrooms: bedrooms === 0 ? "Please select number of bedrooms" : "",
+    bathrooms: bathrooms === 0 ? "Please select number of bathrooms" : "",
+    frequency: frequency === "" ? "Please select a frequency" : "",
+    type: cleaningType === "" ? "Please select a cleaning type" : "",
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  useEffect(() => {
-    async function loadServices() {
-      try {
-        const servicesData = await fetchServices();
-        setServices(servicesData);
-        if (servicesData.length > 0) {
-          setSelectedServices([servicesData[0]._id]);
-        }
-      } catch (error) {
-        console.error("Error loading services:", error);
-      }
-    }
-    loadServices();
-  }, []);
-
-  useEffect(() => {
-    const fetchSlots = async () => {
-      setLoading(true);
-      try {
-        const availableSlots = await fetchAvailableSlots();
-        setAvailableSlots(availableSlots);
-
-        // Set the first date as selected if there are slots available
-        if (availableSlots.length > 0) {
-          const firstDate = new Date(availableSlots[0].start_time)
-            .toISOString()
-            .split("T")[0];
-          setSelectedDate(firstDate);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching available slots:", error);
-        setLoading(false);
-      }
+  const validateForm = () => {
+    const newErrors = {
+      date: date.trim() === "" ? "Date is required" : "",
+      time: time.trim() === "" ? "Time is required" : "",
+      method: selectedMethod === "" ? "Please select a method" : "",
+      bedrooms: bedrooms === 0 ? "Please select number of bedrooms" : "",
+      bathrooms: bathrooms === 0 ? "Please select number of bathrooms" : "",
+      frequency: frequency === "" ? "Please select a frequency" : "",
+      type: cleaningType === "" ? "Please select a cleaning type" : "",
     };
 
-    fetchSlots();
-  }, []);
+    setValidationErrors(newErrors);
 
-  useEffect(() => {
-    const selectedServiceObjects = services.filter((service) =>
-      selectedServices.includes(service._id)
-    );
-    const newTotalPrice = calculateTotalPrice(
-      selectedServiceObjects,
-      extras,
-      frequency
-    );
-    setTotalPrice(newTotalPrice);
-  }, [selectedServices, extras, frequency, services]);
+    // Check if there are any errors
+    return !Object.values(newErrors).some((error) => error !== "");
+  };
 
-  const handleExtraToggle = (extra) => {
-    setExtras(
-      extras.includes(extra)
-        ? extras.filter((e) => e !== extra)
-        : [...extras, extra]
-    );
+  // Validate a single field
+  const validateField = (name, value) => {
+    let error = "";
+    switch (name) {
+      case "date":
+        error = value.trim() === "" ? "Date is required" : "";
+        break;
+      case "time":
+        error = value.trim() === "" ? "Time is required" : "";
+        break;
+      case "method":
+        error = value === "" ? "Please select a method" : "";
+        break;
+      case "bedrooms":
+        error = value === 0 ? "Please select number of bedrooms" : "";
+        break;
+      case "bathrooms":
+        error = value === 0 ? "Please select number of bathrooms" : "";
+        break;
+      case "frequency":
+        error = value === "" ? "Please select a frequency" : "";
+        break;
+      case "type":
+        error = value === "" ? "Please select a cleaning type" : "";
+        break;
+      default:
+        break;
+    }
+    return error;
+  };
+
+  // Handle field change with validation
+  const handleFieldChange = (name, value) => {
+    if (formSubmitted) {
+      const error = validateField(name, value);
+      setValidationErrors((prev) => ({
+        ...prev,
+        [name]: error,
+      }));
+    }
   };
 
   const handleNext = () => {
-    const cleaningDetails = {
-      method: selectedMethod,
-      bedrooms,
-      bathrooms,
-      frequency,
-      type: cleaningType,
-      extras,
-      date,
-      time,
-      selectedServices,
-      totalPrice,
-    };
-    onNext({ cleaningDetails });
+    setFormSubmitted(true);
+
+    if (validateForm()) {
+      const cleaningDetails = {
+        method: selectedMethod,
+        bedrooms,
+        bathrooms,
+        frequency,
+        type: cleaningType,
+        extras,
+        date,
+        time,
+        selectedServices,
+        totalPrice,
+      };
+      onNext({ cleaningDetails });
+    } else {
+      // Scroll to the first error
+      const firstErrorField = Object.keys(validationErrors).find(
+        (key) => validationErrors[key] !== ""
+      );
+      if (firstErrorField) {
+        const element = document.querySelector(
+          `[data-field=${firstErrorField}]`
+        );
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+    }
   };
 
   // Group available slots by date
@@ -229,7 +263,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
                       ? "bg-[#0B2F3D] text-white"
                       : "bg-white text-[#0B2F3D]"
                   }`}
-                  onClick={() => setSelectedMethod("By Size")}
+                  onClick={() => {
+                    setSelectedMethod("By Size");
+                    handleFieldChange("method", "By Size");
+                  }}
                 >
                   By Size
                 </button>
@@ -239,7 +276,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
                       ? "bg-[#0B2F3D] text-white"
                       : "bg-white"
                   }`}
-                  onClick={() => setSelectedMethod("Hourly")}
+                  onClick={() => {
+                    setSelectedMethod("Hourly");
+                    handleFieldChange("method", "Hourly");
+                  }}
                 >
                   Hourly
                 </button>
@@ -267,7 +307,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
                     className={`px-4 py-2 rounded-xl xl:w-[121.2px] xl:h-16 w-1/6 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
                       bedrooms === num ? "bg-[#0B2F3D] text-white" : "bg-white"
                     }`}
-                    onClick={() => setBedrooms(num)}
+                    onClick={() => {
+                      setBedrooms(num);
+                      handleFieldChange("bedrooms", num);
+                    }}
                   >
                     {num}
                   </button>
@@ -294,7 +337,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
                           ? "bg-[#0B2F3D] text-white"
                           : "bg-white"
                       }`}
-                      onClick={() => setBathrooms(num)}
+                      onClick={() => {
+                        setBathrooms(num);
+                        handleFieldChange("bathrooms", num);
+                      }}
                     >
                       {num}
                     </button>
@@ -329,7 +375,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
                         ? "bg-[#0B2F3D] text-white"
                         : "bg-white"
                     }`}
-                    onClick={() => setFrequency(item.label)}
+                    onClick={() => {
+                      setFrequency(item.label);
+                      handleFieldChange("frequency", item.label);
+                    }}
                   >
                     {item.label}
                     {item.discount && (
@@ -364,7 +413,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
                           ? "bg-[#0B2F3D] text-white"
                           : "bg-white"
                       }`}
-                      onClick={() => setCleaningType(type)}
+                      onClick={() => {
+                        setCleaningType(type);
+                        handleFieldChange("type", type);
+                      }}
                     >
                       {type}
                     </button>
@@ -386,16 +438,33 @@ export default function CleaningDetails({ onNext, bookingData }) {
                 </h4>
               </div>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="relative">
+                <div className="relative" data-field="date">
                   <BsCalendarDate className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-[#0B2F3D]" />
                   <input
                     type="date"
                     value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className="pl-16 w-full xl:h-16 h-12 border-2 border-[#0B2F3D] rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]"
+                    onChange={(e) => {
+                      setDate(e.target.value);
+                      if (formSubmitted) {
+                        setValidationErrors((prev) => ({
+                          ...prev,
+                          date:
+                            e.target.value.trim() === ""
+                              ? "Date is required"
+                              : "",
+                        }));
+                      }
+                    }}
+                    className={`pl-16 w-full xl:h-16 h-12 border-2 ${validationErrors.date ? "border-red-500" : "border-[#0B2F3D]"} rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]`}
+                    required
                   />
+                  {validationErrors.date && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {validationErrors.date}
+                    </p>
+                  )}
                 </div>
-                <div className="relative">
+                <div className="relative" data-field="time">
                   <BiTimeFive className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-[#0B2F3D]" />
                   <input
                     type="time"
@@ -406,10 +475,23 @@ export default function CleaningDetails({ onNext, bookingData }) {
                       const hour = parseInt(hours);
                       const ampm = hour >= 12 ? "PM" : "AM";
                       const hour12 = hour % 12 || 12;
-                      setTime(`${hour12}:${minutes} ${ampm}`);
+                      const newTime = `${hour12}:${minutes} ${ampm}`;
+                      setTime(newTime);
+                      if (formSubmitted) {
+                        setValidationErrors((prev) => ({
+                          ...prev,
+                          time: newTime.trim() === "" ? "Time is required" : "",
+                        }));
+                      }
                     }}
-                    className="pl-16 w-full xl:h-16 h-12 border-2 border-[#0B2F3D] rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]"
+                    className={`pl-16 w-full xl:h-16 h-12 border-2 ${validationErrors.time ? "border-red-500" : "border-[#0B2F3D]"} rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]`}
+                    required
                   />
+                  {validationErrors.time && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {validationErrors.time}
+                    </p>
+                  )}
                 </div>
               </div>
               {date && time && (
@@ -524,6 +606,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
               <button
                 onClick={handleNext}
                 className="bg-[#FFC914] w-full text-[#0B2F3D] px-8 py-2 rounded-full font-[Montserrat] text-xl font-medium border-2 border-[#0B2F3D] flex items-center justify-center gap-4"
+                type="button"
               >
                 Next: <span className="font-semibold">Personal Details</span>
                 <div className="w-8 h-8 bg-[#0B2F3D] rounded-full flex items-center justify-center">
@@ -531,6 +614,21 @@ export default function CleaningDetails({ onNext, bookingData }) {
                 </div>
               </button>
             </div>
+
+            {/* Show validation summary if form is submitted with errors */}
+            {formSubmitted &&
+              Object.values(validationErrors).some((error) => error !== "") && (
+                <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                  <p className="font-semibold">
+                    Please correct the following errors:
+                  </p>
+                  <ul className="list-disc pl-5 mt-2">
+                    {Object.entries(validationErrors).map(([field, error]) =>
+                      error ? <li key={field}>{error}</li> : null
+                    )}
+                  </ul>
+                </div>
+              )}
           </div>
         </div>
         <div>
