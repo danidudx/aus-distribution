@@ -14,7 +14,7 @@ export default function BookingSummary({ bookingData }) {
 
   useEffect(() => {
     if (cleaningDetails.bedrooms && cleaningDetails.bathrooms) {
-      const hourlyRate = 60; // Default hourly rate
+      const hourlyRate = process.env.NEXT_PUBLIC_HOURLY_RATE || "64.8";
       const calculatedPrice = calculateTotalCost(
         cleaningDetails.bedrooms,
         cleaningDetails.bathrooms,

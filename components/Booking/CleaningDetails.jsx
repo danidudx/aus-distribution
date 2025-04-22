@@ -52,6 +52,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
       hourlyRate,
       cleaningType
     );
+    setTotalPrice(calculatedPrice);
     const calculatedDuration = calculateDuration(
       bedrooms,
       bathrooms,

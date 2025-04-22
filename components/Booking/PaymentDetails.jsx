@@ -18,7 +18,7 @@ const stripePromise = loadStripe(
 );
 
 // Checkout Form component that uses Stripe hooks
-function CheckoutForm({ onPrevious, bookingData, clientSecret }) {
+function CheckoutForm({ onPrevious, bookingData, clientSecret, totalCost }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -159,7 +159,7 @@ function CheckoutForm({ onPrevious, bookingData, clientSecret }) {
               className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8"
             />
             <div className="input-style pl-16 xl:w-[390px] xl:h-16 h-10 w-full border-2 border-[#0B2F3D] rounded-xl flex items-center">
-              ${bookingData?.cleaningDetails?.totalPrice || "119"}
+              ${(totalCost || 119).toFixed(2)}
             </div>
           </div>
         </div>
@@ -363,6 +363,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
                     onPrevious={onPrevious}
                     bookingData={bookingData}
                     clientSecret={clientSecret}
+                    totalCost={totalCost}
                   />
                 </Elements>
               )
