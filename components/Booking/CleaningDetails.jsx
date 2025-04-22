@@ -4,16 +4,8 @@ import { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { BookingSummary } from ".";
 import { calculateTotalCost, calculateDuration } from "@/lib/services";
-import { fetchAvailableSlots, scheduleEvent } from "@/lib/calendly";
 import { BsCalendarDate } from "react-icons/bs";
 import { BiTimeFive } from "react-icons/bi";
-
-// Predefined services
-const SERVICES = [
-  { id: 1, name: "Standard Clean", basePrice: 119, options: [] },
-  { id: 2, name: "Deep Clean", basePrice: 159, options: [] },
-  { id: 3, name: "Vacate Clean", basePrice: 199, options: [] },
-];
 
 export default function CleaningDetails({ onNext, bookingData }) {
   const [duration, setTotalDuration] = useState(0);
@@ -45,7 +37,8 @@ export default function CleaningDetails({ onNext, bookingData }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    const hourlyRate = process.env.HOURLY_RATE;
+    const hourlyRate = process.env.HOURLY_RATE || 64.8;
+
     const calculatedPrice = calculateTotalCost(
       bedrooms,
       bathrooms,
@@ -61,9 +54,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
     );
     setTotalDuration(calculatedDuration);
   }, [bedrooms, bathrooms, selectedMethod, cleaningType]);
-  const [availableSlots, setAvailableSlots] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedSlot, setSelectedSlot] = useState(null);
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState({
@@ -125,6 +116,21 @@ export default function CleaningDetails({ onNext, bookingData }) {
     return error;
   };
 
+  useEffect(() => {
+    if (bookingData?.cleaningDetails) {
+      setSelectedMethod(bookingData.cleaningDetails.method || "By Size");
+      setBedrooms(bookingData.cleaningDetails.bedrooms || 1);
+      setBathrooms(bookingData.cleaningDetails.bathrooms || 1);
+      setFrequency(
+        (bookingData.cleaningDetails.frequency || "Weekly").split(" ")[0]
+      );
+      setCleaningType(bookingData.cleaningDetails.type || "Standard Clean");
+      setDate(bookingData.cleaningDetails.date || "");
+      setTime(bookingData.cleaningDetails.time || "07:00 AM");
+      setSelectedServices(bookingData.cleaningDetails.selectedServices || []);
+      setExtras(bookingData.cleaningDetails.extras || []);
+    }
+  }, [bookingData?.cleaningDetails]);
   // Handle field change with validation
   const handleFieldChange = (name, value) => {
     if (formSubmitted) {
@@ -310,21 +316,22 @@ export default function CleaningDetails({ onNext, bookingData }) {
               </div>
               <div className="grid grid-cols-2 gap-4 mt-6">
                 {[
-                  { label: "Once Off", discount: "" },
+                  { label: "Once", discount: "" },
                   { label: "Weekly", discount: "(10% off)" },
                   { label: "Fortnightly", discount: "(10% off)" },
                   { label: "Monthly", discount: "(5% off)" },
                 ].map((item) => (
                   <button
                     key={item.label}
-                    className={`px-4 py-2 rounded-xl xl:w-[396px] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
-                      frequency === item.label
-                        ? "bg-[#0B2F3D] text-white"
-                        : "bg-white"
-                    }`}
+                    className={`px-4 py-2 rounded-xl xl:w-[396px] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] 
+                      ${
+                        frequency === item.label
+                          ? "bg-[#0B2F3D] text-white"
+                          : "bg-white"
+                      }`}
                     onClick={() => {
-                      setFrequency(item.label);
-                      handleFieldChange("frequency", item.label);
+                      setFrequency(item.label.split(" ")[0]);
+                      handleFieldChange("frequency", item.label.split(" ")[0]);
                     }}
                   >
                     {item.label}

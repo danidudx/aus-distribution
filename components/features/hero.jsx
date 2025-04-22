@@ -26,8 +26,8 @@ export default function HeroSection() {
   const [selectedMethod, setSelectedMethod] = useState("By Size");
   const [selectedBedroom, setSelectedBedroom] = useState(4);
   const [selectedBathroom, setSelectedBathroom] = useState(2);
-  const [selectedService, setSelectedService] = useState("Standard");
-  const [selectedDiscount, setSelectedDiscount] = useState("10%");
+  const [selectedService, setSelectedService] = useState("Standard Clean");
+  const [selectedDiscount, setSelectedDiscount] = useState("Weekly (10% off)");
   const [totalPrice, setTotalPrice] = useState(119);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function HeroSection() {
 
   const serviceMenu = {
     items: [
-      { key: "Standard", label: "Standard" },
+      { key: "Standard Clean", label: "Standard Clean" },
       { key: "Deep Clean", label: "Deep Clean" },
       { key: "Vacate Clean", label: "Vacate Clean" },
     ],
@@ -86,9 +86,10 @@ export default function HeroSection() {
 
   const discountMenu = {
     items: [
-      { key: "5%", label: "5% Off" },
-      { key: "10%", label: "10% Off" },
-      { key: "15%", label: "15% Off" },
+      { key: "Once Off", label: "Once Off" },
+      { key: "Weekly (10% off)", label: "Weekly (10% off)" },
+      { key: "Fortnightly (10% off)", label: "Fortnightly (10% off)" },
+      { key: "Monthly (5% off)", label: "Monthly (5% off)" },
     ],
     onClick: ({ key }) => setSelectedDiscount(key),
   };
@@ -244,7 +245,7 @@ export default function HeroSection() {
               >
                 <button className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer col-span-2 xl:mb-0 mb-4 w-full">
                   <RiPriceTag3Line size={20} />
-                  <span>Once Off {selectedDiscount}</span>
+                  <span>{selectedDiscount}</span>
                   <DownOutlined className="ml-auto" />
                 </button>
               </Dropdown>
@@ -255,7 +256,7 @@ export default function HeroSection() {
               <button
                 onClick={() => {
                   router.push(
-                    `/Booking?bedrooms=${selectedBedroom}&bathrooms=${selectedBathroom}&service=${selectedService}&frequency=Once Off`
+                    `/Booking?bedrooms=${selectedBedroom}&bathrooms=${selectedBathroom}&service=${selectedService}&frequency=${selectedDiscount}&method=${selectedMethod}`
                   );
                 }}
                 className="bg-buttonyellow text-navborder px-6 w-[100%] h-[56px] rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3"

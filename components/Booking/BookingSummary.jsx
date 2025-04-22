@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { calculateTotalCost, calculateDuration } from "@/lib/services";
 
 export default function BookingSummary({ bookingData }) {
-  const [totalPrice, setTotalPrice] = useState(119);
+  const [totalPrice, setTotalPrice] = useState(130);
   const [duration, setDuration] = useState("Unavailable");
 
   // Default values for when no booking data is provided
@@ -27,6 +27,8 @@ export default function BookingSummary({ bookingData }) {
         hourlyRate,
         cleaningDetails.type
       );
+
+      console.log("cleaning details freq", cleaningDetails.frequency);
 
       // Apply frequency discount
       let finalPrice = calculatedPrice;
