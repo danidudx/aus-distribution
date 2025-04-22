@@ -9,6 +9,8 @@ import { PiBathtubLight } from "react-icons/pi";
 import { MdOutlineCleaningServices } from "react-icons/md";
 import { RiPriceTag3Line } from "react-icons/ri";
 import { FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { calculateTotalCost } from "@/lib/services";
 
 const carouselImages = [
   "/assets/Images/carosul.jpeg",
@@ -19,12 +21,25 @@ const carouselImages = [
 ];
 
 export default function HeroSection() {
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(4);
+  const [selectedMethod, setSelectedMethod] = useState("By Size");
   const [selectedBedroom, setSelectedBedroom] = useState(4);
   const [selectedBathroom, setSelectedBathroom] = useState(2);
   const [selectedService, setSelectedService] = useState("Standard");
   const [selectedDiscount, setSelectedDiscount] = useState("10%");
+  const [totalPrice, setTotalPrice] = useState(119);
+
+  useEffect(() => {
+    const hourlyRate = 64.8;
+    const calculatedPrice = calculateTotalCost(
+      selectedBedroom,
+      selectedBathroom,
+      hourlyRate,
+      selectedService
+    );
+    setTotalPrice(calculatedPrice);
+  }, [selectedBedroom, selectedBathroom, selectedService]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,47 +48,50 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
-  const sizeMenu = (
-    <Menu onClick={(e) => setSelectedSize(e.key)}>
-      <Menu.Item key="1">1 Bedroom</Menu.Item>
-      <Menu.Item key="2">2 Bedroom</Menu.Item>
-      <Menu.Item key="3">3 Bedroom</Menu.Item>
-      <Menu.Item key="4">4 Bedroom</Menu.Item>
-    </Menu>
-  );
+  const methodMenu = {
+    items: [
+      { key: "By Size", label: "By Size" },
+      { key: "Hourly", label: "Hourly" },
+    ],
+    onClick: ({ key }) => setSelectedMethod(key),
+  };
 
-  const bedroomMenu = (
-    <Menu onClick={(e) => setSelectedBedroom(e.key)}>
-      <Menu.Item key="1">1 Bedroom</Menu.Item>
-      <Menu.Item key="2">2 Bedroom</Menu.Item>
-      <Menu.Item key="3">3 Bedroom</Menu.Item>
-      <Menu.Item key="4">4 Bedroom</Menu.Item>
-    </Menu>
-  );
+  const bedroomMenu = {
+    items: [
+      { key: "1", label: "1 Bedroom" },
+      { key: "2", label: "2 Bedroom" },
+      { key: "3", label: "3 Bedroom" },
+      { key: "4", label: "4 Bedroom" },
+    ],
+    onClick: ({ key }) => setSelectedBedroom(parseInt(key)),
+  };
 
-  const bathroomMenu = (
-    <Menu onClick={(e) => setSelectedBathroom(e.key)}>
-      <Menu.Item key="1">1 Bathroom</Menu.Item>
-      <Menu.Item key="2">2 Bathroom</Menu.Item>
-      <Menu.Item key="3">3 Bathroom</Menu.Item>
-    </Menu>
-  );
+  const bathroomMenu = {
+    items: [
+      { key: "1", label: "1 Bathroom" },
+      { key: "2", label: "2 Bathroom" },
+      { key: "3", label: "3 Bathroom" },
+    ],
+    onClick: ({ key }) => setSelectedBathroom(parseInt(key)),
+  };
 
-  const serviceMenu = (
-    <Menu onClick={(e) => setSelectedService(e.key)}>
-      <Menu.Item key="Standard">Standard</Menu.Item>
-      <Menu.Item key="Deep Clean">Deep Clean</Menu.Item>
-      <Menu.Item key="Premium">Premium</Menu.Item>
-    </Menu>
-  );
+  const serviceMenu = {
+    items: [
+      { key: "Standard", label: "Standard" },
+      { key: "Deep Clean", label: "Deep Clean" },
+      { key: "Vacate Clean", label: "Vacate Clean" },
+    ],
+    onClick: ({ key }) => setSelectedService(key),
+  };
 
-  const discountMenu = (
-    <Menu onClick={(e) => setSelectedDiscount(e.key)}>
-      <Menu.Item key="5%">5% Off</Menu.Item>
-      <Menu.Item key="10%">10% Off</Menu.Item>
-      <Menu.Item key="15%">15% Off</Menu.Item>
-    </Menu>
-  );
+  const discountMenu = {
+    items: [
+      { key: "5%", label: "5% Off" },
+      { key: "10%", label: "10% Off" },
+      { key: "15%", label: "15% Off" },
+    ],
+    onClick: ({ key }) => setSelectedDiscount(key),
+  };
 
   return (
     <div className="relative w-full xl:h-[832px] bg-gradient-to-b from-[#FF3366] to-[#FFD143] text-white flex items-center px-8">
@@ -173,51 +191,78 @@ export default function HeroSection() {
           <div className="mt-6 bg-white text-black p-6 rounded-3xl shadow-lg xl:w-[100%] xl:h-[343px] md:w-[100%] w-full">
             <div className="xl:grid xl:grid-cols-2 gap-4">
               {/* Dropdowns */}
-              <Dropdown menu={sizeMenu} trigger={["click"]}>
-                <div className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0 mb-4">
+              <Dropdown menu={methodMenu} trigger={["click"]}>
+                <button className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0 mb-4 w-full">
                   <MdOutlineCleaningServices size={20} />
-                  <span>By Size {selectedSize}</span>
+                  <span>{selectedMethod}</span>
                   <DownOutlined className="ml-auto" />
-                </div>
+                </button>
               </Dropdown>
 
-              <Dropdown menu={sizeMenu} trigger={["click"]}>
-                <div className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0  mb-4">
+              <Dropdown menu={bedroomMenu} trigger={["click"]}>
+                <button className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0 mb-4 w-full">
                   <IoBedOutline size={20} />
-                  <span>Bedroom {selectedBedroom}</span>
+                  <span>
+                    {selectedBedroom} Bedroom
+                    {selectedBedroom !== 1 ? "s" : ""}
+                  </span>
                   <DownOutlined className="ml-auto" />
-                </div>
+                </button>
               </Dropdown>
 
-              <Dropdown menu={sizeMenu} trigger={["click"]}>
-                <div className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0 mb-4">
+              <Dropdown
+                menu={{
+                  items: bathroomMenu.items,
+                  onClick: ({ key }) => setSelectedBathroom(parseInt(key)),
+                }}
+                trigger={["click"]}
+              >
+                <button className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0 mb-4 w-full">
                   <PiBathtubLight size={20} />
-                  <span>Bathroom {selectedBathroom}</span>
+                  <span>
+                    {selectedBathroom} Bathroom
+                    {selectedBathroom !== "1" ? "s" : ""}
+                  </span>
                   <DownOutlined className="ml-auto" />
-                </div>
+                </button>
               </Dropdown>
 
-              <Dropdown menu={sizeMenu} trigger={["click"]}>
-                <div className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0 mb-4">
+              <Dropdown menu={serviceMenu} trigger={["click"]}>
+                <button className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer xl:mb-0 mb-4 w-full">
                   <MdOutlineCleaningServices size={20} />
                   <span>{selectedService}</span>
                   <DownOutlined className="ml-auto" />
-                </div>
+                </button>
               </Dropdown>
 
-              <Dropdown menu={sizeMenu} trigger={["click"]}>
-                <div className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer col-span-2 xl:mb-0 mb-4">
+              <Dropdown
+                menu={{
+                  items: discountMenu.items,
+                  onClick: ({ key }) => setSelectedDiscount(key),
+                }}
+                trigger={["click"]}
+              >
+                <button className="flex items-center gap-2 border-2 border-navborder p-3 rounded-lg cursor-pointer col-span-2 xl:mb-0 mb-4 w-full">
                   <RiPriceTag3Line size={20} />
                   <span>Once Off {selectedDiscount}</span>
                   <DownOutlined className="ml-auto" />
-                </div>
+                </button>
               </Dropdown>
             </div>
 
             {/* Book Now Button */}
             <div className="mt-6 flex items-center justify-center border-t pt-4 relative hover:scale-105 active:scale-95">
-              <button className="bg-buttonyellow text-navborder px-6 w-[100%] h-[56px] rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3">
-                <span className="text-xl font-semibold">$119 | Book Now</span>
+              <button
+                onClick={() => {
+                  router.push(
+                    `/Booking?bedrooms=${selectedBedroom}&bathrooms=${selectedBathroom}&service=${selectedService}&frequency=Once Off`
+                  );
+                }}
+                className="bg-buttonyellow text-navborder px-6 w-[100%] h-[56px] rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3"
+              >
+                <span className="text-xl font-semibold">
+                  ${totalPrice} | Book Now
+                </span>
                 <div className="w-8 h-8 bg-navbackground rounded-full flex items-center justify-center">
                   <FaArrowRight
                     className="w-3.5 h-3.5 cursor-pointer relative z-10"
