@@ -5,10 +5,8 @@ export async function POST(request) {
   try {
     const req = await request.json();
 
-    const bedrooms = req.cleaningDetails.bedrooms;
-    const bathrooms = req.cleaningDetails.bathrooms;
-    const type = req.cleaningDetails.type;
-    if (!bedrooms || !bathrooms || !type) {
+    const { bedrooms, bathrooms, type, frequency } = req.cleaningDetails;
+    if (!bedrooms || !bathrooms || !type || !frequency) {
       return NextResponse.json(
         { error: "All cleaning details are required" },
         { status: 400 }
@@ -24,7 +22,18 @@ export async function POST(request) {
       totalTime = Math.max(2, baseTime);
     }
 
-    const totalCost = totalTime * hourlyRate;
+    let totalCost = totalTime * hourlyRate;
+
+    // Apply discount based on frequency
+    if (
+      frequency.toLowerCase() === "weekly" ||
+      frequency.toLowerCase() === "fortnightly"
+    ) {
+      totalCost *= 0.9; // 10% discount
+    } else if (frequency.toLowerCase() === "monthly") {
+      totalCost *= 0.95; // 5% discount
+    }
+
     console.log("total cost printed", totalCost);
 
     return NextResponse.json({ totalCost });

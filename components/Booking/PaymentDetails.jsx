@@ -268,6 +268,8 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               amount: Math.round(totalCostData.totalCost * 100),
+              customerDetails: bookingData.customerDetails,
+              cleaningDetails: bookingData.cleaningDetails,
             }),
           }
         );
