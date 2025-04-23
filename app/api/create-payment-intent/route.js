@@ -6,7 +6,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
   try {
-    const { amount, currency = "aud", customerDetails } = await request.json();
+    const {
+      amount,
+      currency = "aud",
+      customerDetails,
+      cleaningDetails,
+    } = await request.json();
 
     // Validate the amount
     if (!amount || isNaN(parseFloat(amount))) {
