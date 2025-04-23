@@ -1,11 +1,5 @@
 import CleaningDetails from "./CleaningDetails";
-import CustomerDetails from "./CustomerDetails";
-import PaymentDetails from "./PaymentDetails";
 import BookingSummary from "./BookingSummary";
+import customerDetails from "./customerDetails";
 
-export {
-    CleaningDetails,
-    CustomerDetails,
-    PaymentDetails,
-    BookingSummary
-}
+export { customerDetails, CleaningDetails, BookingSummary };

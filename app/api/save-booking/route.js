@@ -8,6 +8,22 @@ export async function POST(request) {
     // Generate unique booking reference
     const bookingReference = `AUSI-${uuidv4().substring(0, 8).toUpperCase()}`;
 
+    // Prepare payment details with subscription information if available
+    const paymentDetails = {
+      bookingReference,
+      stripePaymentId: bookingData.paymentDetails.stripePaymentId,
+      discountCode: bookingData.paymentDetails.discountCode,
+      paymentStatus: "completed",
+      paymentDate: new Date().toISOString(),
+    };
+
+    // Add subscription details if this is a subscription booking
+    if (bookingData.paymentDetails.subscriptionId) {
+      paymentDetails.isSubscription = true;
+      paymentDetails.subscriptionId = bookingData.paymentDetails.subscriptionId;
+      paymentDetails.billingFrequency = bookingData.cleaningDetails.frequency;
+    }
+
     // Create a new booking document in Sanity
     const result = await client.create({
       _type: "booking",
@@ -30,14 +46,9 @@ export async function POST(request) {
         time: bookingData.cleaningDetails.time,
         totalPrice: bookingData.cleaningDetails.totalPrice,
         extras: bookingData.cleaningDetails.extras,
+        frequency: bookingData.cleaningDetails.frequency,
       },
-      paymentDetails: {
-        bookingReference,
-        stripePaymentId: bookingData.paymentDetails.stripePaymentId,
-        discountCode: bookingData.paymentDetails.discountCode,
-        paymentStatus: "completed",
-        paymentDate: new Date().toISOString(),
-      },
+      paymentDetails,
       createdAt: new Date().toISOString(),
     });
 
