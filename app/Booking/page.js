@@ -7,8 +7,9 @@ import {
   CustomerDetails,
   PaymentDetails,
 } from "@/components/Booking";
+import { Suspense } from "react";
 
-const Booking = () => {
+const BookingContent = () => {
   const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [bookingData, setBookingData] = useState({
@@ -19,9 +20,7 @@ const Booking = () => {
 
   useEffect(() => {
     // Extract values from URL parameters
-    console.log("search params", searchParams);
     const bedrooms = parseInt(searchParams.get("bedrooms")) || 1;
-    console.log("bedrooms NO", bedrooms);
     const bathrooms = parseInt(searchParams.get("bathrooms")) || 1;
     const service = searchParams.get("service") || "Standard Clean";
     const frequency = searchParams.get("frequency") || "Once Off";
@@ -82,6 +81,14 @@ const Booking = () => {
   };
 
   return <div className="min-h-screen bg-[#fffae7]">{renderStep()}</div>;
+};
+
+const Booking = () => {
+  return (
+    <Suspense>
+      <BookingContent />
+    </Suspense>
+  );
 };
 
 export default Booking;
