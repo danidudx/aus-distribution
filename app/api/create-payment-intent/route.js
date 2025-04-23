@@ -27,7 +27,7 @@ export async function POST(request) {
       );
     }
 
-    const amountInCents = Math.round(parseFloat(amount) * 100);
+    const amountInCents = Math.round(parseFloat(amount));
     const frequency = cleaningDetails?.frequency?.toLowerCase() || "once";
 
     // Common metadata
