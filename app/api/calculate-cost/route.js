@@ -14,8 +14,8 @@ export async function POST(request) {
     }
 
     let totalTime;
-
-    if (type.toLowerCase() === "deep") {
+    console.log("type", type);
+    if (type.toLowerCase() === "deep clean") {
       totalTime = 3 + bedrooms * 1 + bathrooms * 0.5;
     } else {
       const baseTime = bedrooms * 1 + bathrooms * 0.5;
