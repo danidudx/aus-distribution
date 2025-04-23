@@ -1,6 +1,12 @@
-import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+"use client";
+
+import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube, FaPlus, FaTimes } from "react-icons/fa";
+import { useState } from "react";
 
 const Footer = () => {
+  const [showServices, setShowServices] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+
   return (
     <div className="relative">
       <div>
@@ -26,43 +32,65 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="xl:w-[390px] md:w-[40%] w-[70%] h-10 xl:h-16 bg-gray-800 text-white focus:outline-none xl:border-2 border-[#8F9FA6] rounded-full pl-5"
               />
-              <button className="bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[20%] h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95">
+              <button className="bg-[#FFC914] xl:w-[130px] md:w-[10%] w-[20%] h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 tracking-wide">
                 Sign Up
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-10 xl:flex-row xl:gap-[12%] 2xl:gap-[15%] xl:pl-40 xl:w-[800px] xl:text-left text-center justify-center">
-            {/* Services and Contact Section */}
-            <div className="flex flex-col gap-6 xl:flex-col font-[Montserrat]">
-              <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
-                Services
-              </h3>
-              <div className="flex flex-col xl:gap-4 gap-2 xl:font-medium text-base md:text-lg">
-                <p>Once-off Cleaning</p>
-                <p>Recurring Cleaning</p>
-                <p>Standard Cleaning</p>
-                <p>Deep Cleaning</p>
+          {/* Right Section */}
+          <div className="flex-col gap-10 xl:flex-row xl:gap-[12%] 2xl:gap-[15%] xl:pl-40 xl:w-[800px] text-left justify-center flex xl:flex">
+            {/* Services */}
+            <div className="flex flex-col font-[Montserrat]">
+              <div className="flex items-center justify-between xl:block">
+                <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
+                  Services
+                </h3>
+                <button
+                  className="xl:hidden text-white text-xl"
+                  onClick={() => setShowServices(!showServices)}
+                >
+                  {showServices ? <FaTimes /> : <FaPlus />}
+                </button>
               </div>
+              {(showServices || typeof window !== 'undefined' && window.innerWidth >= 1280) && (
+                <div className="flex flex-col xl:gap-4 gap-2 xl:font-medium text-base md:text-lg mt-4 xl:mt-0">
+                  <p>Once-off Cleaning</p>
+                  <p>Recurring Cleaning</p>
+                  <p>Standard Cleaning</p>
+                  <p>Deep Cleaning</p>
+                </div>
+              )}
             </div>
 
-            <div className="flex flex-col gap-6 xl:flex-col font-[Montserrat]">
-              <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
-                Contact
-              </h3>
-              <div className="flex flex-col xl:gap-4 gap-2 xl:font-medium text-base md:text-lg">
-                <p>FAQ</p>
-                <p>Contact Us</p>
-                <p>Reviews</p>
+            {/* Contact */}
+            <div className="flex flex-col font-[Montserrat] xl:mt-0">
+              <div className="flex items-center justify-between xl:block">
+                <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
+                  Contact
+                </h3>
+                <button
+                  className="xl:hidden text-white text-xl"
+                  onClick={() => setShowContact(!showContact)}
+                >
+                  {showContact ? <FaTimes /> : <FaPlus />}
+                </button>
               </div>
+              {(showContact || typeof window !== 'undefined' && window.innerWidth >= 1280) && (
+                <div className="flex flex-col xl:gap-4 gap-2 xl:font-medium text-base md:text-lg mt-4 xl:mt-0">
+                  <p>FAQ</p>
+                  <p>Contact Us</p>
+                  <p>Reviews</p>
+                </div>
+              )}
             </div>
 
-            {/* Social and Payment Section */}
+            {/* Social */}
             <div className="flex flex-col xl:gap-6 font-[Montserrat]">
               <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
                 Social
               </h3>
-              <div className="flex gap-4 text-base items-center justify-center xl:justify-start my-6 xl:my-0">
+              <div className="flex gap-4 text-base items-center justify-start my-6 xl:my-0">
                 <div className="w-8 h-8 bg-white text-[#0B2F3D] rounded-full flex items-center justify-center">
                   <FaFacebookF />
                 </div>
@@ -76,7 +104,7 @@ const Footer = () => {
                   <FaYoutube />
                 </div>
               </div>
-              <div className="flex 2xl:gap-4 2xl:mt-4 xl:gap-2 justify-center">
+              <div className="flex 2xl:gap-4 2xl:mt-4 xl:gap-2 md:justify-center justify-start">
                 <img
                   src="/assets/Images/PaymentM.png"
                   alt="Visa"
@@ -93,7 +121,7 @@ const Footer = () => {
           <div className="flex items-center justify-center gap-10">
             <p>©Ausiwipe 2025</p>
             <img
-              src="assets\Images\footerlogo.png"
+              src="assets/Images/footerlogo.png"
               alt="footerlogo"
               className="xl:ml-12"
             />

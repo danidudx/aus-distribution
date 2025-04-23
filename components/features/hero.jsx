@@ -122,7 +122,7 @@ export default function HeroSection() {
           <img
             src="/assets/Images/8.png"
             alt="curveArrow"
-            className="absolute xl:top-[75%] xl:left-[27%] top-[31%] left-[80%] xl:w-auto xl:h-auto w-16 h-18 md:top-[68%] md:left-[30%]"
+            className="absolute xl:top-[75%] xl:left-[27%] top-[32%] left-[80%] xl:w-auto xl:h-auto w-12 h-18 md:top-[68%] md:left-[30%]"
           />
           <div className="flex items-center gap-2 mb-4 justify-center xl:justify-start md:justify-start">
             <img
@@ -146,13 +146,13 @@ export default function HeroSection() {
 
             {/* Social Media Icons */}
             <div className="flex gap-3 2xl:ml-[80px] md:mt-0 xl:mt-[-20px] mt-8 justify-center xl:justify-start md:justify-start">
-              <div className="w-16 h-16 flex items-center justify-center bg-white text-black rounded-full cursor-pointer hover:bg-opacity-90 border-2 border-navborder">
+              <div className="sm:w-16 sm:h-16 w-12 h-12 flex items-center justify-center bg-white text-black rounded-full cursor-pointer hover:bg-opacity-90 border-2 border-navborder">
                 <FaFacebook size={24} />
               </div>
-              <div className="w-16 h-16 flex items-center justify-center bg-white text-black rounded-full cursor-pointer hover:bg-opacity-90 border-2 border-navborder">
+              <div className="sm:w-16 sm:h-16 w-12 h-12 flex items-center justify-center bg-white text-black rounded-full cursor-pointer hover:bg-opacity-90 border-2 border-navborder">
                 <FaWhatsapp size={24} />
               </div>
-              <div className="w-16 h-16 flex items-center justify-center bg-white text-black rounded-full cursor-pointer hover:bg-opacity-90 border-2 border-navborder">
+              <div className="sm:w-16 sm:h-16 w-12 h-12 flex items-center justify-center bg-white text-black rounded-full cursor-pointer hover:bg-opacity-90 border-2 border-navborder">
                 <FaInstagram size={24} />
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function HeroSection() {
                 key={index}
                 src={image}
                 alt="carousel"
-                className={`absolute xl:w-full xl:h-full object-cover transition-opacity duration-1000 ${
+                className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
                   index === activeIndex ? "opacity-100" : "opacity-0"
                 }`}
               />

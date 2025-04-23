@@ -94,10 +94,10 @@ const ClientReviews = () => {
             <SwiperSlide key={index}>
               <div className="bg-white p-6 md:p-8 rounded-2xl xl:min-w-[410px] mx-6 xl:mx-0 xl:h-[200px] text-left">
                 <p className="text-gray-700 mb-4">⭐️⭐️⭐️⭐️⭐️</p>
-                <p className="text-[#0B2F3D] font-[Montserrat] font-medium text-sm leading-[150%]">
+                <p className="text-[#0B2F3D] font-medium text-sm leading-[150%]">
                   {review.text}
                 </p>
-                <h4 className="text-[#0B2F3D] font-[Montserrat] font-semibold text-base leading-[150%] mt-4">
+                <h4 className="text-[#0B2F3D] font-semibold text-base leading-[150%] mt-4">
                   {review.name}
                 </h4>
               </div>

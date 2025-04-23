@@ -11,6 +11,7 @@ import FaqPage from "./faqpage";
 import Terms from "./terms";
 import Blog from "./blog";
 import About from "./about";
+import Logos from "./logos";
 
 export {
   Hero,
@@ -26,4 +27,5 @@ export {
   Terms,
   Blog,
   About,
+  Logos,
 };
