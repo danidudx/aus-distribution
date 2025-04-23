@@ -2,7 +2,13 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2022-08-01",
+  appInfo: {
+    name: "Your App Name",
+    version: "0.0.1",
+  },
+});
 
 export async function POST(request) {
   try {
@@ -36,7 +42,6 @@ export async function POST(request) {
       frequency,
     };
 
-    console.log("frequency", frequency);
     // Handle one-time payment
     if (frequency === "once") {
       const paymentIntent = await stripe.paymentIntents.create({
@@ -83,8 +88,6 @@ export async function POST(request) {
           phone: metadata.customerPhone,
           metadata,
         }));
-
-      console.log("Stripe customer created or retrieved:", customer);
     } catch (err) {
       console.error("Customer creation failed:", err);
       throw new Error("We couldn't set up your account. Please try again.");
@@ -99,7 +102,6 @@ export async function POST(request) {
         bathrooms: cleaningDetails?.bathrooms?.toString() || "0",
       },
     });
-    console.log("Stripe product created:", product);
 
     // Create price with recurring setting
     const price = await stripe.prices.create({
@@ -108,66 +110,18 @@ export async function POST(request) {
       currency,
       recurring: intervalConfig,
     });
-    console.log("Stripe price created:", price);
 
     // Create subscription with immediate payment
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
       items: [{ price: price.id }],
       payment_behavior: "default_incomplete",
-      payment_settings: {
-        payment_method_types: ["card"],
-        save_default_payment_method: "on_subscription",
-      },
+      expand: ["latest_invoice.payment_intent"],
       metadata,
     });
 
-    console.log("Stripe subscription created:", subscription);
-
-    // Retrieve the invoice separately
-    const invoice = await stripe.invoices.retrieve(subscription.latest_invoice);
-    console.log("Stripe invoice retrieved:", invoice);
-
-    // Check if invoice has payment intent, if n
-    // If invoice doesn't have payment intent, create one manually
-    if (!invoice.payment_intent) {
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: amountInCents,
-        currency,
-        customer: customer.id,
-        payment_method_types: ["card"],
-        metadata: {
-          ...metadata,
-          subscription_id: subscription.id,
-          invoice_id: invoice.id,
-        },
-      });
-
-      // Update the invoice with the payment intent
-      await stripe.invoices.update(invoice.id, {
-        payment_settings: {
-          payment_method_types: ["card"],
-        },
-      });
-
-      return NextResponse.json({
-        clientSecret: paymentIntent.client_secret,
-        paymentType: "subscription",
-        subscriptionId: subscription.id,
-        customerId: customer.id,
-      });
-    }
-
-    // If invoice already has payment intent, use that
-    const expandedInvoice = await stripe.invoices.retrieve(
-      subscription.latest_invoice,
-      {
-        expand: ["payment_intent"],
-      }
-    );
-
     return NextResponse.json({
-      clientSecret: expandedInvoice.payment_intent.client_secret,
+      clientSecret: subscription.latest_invoice.payment_intent.client_secret,
       paymentType: "subscription",
       subscriptionId: subscription.id,
       customerId: customer.id,
