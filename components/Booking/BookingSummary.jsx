@@ -15,12 +15,23 @@ export default function BookingSummary({ bookingData }) {
   useEffect(() => {
     if (cleaningDetails.bedrooms && cleaningDetails.bathrooms) {
       const hourlyRate = process.env.NEXT_PUBLIC_HOURLY_RATE || "64.8";
+      const extrasPrices = {
+        "inside-oven": 75,
+        "inside-fridge": 75,
+        "inside-cabinets": 75,
+        "exterior-windows": 75,
+      };
       const calculatedPrice = calculateTotalCost(
         cleaningDetails.bedrooms,
         cleaningDetails.bathrooms,
         hourlyRate,
         cleaningDetails.type
       );
+      const extrasCost =
+        cleaningDetails.extras?.reduce(
+          (total, extra) => total + (extrasPrices[extra] || 0),
+          0
+        ) || 0;
       const calculatedDuration = calculateDuration(
         cleaningDetails.bedrooms,
         cleaningDetails.bathrooms,
@@ -31,7 +42,7 @@ export default function BookingSummary({ bookingData }) {
       console.log("cleaning details freq", cleaningDetails.frequency);
 
       // Apply frequency discount
-      let finalPrice = calculatedPrice;
+      let finalPrice = calculatedPrice + extrasCost;
       if (
         cleaningDetails.frequency === "Weekly" ||
         cleaningDetails.frequency === "Fortnightly"
@@ -49,6 +60,7 @@ export default function BookingSummary({ bookingData }) {
     cleaningDetails.bathrooms,
     cleaningDetails.type,
     cleaningDetails.frequency,
+    cleaningDetails.extras,
   ]);
 
   // Format date for display if available

@@ -68,6 +68,16 @@ export default function CleaningDetails({ onNext, bookingData }) {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const handleExtraToggle = (extra) => {
+    setExtras((prevExtras) => {
+      if (prevExtras.includes(extra)) {
+        return prevExtras.filter((item) => item !== extra);
+      } else {
+        return [...prevExtras, extra];
+      }
+    });
+  };
+
   const validateForm = () => {
     const newErrors = {
       date: date.trim() === "" ? "Date is required" : "",
@@ -393,21 +403,17 @@ export default function CleaningDetails({ onNext, bookingData }) {
               </div>
               <div className="grid grid-cols-2 gap-4 mt-6">
                 {[
-                  "Inside Oven $75",
-                  "Inside Fridge $75",
-                  "Inside Cabinets $75",
-                  "Exterior Windows $75",
-                ].map((extra, index) => (
+                  { value: "inside-oven", label: "Inside Oven $75" },
+                  { value: "inside-fridge", label: "Inside Fridge $75" },
+                  { value: "inside-cabinets", label: "Inside Cabinets $75" },
+                  { value: "exterior-windows", label: "Exterior Windows $75" },
+                ].map(({ value, label }, index) => (
                   <button
-                    key={extra}
-                    className={`sm:px-4 sm:py-2 rounded-xl sm:w-[396px] sm:h-16 font-[Tropiline] sm:font-extrabold sm:text-[24px] leading-[150%] sm:border-4 sm:border-[#0B2F3D] text-[#0B2F3D] ${
-                      extras.includes(extra) || index === 0
-                        ? "bg-[#0B2F3D] text-white"
-                        : "bg-white"
-                    }`}
-                    onClick={() => handleExtraToggle(extra)}
+                    key={value}
+                    className={`sm:px-4 sm:py-2 rounded-xl sm:w-[396px] sm:h-16 font-[Tropiline] sm:font-extrabold sm:text-[24px] leading-[150%] sm:border-4 sm:border-[#0B2F3D] text-[#0B2F3D] ${extras.includes(value) ? "bg-[#0B2F3D] text-white" : "bg-white"}`}
+                    onClick={() => handleExtraToggle(value)}
                   >
-                    {extra}
+                    {label}
                   </button>
                 ))}
               </div>

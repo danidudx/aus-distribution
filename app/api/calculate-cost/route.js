@@ -22,7 +22,18 @@ export async function POST(request) {
       totalTime = Math.max(2, baseTime);
     }
 
-    let totalCost = totalTime * hourlyRate;
+    const extrasPrices = {
+      "inside-oven": 75,
+      "inside-fridge": 75,
+      "inside-cabinets": 75,
+      "exterior-windows": 75,
+    };
+    const extrasCost =
+      req.cleaningDetails.extras?.reduce(
+        (total, extra) => total + (extrasPrices[extra] || 0),
+        0
+      ) || 0;
+    let totalCost = totalTime * hourlyRate + extrasCost;
 
     // Apply discount based on frequency
     if (
