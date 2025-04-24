@@ -39,13 +39,30 @@ export default function CleaningDetails({ onNext, bookingData }) {
   useEffect(() => {
     const hourlyRate = process.env.HOURLY_RATE || 64.8;
 
+    const extrasPrices = {
+      "inside-oven": 75,
+      "inside-fridge": 75,
+      "inside-cabinets": 75,
+      "exterior-windows": 75,
+    };
     const calculatedPrice = calculateTotalCost(
       bedrooms,
       bathrooms,
       hourlyRate,
       cleaningType
     );
-    setTotalPrice(calculatedPrice);
+    const extrasCost = extras.reduce(
+      (total, extra) => total + (extrasPrices[extra] || 0),
+      0
+    );
+
+    let finalPrice = calculatedPrice + extrasCost;
+    if (frequency === "Weekly" || frequency === "Fortnightly") {
+      finalPrice *= 0.9;
+    } else if (frequency === "Monthly") {
+      finalPrice *= 0.95;
+    }
+    setTotalPrice(Math.round(finalPrice));
     const calculatedDuration = calculateDuration(
       bedrooms,
       bathrooms,
@@ -53,7 +70,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
       cleaningType
     );
     setTotalDuration(calculatedDuration);
-  }, [bedrooms, bathrooms, selectedMethod, cleaningType]);
+  }, [bedrooms, bathrooms, selectedMethod, cleaningType, extras, frequency]);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
