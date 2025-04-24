@@ -40,8 +40,8 @@ const DiscountPopup = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed flex items-center justify-center inset-0 z-20  bg-black bg-opacity-50 p-4 pt-20">
-      <div className="bg-white p-6 rounded-2xl w-full max-w-lg xl:max-w-md md:max-w-xl xl:max-w-2xl border-4 border-navborder relative">
+    <div className="fixed flex items-center justify-center inset-0 z-20 bg-black bg-opacity-50 p-4">
+      <div className="bg-white p-6 rounded-2xl w-full max-w-lg xl:max-w-md md:max-w-xl xl:max-w-2xl border-4 border-navborder relative mt-20 mb-20">
         <button
           className="absolute bg-black w-8 h-8 xl:w-10 xl:h-10 rounded-full top-4 right-4 text-xl xl:text-2xl text-white flex items-center justify-center"
           onClick={handleClose}
@@ -56,7 +56,7 @@ const DiscountPopup = () => {
           {formatTime(timeLeft).map((char, index) => (
             <div key={index} className="flex flex-col items-center">
               <div
-                className={`${
+                className={`$ {
                   char === ":"
                     ? "text-[46px] flex justify-center items-center -mt-1 px-2"
                     : "bg-white border-2 xl:border-4 border-[#FF3366] rounded-xl px-4 py-2 text-center text-[28px] xl:text-[32px] md:text-[36px]"
