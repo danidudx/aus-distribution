@@ -4,7 +4,14 @@ import { useEffect, useState } from "react";
 
 const DiscountPopup = () => {
   const [timeLeft, setTimeLeft] = useState(150); // Countdown in seconds
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const showTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 5000);
+    return () => clearTimeout(showTimer);
+  }, []);
 
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -45,15 +52,15 @@ const DiscountPopup = () => {
           Get An Extra $20 Off <br /> Your First Clean!
         </h2>
 
-        <div className="flex justify-center text-2xl xl:text-3xl md:text-4xl font-bold text-[#FF3366] my-10">
+        <div className="flex justify-center items-center text-2xl xl:text-3xl md:text-4xl font-bold text-[#FF3366] my-10 gap-2 md:gap-4 relative">
           {formatTime(timeLeft).map((char, index) => (
-            <div key={index} className="flex flex-col items-center gap-6 ml-2">
+            <div key={index} className="flex flex-col items-center">
               <div
                 className={`${
                   char === ":"
-                    ? "text-[46px] flex justify-center items-center mt-2"
+                    ? "text-[46px] flex justify-center items-center -mt-1 px-2"
                     : "bg-white border-2 xl:border-4 border-[#FF3366] rounded-xl px-4 py-2 text-center text-[28px] xl:text-[32px] md:text-[36px]"
-                }`}
+                }}`}
               >
                 {char}
               </div>
@@ -61,7 +68,7 @@ const DiscountPopup = () => {
           ))}
         </div>
 
-        <div className="flex justify-between pl-[80px] pr-[20px] xl:ml-[140px] w-[300px] text-[#0B2F3D] text-base font-[Montserrat] font-medium leading-[150%] mt-[-30px] xl:text-xl">
+        <div className="flex justify-between w-full max-w-[300px] mx-auto text-[#0B2F3D] text-base font-[Montserrat] font-medium leading-[150%] mt-6 xl:text-xl">
           <span>Minutes</span>
           <span>Seconds</span>
         </div>

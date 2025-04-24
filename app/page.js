@@ -7,6 +7,7 @@ import {
   Team,
   Review,
   Faq,
+  Popup,
 } from "@/components";
 
 export const metadata = {
@@ -35,6 +36,7 @@ export default function Home() {
       <Review />
       <Team />
       <Faq />
+      <Popup />
     </main>
   );
 }
