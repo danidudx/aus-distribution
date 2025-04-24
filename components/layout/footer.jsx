@@ -1,5 +1,12 @@
 "use client";
-import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+  FaYoutube,
+  FaPlus,
+  FaTimes,
+} from "react-icons/fa";
 import { useState } from "react";
 import SuccessPopup from "../shared/success-popup";
 
@@ -8,6 +15,8 @@ const Footer = () => {
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showServices, setShowServices] = useState(false);
+  const [showContact, setShowContact] = useState(false);
 
   const handleSubmit = async () => {
     if (isSubmitting || !email) return;
