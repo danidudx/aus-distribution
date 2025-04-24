@@ -270,6 +270,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
               amount: Math.round(totalCostData.totalCost * 100),
               customerDetails: bookingData.customerDetails,
               cleaningDetails: bookingData.cleaningDetails,
+              discountCode: bookingData.paymentDetails?.discountCode || "",
             }),
           }
         );

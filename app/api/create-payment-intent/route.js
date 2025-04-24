@@ -5,7 +5,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
   appInfo: {
-    name: "Your App Name",
+    name: "AusieWipe",
     version: "0.0.1",
   },
 });
@@ -17,8 +17,9 @@ export async function POST(request) {
       currency = "aud",
       customerDetails,
       cleaningDetails,
+      discount,
     } = await request.json();
-
+    console.log("discount", discount);
     // Validate inputs
     if (!amount || isNaN(parseFloat(amount))) {
       return NextResponse.json(

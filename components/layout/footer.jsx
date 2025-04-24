@@ -1,6 +1,55 @@
+"use client";
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { useState } from "react";
+import SuccessPopup from "../shared/success-popup";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState({ type: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = async () => {
+    if (isSubmitting || !email) return;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setStatus({
+        type: "error",
+        message: "Please enter a valid email address",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus({ type: "", message: "" });
+
+    try {
+      const response = await fetch("/api/subscribe-newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus({ type: "success", message: data.message });
+        setEmail("");
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000);
+      } else {
+        setStatus({ type: "error", message: data.message });
+      }
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message: "Failed to subscribe. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="relative">
       <div>
@@ -20,16 +69,41 @@ const Footer = () => {
             <p className="xl:mt-2 font-[Montserrat] mt-4 text-lg xl:font-medium xl:text-xl text-center xl:text-left">
               Pop your details here and we'll prove it.
             </p>
-            <div className="mt-4 mb-8 flex items-center justify-center">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="xl:w-[390px] md:w-[40%] w-[70%] h-10 xl:h-16 bg-gray-800 text-white focus:outline-none xl:border-2 border-[#8F9FA6] rounded-full pl-5"
-              />
-              <button className="bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[20%] h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95">
-                Sign Up
-              </button>
+            <div className="mt-4 mb-8">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+                className="flex items-center justify-center"
+              >
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="xl:w-[390px] md:w-[40%] w-[70%] h-10 xl:h-16 bg-gray-800 text-white focus:outline-none xl:border-2 border-[#8F9FA6] rounded-full pl-5"
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[20%] h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+                >
+                  {isSubmitting ? "Wait..." : "Sign Up"}
+                </button>
+              </form>
             </div>
+            {status.type === "error" && (
+              <p className="text-center text-red-400 text-sm mt-2">
+                {status.message}
+              </p>
+            )}
+            {showPopup && (
+              <SuccessPopup
+                message="Successfully subscribed to newsletter!"
+                onClose={() => setShowPopup(false)}
+              />
+            )}
           </div>
 
           <div className="flex flex-col gap-10 xl:flex-row xl:gap-[12%] 2xl:gap-[15%] xl:pl-40 xl:w-[800px] xl:text-left text-center justify-center">
