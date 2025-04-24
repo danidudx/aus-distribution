@@ -379,6 +379,40 @@ export default function CleaningDetails({ onNext, bookingData }) {
               </div>
             </div>
 
+            {/* Extras Selection */}
+            <div className="mt-10">
+              <div className="sm:flex sm:flex-row">
+                <img
+                  src="/assets/Images/extra.png"
+                  alt="Extra"
+                  className="sm:w-10 sm:h-10"
+                />
+                <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] sm:text-xl leading-[150%] flex items-center sm:pl-4">
+                  Extras for Standard Clean (Select all that apply)
+                </h4>
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                {[
+                  "Inside Oven $75",
+                  "Inside Fridge $75",
+                  "Inside Cabinets $75",
+                  "Exterior Windows $75",
+                ].map((extra, index) => (
+                  <button
+                    key={extra}
+                    className={`sm:px-4 sm:py-2 rounded-xl sm:w-[396px] sm:h-16 font-[Tropiline] sm:font-extrabold sm:text-[24px] leading-[150%] sm:border-4 sm:border-[#0B2F3D] text-[#0B2F3D] ${
+                      extras.includes(extra) || index === 0
+                        ? "bg-[#0B2F3D] text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() => handleExtraToggle(extra)}
+                  >
+                    {extra}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/*normal Date time selection */}
             <div className="mt-10">
               <div className="flex flex-row">
