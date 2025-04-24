@@ -1,10 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
 
 const DiscountPopup = () => {
   const [timeLeft, setTimeLeft] = useState(150); // Countdown in seconds
   const [isVisible, setIsVisible] = useState(false);
+  const [discountCode, setDiscountCode] = useState("");
+
+  useEffect(() => {
+    const fetchDiscountCode = async () => {
+      const query = `*[_type == "discountCode"][0]{code}`;
+      const data = await client.fetch(query);
+      setDiscountCode(data?.code || "winterclean");
+    };
+    fetchDiscountCode();
+  }, []);
 
   useEffect(() => {
     const showTimer = setTimeout(() => {
@@ -78,7 +89,7 @@ const DiscountPopup = () => {
         </p>
         <div className="flex items-center justify-center bg-[#FFEEB6] border-4 border-[#0B2F3D] rounded-2xl py-2 px-4 w-full max-w-xs mx-auto mt-4">
           <h3 className="font-[Tropiline] text-4xl xl:text-3xl md:text-4xl font-extrabold text-[#0B2F3D]">
-            winterclean
+            {discountCode}
           </h3>
         </div>
 

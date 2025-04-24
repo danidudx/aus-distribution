@@ -5,6 +5,7 @@ import { postType } from "./postType";
 import { subscriptionType } from "./subscriptionType";
 import { bookingType } from "./bookingType";
 import { serviceType } from "./serviceType";
+import { discountCodeType } from "./discountCodeType";
 
 export const schema = {
   types: [
@@ -15,5 +16,11 @@ export const schema = {
     subscriptionType,
     bookingType,
     serviceType,
+    discountCodeType,
   ],
+};
+
+export default {
+  name: "schemaTypes",
+  types: [bookingType, serviceType, discountCodeType],
 };
