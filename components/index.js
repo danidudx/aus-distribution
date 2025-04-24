@@ -8,6 +8,7 @@ import {
   Team,
   Review,
   Faq,
+  Logos,
 } from "./features";
 import Popup from "./shared/popup";
 
@@ -23,4 +24,5 @@ export {
   Faq,
   Footer,
   Popup,
+  Logos,
 };

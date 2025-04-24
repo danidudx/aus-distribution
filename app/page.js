@@ -1,5 +1,6 @@
 import {
   Hero,
+  Logos,
   Environments,
   Services,
   HowItWorks,
@@ -29,6 +30,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <Logos />
       <Environments />
       <Services />
       <HowItWorks />

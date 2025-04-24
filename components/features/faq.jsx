@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaTimes } from "react-icons/fa";
 
 const faqs = [
   {
@@ -80,7 +80,7 @@ const FAQPage = () => {
                   {faq.question}
                 </h2>
                 <span className="text-[#0B2F3D] xl:text-xl text-lg mr-1">
-                  {openIndex === index ? <FaMinus /> : <FaPlus />}
+                  {openIndex === index ? <FaTimes /> : <FaPlus />}
                 </span>
               </div>
               {openIndex === index && (

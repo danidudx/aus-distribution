@@ -1,11 +1,14 @@
 "use client";
 
 import { FaArrowRight } from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const MeetTheTeam = () => {
   return (
-    <section className="bg-[#fffae7]  xl:h-[824px] xl:py-0 py-20">
+    <section className="bg-[#fffae7] xl:h-[824px] xl:py-0 py-20">
       <div className="container flex xl:flex-row flex-col xl:w-[90%] 2xl:w-[80%] w-[90%] mx-auto relative xl:justify-between">
+        {/* Decorative Stars */}
         <img
           src="/assets/Images/star2.png"
           alt="Star1"
@@ -16,7 +19,9 @@ const MeetTheTeam = () => {
           alt="Star2"
           className="xl:top-[500px] top-[220px] right-[-20px] xl:left-[400px] md:left-[80%] absolute"
         />
-        <div className="flex flex-col xl:items-left mb-20">
+
+        {/* Left content */}
+        <div className="flex flex-col xl:items-left items-center mb-20">
           <h2 className="xl:text-[64px] text-[40px] font-[Tropiline] font-extrabold text-[#0B2F3D] mb-6 xl:leading-[90px] xl:mt-20">
             Meet{" "}
             <span className="text-[#FF3366]">
@@ -30,7 +35,7 @@ const MeetTheTeam = () => {
             unparalleled expertise & commitment. We are <br />
             here to cater to clean spaces, better places.
           </p>
-          <div className="flex justify-center items-center top-0 absolute ">
+          <div className="flex justify-center items-center top-0 absolute">
             <button className="bg-white text-navborder xl:top-[450px] top-[280px] w-[330px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Book Now
@@ -45,15 +50,48 @@ const MeetTheTeam = () => {
             <div className="absolute transform -translate-x-1/2 bg-[#FF4081] xl:top-[455px] top-[284px] left-[51%] rounded-full w-[330px] h-12"></div>
           </div>
         </div>
-        <div className="grid gap-4">
+
+        {/* Right content */}
+        <div className="flex flex-col items-center gap-6 xl:w-[50%] w-full">
+          {/* Main Static Image */}
           <img
-            className="rounded-[32px] xl:w-[100%] 2xl:w-[100%] md:w-full xl:h-[400px] 2xl:h-[440px] md:h-[400px]"
+            className="rounded-[32px] w-full xl:h-[400px] 2xl:h-[440px] md:h-[400px] object-cover"
             src="/assets/Images/c1.jpg"
+            alt="Team Main"
           />
-          <div className="flex xl:flex-row md:flex-row flex-col xl:gap-6 gap-4 xl:w-[31%] 2xl:w-[32%] md:w-[32%] xl:h-[180px] 2xl:h-[200px] md:h-full object-cover">
-            <img className="rounded-2xl" src="/assets/Images/c2.jpg" />
-            <img className="rounded-2xl" src="/assets/Images/c3.jpg" />
-            <img className="rounded-2xl" src="/assets/Images/c4.jpg" />
+
+          {/* Swiper for mobile/tablet */}
+          <div className="xl:hidden w-full">
+            <Swiper
+              spaceBetween={10}
+              slidesPerView={1.2}
+              breakpoints={{
+                640: { slidesPerView: 2.2 },
+                768: { slidesPerView: 3 },
+              }}
+            >
+              {["c2.jpg", "c3.jpg", "c4.jpg"].map((img, idx) => (
+                <SwiperSlide key={idx}>
+                  <img
+                    className="rounded-2xl w-[90%] h-auto object-cover"
+                    src={`/assets/Images/${img}`}
+                    alt={`Team member ${idx + 2}`}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* Static row for desktop */}
+          <div className="hidden xl:flex gap-6 w-full">
+            {["c2.jpg", "c3.jpg", "c4.jpg"].map((img, idx) => (
+              <img
+                key={idx}
+                className="rounded-2xl w-1/3 h-[180px] object-cover"
+                src={`/assets/Images/${img}`}
+                alt={`Team member ${idx + 2}`}
+              />
+            ))}
           </div>
         </div>
       </div>

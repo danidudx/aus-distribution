@@ -42,9 +42,8 @@ const ComparisonTable = () => {
             className="2xl:p-7 2xl:top-[26%] 2xl:left-[30%] xl:p-5 xl:top-[32%] xl:left-[32%] md:top-[7%] md:left-[70%] top-[11%] right-[5%] xl:w-auto xl:h-auto md:w-14 md:h-14 w-10 h-10 absolute "
           />
           <p className="text-[#0B2F3D] font-[Montserrat] text-xl font-medium xl:w-[500px] mt-4 mb-10 xl:leading-[150%] md:text-center xl:text-left">
-            Why so skeptical when you can clearly see why <br />
-            you should choose us over anyone else. Just
-            <br /> book us once and see yourself the difference.
+            Why so skeptical when you can clearly see why you should choose us
+            over anyone else. Just book us once and see yourself the difference.
           </p>
         </div>
         <img
