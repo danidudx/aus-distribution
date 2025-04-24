@@ -45,6 +45,20 @@ export const bookingType = {
           type: "number",
           validation: (Rule) => Rule.min(0),
         },
+        {
+          name: "frequency",
+          title: "Frequency",
+          type: "string",
+          options: {
+            list: [
+              { title: "Once", value: "Once" },
+              { title: "Weekly", value: "Weekly" },
+              { title: "Fortnightly", value: "Fortnightly" },
+              { title: "Monthly", value: "Monthly" },
+            ],
+          },
+          validation: (Rule) => Rule.required(),
+        },
       ],
     },
     {
