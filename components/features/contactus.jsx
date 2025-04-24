@@ -1,6 +1,53 @@
 "use client";
 
+import { useState } from "react";
+
 export default function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSubmitStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="bg-[#fffae7] flex justify-center xl:pt-6 pb-10 md:pb-16 xl:pb-40">
       <div className="xl:w-[90%] p-8 rounded-lg">
@@ -71,8 +118,10 @@ export default function ContactForm() {
                 />
                 <input
                   type="text"
+                  name="name"
                   placeholder="Daham"
                   className="input-style pl-16 xl:w-full xl:h-16 w-full h-10 border-2 border-[#0B2F3D] rounded-xl"
+                  onChange={handleInputChange}
                 />
               </div>
 
@@ -84,8 +133,10 @@ export default function ContactForm() {
                 />
                 <input
                   type="email"
+                  name="email"
                   placeholder="Email*"
                   className="input-style pl-16 xl:w-full xl:h-16 h-10 w-full border-2 border-[#0B2F3D] rounded-xl"
+                  onChange={handleInputChange}
                 />
               </div>
 
@@ -97,8 +148,10 @@ export default function ContactForm() {
                 />
                 <input
                   type="tel"
+                  name="phone"
                   placeholder="0423 346 982"
                   className="input-style pl-16 xl:w-full xl:h-16 h-10 w-full border-2 border-[#0B2F3D] rounded-xl"
+                  onChange={handleInputChange}
                 />
               </div>
 
@@ -110,14 +163,32 @@ export default function ContactForm() {
                 />
                 <input
                   type="text"
+                  name="message"
                   placeholder="Enquiry"
                   className="input-style pl-16 xl:w-full xl:h-[200px] h-40 w-full border-2 border-[#0B2F3D] rounded-xl flex justify-end items-start"
+                  onChange={handleInputChange}
                 />
               </div>
 
-              <button className="bg-[#FFC914] text-[#0B2F3D] w-full py-2 px-8 xl:mt-10 xl:px-8 xl:py-3 rounded-full font-[Montserrat] text-xl font-semibold leading-[150%] border-2 border-[#0B2F3D] hover:scale-105 active:scale-95">
-                Send
-              </button>
+              <form onSubmit={handleSubmit}>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-[#FFC914] text-[#0B2F3D] w-full py-2 px-8 xl:mt-10 xl:px-8 xl:py-3 rounded-full font-[Montserrat] text-xl font-semibold leading-[150%] border-2 border-[#0B2F3D] hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? "Sending..." : "Send"}
+                </button>
+              </form>
+              {submitStatus === "success" && (
+                <p className="text-green-600 mt-4">
+                  Your inquiry has been sent successfully!
+                </p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-red-600 mt-4">
+                  Failed to send inquiry. Please try again later.
+                </p>
+              )}
             </div>
           </div>
         </div>
