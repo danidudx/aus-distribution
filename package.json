@@ -13,7 +13,7 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.80.1",
     "@stripe/react-stripe-js": "^3.6.0",
-    "@stripe/stripe-js": "^7.0.0",
+    "@stripe/stripe-js": "^7.2.0",
     "antd": "^5.24.3",
     "fs": "^0.0.1-security",
     "next": "15.2.1",
