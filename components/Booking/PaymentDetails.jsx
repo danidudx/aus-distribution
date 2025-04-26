@@ -200,19 +200,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
                   stripe={stripePromise}
                   options={{ clientSecret }} // instead of fetchClientSecret
                 >
-                  <EmbeddedCheckout
-                    onComplete={(event) => {
-                      try {
-                        console.log("onComplete triggered with event:", event);
-                        handleCheckoutComplete(event);
-                      } catch (error) {
-                        console.error(
-                          "Error during checkout completion:",
-                          error
-                        );
-                      }
-                    }}
-                  />
+                  <EmbeddedCheckout onComplete={console.log("works")} />
                 </EmbeddedCheckoutProvider>
               </div>
             ) : (

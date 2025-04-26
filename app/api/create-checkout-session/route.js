@@ -60,15 +60,13 @@ export async function POST(request) {
       payment_method_types: ["card"],
       customer_email: customerDetails?.email,
       metadata: {
-        customer_name: customerDetails?.name,
-        customer_phone: customerDetails?.phone,
-        cleaning_type: cleaningDetails?.type,
-        cleaning_date: cleaningDetails?.date,
-        cleaning_time: cleaningDetails?.time,
-        address: cleaningDetails?.address,
+        customerDetails: JSON.stringify(customerDetails),
+        cleaningDetails: JSON.stringify(cleaningDetails),
+        subscriptionFrequency: subscriptionFrequency,
+        totalAmount: amount.toString(), // Stripe metadata only allows strings
       },
       allow_promotion_codes: true,
-      redirect_on_completion: "never",
+      redirect_on_completion: "if_required",
     };
 
     let session;
