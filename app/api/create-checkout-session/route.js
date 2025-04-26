@@ -4,13 +4,17 @@ import Stripe from "stripe";
 const generateProductDescription = (cleaningDetails, subscriptionFrequency) => {
   const frequency =
     subscriptionFrequency === "once" ? "One-time" : subscriptionFrequency;
-  return `${cleaningDetails.cleaningType} - ${frequency} Service`;
+  return `${cleaningDetails.type} - ${frequency} Service`;
 };
 
 export async function POST(request) {
   try {
-    const { amount, customerDetails, cleaningDetails, subscriptionFrequency } =
-      await request.json();
+    const {
+      amount,
+      customerDetails,
+      cleaningDetails = {},
+      subscriptionFrequency = "once",
+    } = await request.json();
 
     // Validate and round the amount
     if (!amount || isNaN(amount)) {
@@ -41,11 +45,12 @@ export async function POST(request) {
       cleaningDetails,
       subscriptionFrequency
     );
+
     const product = await stripe.products.create({
       name: productDescription,
-      description: `${cleaningDetails.cleaningType} cleaning service${isSubscription ? ` with ${subscriptionFrequency} frequency` : ""}`,
+      description: `${cleaningDetails.type} cleaning service${isSubscription ? ` with ${subscriptionFrequency} frequency` : ""}`,
       metadata: {
-        cleaning_type: cleaningDetails.cleaningType,
+        cleaning_type: cleaningDetails.type,
         frequency: subscriptionFrequency,
       },
     });
@@ -57,13 +62,13 @@ export async function POST(request) {
       metadata: {
         customer_name: customerDetails?.name,
         customer_phone: customerDetails?.phone,
-        cleaning_type: cleaningDetails?.cleaningType,
+        cleaning_type: cleaningDetails?.type,
         cleaning_date: cleaningDetails?.date,
         cleaning_time: cleaningDetails?.time,
         address: cleaningDetails?.address,
       },
       allow_promotion_codes: true,
-      return_url: `${request.headers.get("origin")}/return?session_id={CHECKOUT_SESSION_ID}`,
+      redirect_on_completion: "never",
     };
 
     let session;

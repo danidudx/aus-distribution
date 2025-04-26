@@ -105,21 +105,10 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
     }
   }, [totalCost, bookingData]);
 
-  const handleCheckoutComplete = async (sessionId) => {
+  const handleCheckoutComplete = async () => {
     try {
-      // First verify the payment was successful
-      const verifyResponse = await fetch("/api/verify-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId }),
-      });
-
-      const paymentData = await verifyResponse.json();
-      if (!paymentData.success) {
-        throw new Error("Payment verification failed");
-      }
-
       // Save booking data to Sanity
+      console.log("Calling save booking API...");
       const saveResponse = await fetch("/api/save-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -134,11 +123,13 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
       });
 
       const saveResult = await saveResponse.json();
+      console.log("Booking save response:", saveResult);
       if (!saveResult.success) {
         throw new Error("Failed to save booking data");
       }
 
       // Send confirmation email
+      console.log("Calling send email API...");
       await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -153,7 +144,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
           },
         }),
       });
-
+      console.log("Confirmation email sent.");
       // Redirect happens automatically via the success_url from Checkout Session
     } catch (err) {
       console.error("Error completing booking:", err);
@@ -209,7 +200,19 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
                   stripe={stripePromise}
                   options={{ clientSecret }} // instead of fetchClientSecret
                 >
-                  <EmbeddedCheckout />
+                  <EmbeddedCheckout
+                    onComplete={(event) => {
+                      try {
+                        console.log("onComplete triggered with event:", event);
+                        handleCheckoutComplete(event);
+                      } catch (error) {
+                        console.error(
+                          "Error during checkout completion:",
+                          error
+                        );
+                      }
+                    }}
+                  />
                 </EmbeddedCheckoutProvider>
               </div>
             ) : (
