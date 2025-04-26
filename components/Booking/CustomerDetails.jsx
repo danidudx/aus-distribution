@@ -54,6 +54,9 @@ export default function CustomerDetails({ onNext, onPrevious, bookingData }) {
   // Validate form fields
   const validateForm = () => {
     const newErrors = {
+      terms: !document.querySelector('input[type="checkbox"]').checked
+        ? "You must agree to the terms and conditions"
+        : "",
       firstName: firstName.trim() === "" ? "First name is required" : "",
       lastName: lastName.trim() === "" ? "Last name is required" : "",
       email:
@@ -78,7 +81,11 @@ export default function CustomerDetails({ onNext, onPrevious, bookingData }) {
     setErrors(newErrors);
 
     // Check if there are any errors
-    return !Object.values(newErrors).some((error) => error !== "");
+    const termsError = !document.querySelector('input[type="checkbox"]')
+      .checked;
+    return (
+      !Object.values(newErrors).some((error) => error !== "") && !termsError
+    );
   };
 
   // Validate a single field
@@ -485,6 +492,37 @@ export default function CustomerDetails({ onNext, onPrevious, bookingData }) {
               </div>
             </div>
           </form>
+          <div className="mt-8">
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                className="form-checkbox h-5 w-5"
+                required
+                onChange={(e) => {
+                  if (formSubmitted) {
+                    setErrors((prev) => ({
+                      ...prev,
+                      terms: !e.target.checked
+                        ? "You must agree to the terms and conditions"
+                        : "",
+                    }));
+                  }
+                }}
+              />
+              <span className="text-[#0B2F3D] font-[Montserrat] leading-[150%]">
+                I agree to AusiWipe{" "}
+                <a
+                  href="/T&C"
+                  className="text-[#0B2F3D] font-semibold font-[Montserrat] leading-[150%]"
+                >
+                  Terms & Conditions
+                </a>
+              </span>
+              {errors.terms && (
+                <p className="text-red-500 text-sm mt-1">{errors.terms}</p>
+              )}
+            </label>
+          </div>
           <div className="flex xl:flex-row flex-col justify-between mt-8 gap-6 ">
             <button
               type="button"

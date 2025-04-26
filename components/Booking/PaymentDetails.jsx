@@ -20,28 +20,53 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
   const [totalCost, setTotalCost] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
 
-  // Calculate total cost on mount
   useEffect(() => {
-    const calculateCost = async () => {
+    const initializeCheckout = async () => {
       try {
-        const response = await fetch("/api/calculate-cost", {
+        // 1. First calculate cost
+        const costResponse = await fetch("/api/calculate-cost", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             cleaningDetails: bookingData.cleaningDetails,
           }),
         });
-        const data = await response.json();
-        setTotalCost(data.totalCost);
+
+        const costData = await costResponse.json();
+        setTotalCost(costData.totalCost);
+
+        // 2. Then create checkout session
+        const checkoutResponse = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: Math.round(costData.totalCost * 100),
+            customerDetails: bookingData.customerDetails,
+            cleaningDetails: bookingData.cleaningDetails,
+            subscriptionFrequency:
+              bookingData.cleaningDetails.frequency?.toLowerCase() || "once",
+          }),
+        });
+
+        const checkoutData = await checkoutResponse.json();
+
+        if (!checkoutResponse.ok) {
+          throw new Error(
+            checkoutData.message || "Failed to create checkout session"
+          );
+        }
+
+        setClientSecret(checkoutData.client_secret);
       } catch (err) {
-        setError(err.message || "Failed to calculate cost");
+        setError(err.message || "Something went wrong");
       } finally {
         setIsLoading(false);
       }
     };
 
-    calculateCost();
+    initializeCheckout();
   }, [bookingData]);
+
   const handleCheckoutClick = async () => {
     try {
       const secret = await fetchClientSecret();
@@ -140,7 +165,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
   return (
     <div className="bg-[#fffae7] w-full pb-20 xl:pb-40 relative">
       {isLoading && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-[9999]">
           <div className="bg-white p-8 rounded-xl text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#0B2F3D] mx-auto mb-4"></div>
             <p className="text-[#0B2F3D] font-[Montserrat] text-xl">
@@ -178,7 +203,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
                   Try Again
                 </button>
               </div>
-            ) : showCheckout ? (
+            ) : clientSecret ? (
               <div className="mt-8">
                 <EmbeddedCheckoutProvider
                   stripe={stripePromise}
@@ -190,7 +215,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
             ) : (
               <div className="mt-8 space-y-6">
                 <div className="flex gap-6 xl:flex-row flex-col">
-                  <div className="relative">
+                  {/* <div className="relative">
                     <img
                       src="/assets/Images/money.png"
                       alt="amount-icon"
@@ -199,10 +224,10 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
                     <div className="input-style pl-16 xl:w-[390px] xl:h-16 h-10 w-full border-2 border-[#0B2F3D] rounded-xl flex items-center">
                       ${totalCost.toFixed(2)}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div className="mt-8">
+                {/* <div className="mt-8">
                   <label className="flex items-center space-x-2">
                     <input
                       type="checkbox"
@@ -219,7 +244,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
                       </a>
                     </span>
                   </label>
-                </div>
+                </div> */}
 
                 <div className="mt-8">
                   <h3 className="xl:font-medium text-[#0B2F3D] font-[Montserrat] xl:text-[32px] text-2xl leading-[150%]">
