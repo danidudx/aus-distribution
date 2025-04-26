@@ -174,8 +174,8 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
           </div>
         </div>
       )}
-      <div className="w-[90%] mx-auto xl:flex xl:flex-row gap-[10%] justify-center">
-        <div className="xl:w-[810px] xl:mt-20 pt-10 xl:pt-0">
+      <div className="flex flex-col xl:flex-row gap-6 w-[90%] mx-auto justify-center">
+        <div className="w-full xl:w-2/3 xl:mt-20 pt-10 xl:pt-0">
           <h2 className="text-3xl md:text-4xl text-center xl:text-left font-bold text-[#0B2F3D] font-[Tropiline] xl:font-extrabold xl:text-[50px] xl:leading-[90px]">
             Book Your Net House Clean
           </h2>
@@ -301,7 +301,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
           </div>
         </div>
 
-        <div>
+        <div className="w-full xl:w-1/3 xl:scale-90 xl:transform xl:origin-top-right">
           <BookingSummary
             bookingData={{
               cleaningDetails: bookingData?.cleaningDetails || {},
