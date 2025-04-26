@@ -59,9 +59,11 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: totalCost * 100,
+          amount: Math.round(totalCost * 100), // Round to nearest integer
           customerDetails: bookingData.customerDetails,
           cleaningDetails: bookingData.cleaningDetails,
+          subscriptionFrequency:
+            bookingData.cleaningDetails.frequency?.toLowerCase() || "once",
         }),
       });
 
@@ -70,7 +72,7 @@ export default function PaymentDetails({ onPrevious, bookingData }) {
       if (!response.ok)
         throw new Error(data.message || "Failed to create checkout session");
 
-      setClientSecret(data.client_secret); // ✅ note lowercase client_secret
+      setClientSecret(data.client_secret);
       return data.client_secret;
     } catch (err) {
       setError(err.message || "Something went wrong");
