@@ -11,7 +11,7 @@ export async function POST(request) {
     // Prepare payment details with subscription information if available
     const paymentDetails = {
       bookingReference,
-      stripePaymentId: bookingData.paymentDetails.stripePaymentId,
+      stripePaymentId: bookingData.paymentDetails.stripeSessionId,
       discountCode: bookingData.paymentDetails.discountCode,
       paymentStatus: "completed",
       paymentDate: new Date().toISOString(),
@@ -52,7 +52,10 @@ export async function POST(request) {
       createdAt: new Date().toISOString(),
     });
 
-    return Response.json({ success: true, bookingId: result._id });
+    return Response.json({
+      success: true,
+      bookingId: paymentDetails.bookingReference,
+    });
   } catch (error) {
     console.error("Error saving booking:", error);
     return Response.json(

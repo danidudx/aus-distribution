@@ -55,7 +55,9 @@ export async function POST(req) {
       );
 
       const saveBookingResult = await saveBookingResponse.json();
+      console.log("saveBookingResult:", saveBookingResult);
 
+      // Check if the booking was saved successfully and get the booking reference if s
       if (!saveBookingResponse.ok || !saveBookingResult.success) {
         throw new Error("Failed to save booking to database");
       }
