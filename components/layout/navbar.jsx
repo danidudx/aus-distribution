@@ -102,6 +102,12 @@ export default function Navbar() {
           >
             Contact Us
           </Link>
+          <Link
+            href="/Blog"
+            className="relative after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
+          >
+            Blog
+          </Link>
         </div>
 
         {/* Right - Call Button, User Avatar & Search */}
