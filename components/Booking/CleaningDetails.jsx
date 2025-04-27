@@ -21,6 +21,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
   const [bathrooms, setBathrooms] = useState(
     bookingData?.cleaningDetails?.bathrooms || 1
   );
+  const [hours, setHours] = useState(bookingData?.cleaningDetails?.hours || 2);
+  const [minutes, setMinutes] = useState(
+    bookingData?.cleaningDetails?.minutes || 0
+  );
   const [frequency, setFrequency] = useState(
     bookingData?.cleaningDetails?.frequency || "Once Off"
   );
@@ -49,12 +53,15 @@ export default function CleaningDetails({ onNext, bookingData }) {
       bedrooms,
       bathrooms,
       hourlyRate,
-      cleaningType
+      cleaningType,
+      selectedMethod,
+      hours,
+      minutes
     );
-    const extrasCost = extras.reduce(
-      (total, extra) => total + (extrasPrices[extra] || 0),
-      0
-    );
+    const extrasCost =
+      selectedMethod === "By Size"
+        ? extras.reduce((total, extra) => total + (extrasPrices[extra] || 0), 0)
+        : 0;
 
     let finalPrice = calculatedPrice + extrasCost;
     if (frequency === "Weekly" || frequency === "Fortnightly") {
@@ -67,10 +74,22 @@ export default function CleaningDetails({ onNext, bookingData }) {
       bedrooms,
       bathrooms,
       hourlyRate,
-      cleaningType
+      cleaningType,
+      selectedMethod,
+      hours,
+      minutes
     );
     setTotalDuration(calculatedDuration);
-  }, [bedrooms, bathrooms, selectedMethod, cleaningType, extras, frequency]);
+  }, [
+    bedrooms,
+    bathrooms,
+    selectedMethod,
+    cleaningType,
+    extras,
+    frequency,
+    hours,
+    minutes,
+  ]);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -160,7 +179,22 @@ export default function CleaningDetails({ onNext, bookingData }) {
   }, [bookingData?.cleaningDetails]);
   // Handle field change with validation
   const handleFieldChange = (name, value) => {
-    if (formSubmitted) {
+    // Update the field value
+    switch (name) {
+      case "hours":
+        setHours(value);
+        bookingData.cleaningDetails.hours = value; // Update bookingData immediately
+        break;
+      case "minutes":
+        setMinutes(value);
+        bookingData.cleaningDetails.minutes = value; // Update bookingData immediately
+        break;
+      default:
+        break;
+    }
+
+    // Validate if form was already submitted or if this field already has an error
+    if (formSubmitted || validationErrors[name]) {
       const error = validateField(name, value);
       setValidationErrors((prev) => ({
         ...prev,
@@ -175,8 +209,10 @@ export default function CleaningDetails({ onNext, bookingData }) {
     if (validateForm()) {
       const cleaningDetails = {
         method: selectedMethod,
-        bedrooms,
-        bathrooms,
+        bedrooms: selectedMethod === "By Size" ? bedrooms : 0,
+        bathrooms: selectedMethod === "By Size" ? bathrooms : 0,
+        hours: selectedMethod === "Hourly" ? hours : 0,
+        minutes: selectedMethod === "Hourly" ? minutes : 0,
         frequency,
         type: cleaningType,
         extras,
@@ -267,67 +303,133 @@ export default function CleaningDetails({ onNext, bookingData }) {
               <hr className="mt-6 border-[1.5px] border-[#8F9FA6] xl:w-[809px]" />
             </div>
 
-            {/* Bedroom & Bathroom Selection */}
-            <div className="mt-10">
-              <div className="flex flex-row">
-                <img
-                  src="/assets/Images/bedroom.png"
-                  alt="Bedroom"
-                  className="xl:w-10 xl:h-10"
-                />
-                <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] xl:text-xl text-lg leading-[150%] flex items-center pl-4">
-                  Bedrooms(include all rooms except the kitchen and living
-                  room)*
-                </h4>
-              </div>
-              <div className="flex gap-4 mt-6">
-                {[1, 2, 3, 4, 5, 6].map((num) => (
-                  <button
-                    key={num}
-                    className={`px-4 py-2 rounded-xl xl:w-[121.2px] xl:h-16 w-1/6 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
-                      bedrooms === num ? "bg-[#0B2F3D] text-white" : "bg-white"
-                    }`}
-                    onClick={() => {
-                      setBedrooms(num);
-                      handleFieldChange("bedrooms", num);
-                    }}
-                  >
-                    {num}
-                  </button>
-                ))}
-              </div>
-
+            {selectedMethod === "By Size" ? (
+              /* Bedroom & Bathroom Selection */
               <div className="mt-10">
                 <div className="flex flex-row">
                   <img
-                    src="/assets/Images/bathroom.png"
-                    alt="Bathroom"
+                    src="/assets/Images/bedroom.png"
+                    alt="Bedroom"
                     className="xl:w-10 xl:h-10"
                   />
                   <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] xl:text-xl text-lg leading-[150%] flex items-center pl-4">
-                    Bathrooms*
+                    Bedrooms(include all rooms except the kitchen and living
+                    room)*
                   </h4>
                 </div>
                 <div className="flex gap-4 mt-6">
                   {[1, 2, 3, 4, 5, 6].map((num) => (
                     <button
                       key={num}
-                      className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-1/6 xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
-                        bathrooms === num
+                      className={`px-4 py-2 rounded-xl xl:w-[121.2px] xl:h-16 w-1/6 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
+                        bedrooms === num
                           ? "bg-[#0B2F3D] text-white"
                           : "bg-white"
                       }`}
                       onClick={() => {
-                        setBathrooms(num);
-                        handleFieldChange("bathrooms", num);
+                        setBedrooms(num);
+                        handleFieldChange("bedrooms", num);
                       }}
                     >
                       {num}
                     </button>
                   ))}
                 </div>
+
+                <div className="mt-10">
+                  <div className="flex flex-row">
+                    <img
+                      src="/assets/Images/bathroom.png"
+                      alt="Bathroom"
+                      className="xl:w-10 xl:h-10"
+                    />
+                    <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] xl:text-xl text-lg leading-[150%] flex items-center pl-4">
+                      Bathrooms*
+                    </h4>
+                  </div>
+                  <div className="flex gap-4 mt-6">
+                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                      <button
+                        key={num}
+                        className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-1/6 xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
+                          bathrooms === num
+                            ? "bg-[#0B2F3D] text-white"
+                            : "bg-white"
+                        }`}
+                        onClick={() => {
+                          setBathrooms(num);
+                          handleFieldChange("bathrooms", num);
+                        }}
+                      >
+                        {num}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Hours & Minutes Selection for Hourly Method */
+              <div className="mt-10">
+                <div className="flex flex-row">
+                  <img
+                    src="/assets/Images/time.png"
+                    alt="Duration"
+                    className="xl:w-10 xl:h-10"
+                  />
+                  <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] xl:text-xl text-lg leading-[150%] flex items-center pl-4">
+                    Duration*
+                  </h4>
+                </div>
+                <div className="flex gap-4 mt-6">
+                  <div className="w-full">
+                    <label className="block text-[#0B2F3D] font-medium mb-2">
+                      Hours
+                    </label>
+                    <div className="flex gap-4 flex-wrap">
+                      {[2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                        <button
+                          key={num}
+                          className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-[calc(25%-12px)] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
+                            hours === num
+                              ? "bg-[#0B2F3D] text-white"
+                              : "bg-white"
+                          }`}
+                          onClick={() => {
+                            setHours(num);
+                            handleFieldChange("hours", num);
+                          }}
+                        >
+                          {num}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="w-full mt-6">
+                    <label className="block text-[#0B2F3D] font-medium mb-2">
+                      Minutes
+                    </label>
+                    <div className="flex gap-4">
+                      {[0, 30].map((num) => (
+                        <button
+                          key={num}
+                          className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-[calc(25%-12px)] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
+                            minutes === num
+                              ? "bg-[#0B2F3D] text-white"
+                              : "bg-white"
+                          }`}
+                          onClick={() => {
+                            setMinutes(num);
+                            handleFieldChange("minutes", num);
+                          }}
+                        >
+                          {num}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Frequency Selection */}
             <div className="mt-10">
@@ -406,35 +508,40 @@ export default function CleaningDetails({ onNext, bookingData }) {
               </div>
             </div>
 
-            {/* Extras Selection */}
-            <div className="mt-10">
-              <div className="sm:flex sm:flex-row">
-                <img
-                  src="/assets/Images/extra.png"
-                  alt="Extra"
-                  className="sm:w-10 sm:h-10"
-                />
-                <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] sm:text-xl leading-[150%] flex items-center sm:pl-4">
-                  Extras for Standard Clean (Select all that apply)
-                </h4>
+            {/* Extras Selection - Only shown for By Size method */}
+            {selectedMethod === "By Size" && (
+              <div className="mt-10">
+                <div className="sm:flex sm:flex-row">
+                  <img
+                    src="/assets/Images/extra.png"
+                    alt="Extra"
+                    className="sm:w-10 sm:h-10"
+                  />
+                  <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] sm:text-xl leading-[150%] flex items-center sm:pl-4">
+                    Extras for Standard Clean (Select all that apply)
+                  </h4>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                  {[
+                    { value: "inside-oven", label: "Inside Oven $75" },
+                    { value: "inside-fridge", label: "Inside Fridge $75" },
+                    { value: "inside-cabinets", label: "Inside Cabinets $75" },
+                    {
+                      value: "exterior-windows",
+                      label: "Exterior Windows $75",
+                    },
+                  ].map(({ value, label }, index) => (
+                    <button
+                      key={value}
+                      className={`sm:px-4 sm:py-2 rounded-xl sm:w-[396px] sm:h-16 font-[Tropiline] sm:font-extrabold sm:text-[24px] leading-[150%] sm:border-4 sm:border-[#0B2F3D] text-[#0B2F3D] ${extras.includes(value) ? "bg-[#0B2F3D] text-white" : "bg-white"}`}
+                      onClick={() => handleExtraToggle(value)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                {[
-                  { value: "inside-oven", label: "Inside Oven $75" },
-                  { value: "inside-fridge", label: "Inside Fridge $75" },
-                  { value: "inside-cabinets", label: "Inside Cabinets $75" },
-                  { value: "exterior-windows", label: "Exterior Windows $75" },
-                ].map(({ value, label }, index) => (
-                  <button
-                    key={value}
-                    className={`sm:px-4 sm:py-2 rounded-xl sm:w-[396px] sm:h-16 font-[Tropiline] sm:font-extrabold sm:text-[24px] leading-[150%] sm:border-4 sm:border-[#0B2F3D] text-[#0B2F3D] ${extras.includes(value) ? "bg-[#0B2F3D] text-white" : "bg-white"}`}
-                    onClick={() => handleExtraToggle(value)}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
+            )}
 
             {/*normal Date time selection */}
             <div className="mt-10">
@@ -647,14 +754,17 @@ export default function CleaningDetails({ onNext, bookingData }) {
             bookingData={{
               cleaningDetails: {
                 method: selectedMethod,
-                bedrooms,
-                bathrooms,
+                bedrooms: selectedMethod === "By Size" ? bedrooms : 0,
+                bathrooms: selectedMethod === "By Size" ? bathrooms : 0,
+                hours: selectedMethod === "Hourly" ? hours : 0,
+                minutes: selectedMethod === "Hourly" ? minutes : 0,
                 frequency,
                 type: cleaningType,
                 extras,
                 date,
                 time,
                 totalPrice,
+                duration,
                 selectedServices,
               },
             }}

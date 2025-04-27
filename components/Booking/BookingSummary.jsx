@@ -13,55 +13,73 @@ export default function BookingSummary({ bookingData }) {
   const paymentDetails = bookingData?.paymentDetails || {};
 
   useEffect(() => {
-    if (cleaningDetails.bedrooms && cleaningDetails.bathrooms) {
-      const hourlyRate = process.env.NEXT_PUBLIC_HOURLY_RATE || "64.8";
-      const extrasPrices = {
-        "inside-oven": 75,
-        "inside-fridge": 75,
-        "inside-cabinets": 75,
-        "exterior-windows": 75,
-      };
-      const calculatedPrice = calculateTotalCost(
+    console.log("cleaningDetails", cleaningDetails);
+    const hourlyRate = parseFloat(
+      process.env.NEXT_PUBLIC_HOURLY_RATE || "64.8"
+    );
+    const extrasPrices = {
+      "inside-oven": 75,
+      "inside-fridge": 75,
+      "inside-cabinets": 75,
+      "exterior-windows": 75,
+    };
+
+    let calculatedPrice = 0;
+    let calculatedDuration = 0;
+
+    if (cleaningDetails.method === "Hourly") {
+      const hours = parseInt(cleaningDetails.hours || 2);
+      const minutes = parseInt(cleaningDetails.minutes || 0);
+      calculatedPrice = calculateTotalCost(
+        0,
+        0,
+        hourlyRate,
+        cleaningDetails.type || "Standard Clean",
+        cleaningDetails.method,
+        hours,
+        minutes,
+        cleaningDetails.frequency || "Once-off"
+      );
+      calculatedDuration = calculateDuration(
+        0,
+        0,
+        hourlyRate,
+        cleaningDetails.type || "Standard Clean",
+        cleaningDetails.method,
+        hours,
+        minutes
+      );
+    } else if (cleaningDetails.bedrooms && cleaningDetails.bathrooms) {
+      calculatedPrice = calculateTotalCost(
         cleaningDetails.bedrooms,
         cleaningDetails.bathrooms,
         hourlyRate,
-        cleaningDetails.type
+        cleaningDetails.type || "Standard Clean",
+        cleaningDetails.method || "By Size",
+        0,
+        0,
+        cleaningDetails.frequency || "Once-off"
       );
+      calculatedDuration = calculateDuration(
+        cleaningDetails.bedrooms,
+        cleaningDetails.bathrooms,
+        hourlyRate,
+        cleaningDetails.type || "Standard Clean",
+        cleaningDetails.method || "By Size"
+      );
+
+      // Only add extras cost for By Size method
       const extrasCost =
         cleaningDetails.extras?.reduce(
           (total, extra) => total + (extrasPrices[extra] || 0),
           0
         ) || 0;
-      const calculatedDuration = calculateDuration(
-        cleaningDetails.bedrooms,
-        cleaningDetails.bathrooms,
-        hourlyRate,
-        cleaningDetails.type
-      );
-
-      console.log("cleaning details freq", cleaningDetails.frequency);
-
-      // Apply frequency discount
-      let finalPrice = calculatedPrice + extrasCost;
-      if (
-        cleaningDetails.frequency === "Weekly" ||
-        cleaningDetails.frequency === "Fortnightly"
-      ) {
-        finalPrice *= 0.9; // 10% discount
-      } else if (cleaningDetails.frequency === "Monthly") {
-        finalPrice *= 0.95; // 5% discount
-      }
-
-      setTotalPrice(Math.round(finalPrice));
-      setDuration(calculatedDuration.toFixed(1));
+      calculatedPrice += extrasCost;
     }
-  }, [
-    cleaningDetails.bedrooms,
-    cleaningDetails.bathrooms,
-    cleaningDetails.type,
-    cleaningDetails.frequency,
-    cleaningDetails.extras,
-  ]);
+
+    setTotalPrice(Math.round(calculatedPrice));
+    setDuration(calculatedDuration.toFixed(1));
+  }, [cleaningDetails]);
 
   // Format date for display if available
   const formatDate = (dateString) => {
@@ -94,39 +112,60 @@ export default function BookingSummary({ bookingData }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 md:gap-6 md:pl-10 xl:pl-0">
-            <img
-              src="/assets/Images/bedroom1.png"
-              alt="Bedroom"
-              className="xl:w-[60px] xl:h-[60px] w-[50px] h-[50px]"
-            />
-            <div>
-              <p className="xl:text-xl text-lg font-[Montserrat] font-medium text-[#0B2F3D] leading-[150%]">
-                Bedrooms
-              </p>
-              <p className="xl:text-2xl text-xl font-[Montserrat] font-semibold text-[#0B2F3D] leading-[150%]">
-                {cleaningDetails.bedrooms || "01"} Bedroom
-                {cleaningDetails.bedrooms !== 1 ? "s" : ""}
-              </p>
-            </div>
-          </div>
+          {cleaningDetails.method === "By Size" ? (
+            <>
+              <div className="flex items-center gap-4 md:gap-6 md:pl-10 xl:pl-0">
+                <img
+                  src="/assets/Images/bedroom1.png"
+                  alt="Bedroom"
+                  className="xl:w-[60px] xl:h-[60px] w-[50px] h-[50px]"
+                />
+                <div>
+                  <p className="xl:text-xl text-lg font-[Montserrat] font-medium text-[#0B2F3D] leading-[150%]">
+                    Bedrooms
+                  </p>
+                  <p className="xl:text-2xl text-xl font-[Montserrat] font-semibold text-[#0B2F3D] leading-[150%]">
+                    {cleaningDetails.bedrooms || "01"} Bedroom
+                    {cleaningDetails.bedrooms !== 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
 
-          <div className="flex items-center gap-4 md:gap-6 md:pl-10 xl:pl-0">
-            <img
-              src="/assets/Images/bathroom1.png"
-              alt="Bathroom"
-              className="xl:w-[60px] xl:h-[60px] w-[50px] h-[50px]"
-            />
-            <div>
-              <p className="xl:text-xl text-lg font-[Montserrat] font-medium text-[#0B2F3D] leading-[150%]">
-                Bathrooms
-              </p>
-              <p className="xl:text-2xl text-xl font-[Montserrat] font-semibold text-[#0B2F3D] leading-[150%]">
-                {cleaningDetails.bathrooms || "01"} Bathroom
-                {cleaningDetails.bathrooms !== 1 ? "s" : ""}
-              </p>
+              <div className="flex items-center gap-4 md:gap-6 md:pl-10 xl:pl-0">
+                <img
+                  src="/assets/Images/bathroom1.png"
+                  alt="Bathroom"
+                  className="xl:w-[60px] xl:h-[60px] w-[50px] h-[50px]"
+                />
+                <div>
+                  <p className="xl:text-xl text-lg font-[Montserrat] font-medium text-[#0B2F3D] leading-[150%]">
+                    Bathrooms
+                  </p>
+                  <p className="xl:text-2xl text-xl font-[Montserrat] font-semibold text-[#0B2F3D] leading-[150%]">
+                    {cleaningDetails.bathrooms || "01"} Bathroom
+                    {cleaningDetails.bathrooms !== 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center gap-4 md:gap-6 md:pl-10 xl:pl-0">
+              <img
+                src="/assets/Images/time1.png"
+                alt="Duration"
+                className="xl:w-[60px] xl:h-[60px] w-[50px] h-[50px]"
+              />
+              <div>
+                <p className="xl:text-xl text-lg font-[Montserrat] font-medium text-[#0B2F3D] leading-[150%]">
+                  Duration
+                </p>
+                <p className="xl:text-2xl text-xl font-[Montserrat] font-semibold text-[#0B2F3D] leading-[150%]">
+                  {cleaningDetails.hours || 2} Hours{" "}
+                  {cleaningDetails.minutes || 0} Minutes
+                </p>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex items-center gap-4 md:gap-6 md:pl-10 xl:pl-0">
             <img
