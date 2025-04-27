@@ -16,10 +16,12 @@ export default function CleaningDetails({ onNext, bookingData }) {
     bookingData?.cleaningDetails?.method || "By Size"
   );
   const [bedrooms, setBedrooms] = useState(
-    bookingData?.cleaningDetails?.bedrooms || 1
+    bookingData?.cleaningDetails?.bedrooms ||
+      (selectedMethod === "By Size" ? 1 : 0)
   );
   const [bathrooms, setBathrooms] = useState(
-    bookingData?.cleaningDetails?.bathrooms || 1
+    bookingData?.cleaningDetails?.bathrooms ||
+      (selectedMethod === "By Size" ? 1 : 0)
   );
   const [hours, setHours] = useState(bookingData?.cleaningDetails?.hours || 2);
   const [minutes, setMinutes] = useState(
@@ -104,6 +106,21 @@ export default function CleaningDetails({ onNext, bookingData }) {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const handleMethodChange = (method) => {
+    setSelectedMethod(method);
+    handleFieldChange("method", method);
+
+    // Reset values when changing method
+    if (method === "Hourly") {
+      setBedrooms(0);
+      setBathrooms(0);
+    } else {
+      setBedrooms(1);
+      setBathrooms(1);
+      setHours(0);
+      setMinutes(0);
+    }
+  };
   const handleExtraToggle = (extra) => {
     setExtras((prevExtras) => {
       if (prevExtras.includes(extra)) {
@@ -119,15 +136,20 @@ export default function CleaningDetails({ onNext, bookingData }) {
       date: date.trim() === "" ? "Date is required" : "",
       time: time.trim() === "" ? "Time is required" : "",
       method: selectedMethod === "" ? "Please select a method" : "",
-      bedrooms: bedrooms === 0 ? "Please select number of bedrooms" : "",
-      bathrooms: bathrooms === 0 ? "Please select number of bathrooms" : "",
+      bedrooms:
+        selectedMethod === "By Size" && bedrooms === 0
+          ? "Please select number of bedrooms"
+          : "",
+      bathrooms:
+        selectedMethod === "By Size" && bathrooms === 0
+          ? "Please select number of bathrooms"
+          : "",
       frequency: frequency === "" ? "Please select a frequency" : "",
       type: cleaningType === "" ? "Please select a cleaning type" : "",
     };
 
     setValidationErrors(newErrors);
 
-    // Check if there are any errors
     return !Object.values(newErrors).some((error) => error !== "");
   };
 
@@ -145,10 +167,16 @@ export default function CleaningDetails({ onNext, bookingData }) {
         error = value === "" ? "Please select a method" : "";
         break;
       case "bedrooms":
-        error = value === 0 ? "Please select number of bedrooms" : "";
+        error =
+          selectedMethod === "By Size" && value === 0
+            ? "Please select number of bedrooms"
+            : "";
         break;
       case "bathrooms":
-        error = value === 0 ? "Please select number of bathrooms" : "";
+        error =
+          selectedMethod === "By Size" && value === 0
+            ? "Please select number of bathrooms"
+            : "";
         break;
       case "frequency":
         error = value === "" ? "Please select a frequency" : "";
@@ -280,8 +308,9 @@ export default function CleaningDetails({ onNext, bookingData }) {
                       : "bg-white text-[#0B2F3D]"
                   }`}
                   onClick={() => {
-                    setSelectedMethod("By Size");
-                    handleFieldChange("method", "By Size");
+                    // setSelectedMethod("By Size");
+                    handleMethodChange("By Size");
+                    // handleFieldChange("method", "By Size");
                   }}
                 >
                   By Size
@@ -293,8 +322,9 @@ export default function CleaningDetails({ onNext, bookingData }) {
                       : "bg-white"
                   }`}
                   onClick={() => {
-                    setSelectedMethod("Hourly");
-                    handleFieldChange("method", "Hourly");
+                    handleMethodChange("Hourly");
+                    // setSelectedMethod("Hourly");
+                    // handleFieldChange("method", "Hourly");
                   }}
                 >
                   Hourly
@@ -369,6 +399,8 @@ export default function CleaningDetails({ onNext, bookingData }) {
               </div>
             ) : (
               /* Hours & Minutes Selection for Hourly Method */
+
+              /* Hours & Minutes Selection for Hourly Method */
               <div className="mt-10">
                 <div className="flex flex-row">
                   <img
@@ -380,52 +412,52 @@ export default function CleaningDetails({ onNext, bookingData }) {
                     Duration*
                   </h4>
                 </div>
-                <div className="flex gap-4 mt-6">
-                  <div className="w-full">
-                    <label className="block text-[#0B2F3D] font-medium mb-2">
-                      Hours
-                    </label>
-                    <div className="flex gap-4 flex-wrap">
-                      {[2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                        <button
-                          key={num}
-                          className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-[calc(25%-12px)] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
-                            hours === num
-                              ? "bg-[#0B2F3D] text-white"
-                              : "bg-white"
-                          }`}
-                          onClick={() => {
-                            setHours(num);
-                            handleFieldChange("hours", num);
-                          }}
-                        >
-                          {num}
-                        </button>
-                      ))}
-                    </div>
+
+                {/* Hours Section - Now in its own row */}
+                <div className="mt-6 w-full">
+                  <label className="block text-[#0B2F3D] font-medium mb-2">
+                    Hours
+                  </label>
+                  <div className="flex gap-4 flex-wrap">
+                    {[2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                      <button
+                        key={num}
+                        className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-[calc(25%-12px)] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
+                          hours === num ? "bg-[#0B2F3D] text-white" : "bg-white"
+                        }`}
+                        onClick={() => {
+                          setHours(num);
+                          handleFieldChange("hours", num);
+                        }}
+                      >
+                        {num}
+                      </button>
+                    ))}
                   </div>
-                  <div className="w-full mt-6">
-                    <label className="block text-[#0B2F3D] font-medium mb-2">
-                      Minutes
-                    </label>
-                    <div className="flex gap-4">
-                      {[0, 30].map((num) => (
-                        <button
-                          key={num}
-                          className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-[calc(25%-12px)] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
-                            minutes === num
-                              ? "bg-[#0B2F3D] text-white"
-                              : "bg-white"
-                          }`}
-                          onClick={() => {
-                            setMinutes(num);
-                            handleFieldChange("minutes", num);
-                          }}
-                        >
-                          {num}
-                        </button>
-                      ))}
-                    </div>
+                </div>
+
+                {/* Minutes Section - Now in its own row below hours */}
+                <div className="mt-6 w-full">
+                  <label className="block text-[#0B2F3D] font-medium mb-2">
+                    Minutes
+                  </label>
+                  <div className="flex gap-4">
+                    {[0, 30].map((num) => (
+                      <button
+                        key={num}
+                        className={`px-4 py-2 rounded-xl xl:w-[121.2px] w-[calc(25%-12px)] xl:h-16 font-[Tropiline] xl:font-extrabold xl:text-[24px] leading-[150%] xl:border-4 border-2 border-[#0B2F3D] text-[#0B2F3D] ${
+                          minutes === num
+                            ? "bg-[#0B2F3D] text-white"
+                            : "bg-white"
+                        }`}
+                        onClick={() => {
+                          setMinutes(num);
+                          handleFieldChange("minutes", num);
+                        }}
+                      >
+                        {num}
+                      </button>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -750,7 +782,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
           </div>
         </div>
         <div>
-          <BookingSummary
+          {/* <BookingSummary
             bookingData={{
               cleaningDetails: {
                 method: selectedMethod,
@@ -761,6 +793,26 @@ export default function CleaningDetails({ onNext, bookingData }) {
                 frequency,
                 type: cleaningType,
                 extras,
+                date,
+                time,
+                totalPrice,
+                duration,
+                selectedServices,
+              },
+            }}
+          /> */}
+
+          <BookingSummary
+            bookingData={{
+              cleaningDetails: {
+                method: selectedMethod,
+                bedrooms: selectedMethod === "By Size" ? bedrooms : 0,
+                bathrooms: selectedMethod === "By Size" ? bathrooms : 0,
+                hours: selectedMethod === "Hourly" ? hours : 0,
+                minutes: selectedMethod === "Hourly" ? minutes : 0,
+                frequency,
+                type: cleaningType,
+                extras: selectedMethod === "By Size" ? extras : [],
                 date,
                 time,
                 totalPrice,

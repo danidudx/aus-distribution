@@ -49,10 +49,7 @@ export default function HeroSection() {
   }, []);
 
   const methodMenu = {
-    items: [
-      { key: "By Size", label: "By Size" },
-      { key: "Hourly", label: "Hourly" },
-    ],
+    items: [{ key: "By Size", label: "By Size" }],
     onClick: ({ key }) => setSelectedMethod(key),
   };
 
