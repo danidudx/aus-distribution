@@ -72,10 +72,10 @@ const Footer = () => {
         <div className="xl:grid xl:grid-cols-3 xl:w-[90%] 2xl:w-[80%] w-[90%] mx-auto xl:gap-26 2xl:gap-32">
           {/* Left Section */}
           <div className="xl:w-[515px]">
-            <h2 className="xl:text-[40px] text-4xl font-bold xl:leading-[50px] xl:text-left text-center xl:font-extrabold font-[Tropiline]">
+            <h2 className="xl:text-[40px] text-lg font-bold xl:leading-[50px] xl:text-left md:text-center xl:font-extrabold font-[Tropiline]">
               We Send Non-Annoying <br /> Emails About Secret <br /> Things!
             </h2>
-            <p className="xl:mt-2 font-[Montserrat] mt-4 text-lg xl:font-medium xl:text-xl text-center xl:text-left">
+            <p className="xl:mt-2 font-[Montserrat] mt-4 text-base xl:font-medium xl:text-xl md:text-center xl:text-left">
               Pop your details here and we'll prove it.
             </p>
             <div className="mt-4 mb-8">
@@ -96,7 +96,7 @@ const Footer = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[20%] h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+                  className={`bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[22%] px-2 font-bold text-sm h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
                 >
                   {isSubmitting ? "Wait..." : "Sign Up"}
                 </button>
@@ -198,7 +198,7 @@ const Footer = () => {
 
         <hr className="my-8 xl:mx-40" />
 
-        <div className="xl:mt-8 flex flex-col xl:flex-row justify-center text-center text-sm text-gray-400">
+        <div className="xl:mt-8 flex flex-col xl:flex-row md:justify-center text-left text-sm text-gray-400">
           <div className="flex items-center justify-center gap-10">
             <p>©Ausiwipe 2025</p>
             <img

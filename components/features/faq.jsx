@@ -62,7 +62,7 @@ const FAQPage = () => {
         />
       </div>
       <div className="bg-[#FFEEB6] min-h-full xl:pb-40 pb-20">
-        <h1 className="xl:text-[50px] font-extrabold text-[40px] xl:mb-12 mb-6 xl:pt-10 pt-6 text-center font-[Tropiline] xl:leading-[90px]">
+        <h1 className="xl:text-[50px] font-extrabold text-[32px] xl:mb-12 mb-6 xl:pt-10 pt-6 text-center font-[Tropiline] xl:leading-[90px]">
           <span className="text-[#0B2F3D]">
             {" "}
             Frequently <span className="text-[#FF3366] ">Asked</span>{" "}
@@ -80,12 +80,12 @@ const FAQPage = () => {
                 <h2 className="text-[#0B2F3D] xl:text-2xl text-xl font-semibold leading-[150%] font-[Montserrat]">
                   {faq.question}
                 </h2>
-                <span className="text-[#0B2F3D] xl:text-xl text-lg mr-1">
+                <span className="text-[#0B2F3D] xl:text-xl text-base mr-1">
                   {openIndex === index ? <FiX className= "text-2xl" /> : <FaPlus />}
                 </span>
               </div>
               {openIndex === index && (
-                <p className="mt-2 text-[#0B2F3D] text-xl font-[Montserrat] font-medium">
+                <p className="mt-2 text-[#0B2F3D] text-lg font-[Montserrat] font-medium">
                   {faq.answer}
                 </p>
               )}

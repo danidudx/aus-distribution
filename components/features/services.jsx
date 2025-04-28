@@ -134,11 +134,11 @@ const Services = () => {
 
         {/* Header */}
         <div className="text-center mb-12 w-[90%] mx-auto">
-          <h1 className="xl:text-[64px] md:text-[48px] text-[40px] font-[Tropiline] font-extrabold text-[#0B2F3D] leading-[90px] flex items-center justify-center">
+          <h1 className="xl:text-[64px] md:text-[48px] text-[30px] font-[Tropiline] font-extrabold text-[#0B2F3D] leading-[90px] flex items-center justify-center">
             What's Your
             <span className="text-[#FF3366] pl-3"> Plan?</span>
           </h1>
-          <p className="text-xl font-[Montserrat] text-[#0B2F3D] mt-4 leading-[150%]">
+          <p className="md:text-xl text-base font-[Montserrat] text-[#0B2F3D] mt-4 leading-[150%]">
             We provide you a bunch of cleaning services plans so you can exactly
             choose the service we have to cater your needs.
           </p>

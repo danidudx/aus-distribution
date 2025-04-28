@@ -39,11 +39,11 @@ const steps = [
 const HowItWorks = () => {
   return (
     <div>
-      <section className="bg-[#FFEEB6] relative xl:h-[800px] h-[1200px]">
+      <section className="bg-[#FFEEB6] relative xl:h-[800px] h-[1280px]">
         <img
           src="/assets/Images/star2.png"
           alt="Star1"
-          className="xl:top-[-10px] xl:left-40 top-[60px] absolute"
+          className="xl:top-[-10px] xl:left-40 md:top-[60px] absolute"
         />
         <img
           src="/assets/Images/star1.png"
@@ -61,52 +61,94 @@ const HowItWorks = () => {
           className="xl:top-[60px] xl:right-40 top-[35%] absolute"
         />
         <div className="xl:w-auto w-[90%] mx-auto">
-          <h2 className="xl:text-[64px] md:text-[48px] text-[40px] font-[Tropiline] font-extrabold text-center text-[#0B2F3D] xl:leading-[90px]">
+          <h2 className="xl:text-[64px] md:text-[48px] text-[30px] font-[Tropiline] font-extrabold text-center text-[#0B2F3D] xl:leading-[90px]">
             How Does It <span className="text-[#FF3366]">Works</span>?
           </h2>
           <p className="text-[#0B2F3D] font-[Montserrat] text-xl font-medium text-center mt-4 mb-10 xl:leading-[150%]">
             You are just four steps away.
           </p>
 
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className={`absolute ${step.position} flex flex-col text-center py-12`}
-            >
-              <div>
-                <img
-                  src={step.icon}
-                  alt={step.title}
-                  className="w-14 h-14 xl:w-auto xl:h-auto xl:mx-0"
+          {/* Mobile View */}
+          <div className="flex xl:hidden flex-col xl:flex-row xl:justify-between xl:items-start relative">
+            {steps.map((step, index) => (
+              <div key={index} className="flex items-start xl:items-center">
+                <div className="flex flex-col items-center xl:flex-row xl:items-center xl:gap-4 mr-4 xl:mr-0">
+                  {/* Step Number Circle */}
+                  <div className="w-10 h-10 rounded-full bg-[#0B2F3D] text-white flex items-center justify-center text-lg font-bold mb-0">
+                    {index + 1}
+                  </div>
+
+                  {/* Dotted Line */}
+                  {index !== steps.length - 1 && (
+                    <>
+                      <div className="hidden xl:block h-0.5 w-20 border-t-2 border-dotted border-black"></div>
+                      <div className="block xl:hidden h-56 w-px border-l-2 border-dotted border-black mt-0 mb-0"></div>
+                    </>
+                  )}
+                </div>
+
+                {/* Step Content */}
+                <div className="mt-0 mb-0">
+                  <img
+                    src={step.icon}
+                    alt={step.title}
+                    className="w-14 h-14 xl:w-16 xl:h-16 object-contain"
+                  />
+                  <h3
+                    className="text-[#0B2F3D] font-[Tropiline] font-extrabold text-left text-xl mt-6 xl:mt-0 leading-[150%]"
+                    dangerouslySetInnerHTML={{ __html: step.title }}
+                  />
+                  <p
+                    className="xl:text-sm text-base text-[#0B2F3D] mt-2 font-medium text-left font-[Montserrat] leading-[150%]"
+                    dangerouslySetInnerHTML={{ __html: step.description }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop View */}
+          <div className="hidden xl:block w-full">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className={`absolute ${step.position} flex flex-col text-center py-12`}
+              >
+                <div>
+                  <img
+                    src={step.icon}
+                    alt={step.title}
+                    className="w-14 h-14 xl:w-auto xl:h-auto xl:mx-0"
+                  />
+                </div>
+                <h3
+                  className="text-[#0B2F3D] font-[Tropiline] font-extrabold text-left text-2xl mt-6 leading-[150%]"
+                  dangerouslySetInnerHTML={{ __html: step.title }}
+                />
+                <p
+                  className="xl:text-sm text-base text-[#0B2F3D] mt-2 font-medium text-left font-[Montserrat] leading-[150%]"
+                  dangerouslySetInnerHTML={{ __html: step.description }}
                 />
               </div>
-              <h3
-                className="text-[#0B2F3D] font-[Tropiline] font-extrabold text-left text-2xl mt-6 leading-[150%]"
-                dangerouslySetInnerHTML={{ __html: step.title }}
-              />
-              <p
-                className="xl:text-sm text-base text-[#0B2F3D] mt-2 font-medium text-left font-[Montserrat] leading-[150%]"
-                dangerouslySetInnerHTML={{ __html: step.description }}
-              />
-            </div>
-          ))}
-
-          <img
-            src="/assets/Images/a3.png"
-            className="absolute xl:top-[28%] xl:left-[22%] xl:w-[162px] xl:h-[162px] w-[120px] h-[120px] top-[20%] left-[35%] md:top-[25%] md:left-[40%] md:w-[162px] md:h-[162px]"
-          />
-          <img
-            src="/assets/Images/a2.png"
-            className="absolute xl:top-[40%] xl:left-[41%] xl:w-[140px] xl:h-[162px] w-[120px] h-[120px] xl:rotate-0 rotate-180 top-[47%] left-[40%] md:top-[47%] md:left-[38%] md:w-[162px] md:h-[162px]"
-          />
-          <img
-            src="/assets/Images/a1.png"
-            className="absolute xl:top-[55%] xl:right-[23%] 2xl:right-[28%] xl:w-[120px] xl:h-[120px] xl:rotate-0 rotate-180 w-[120px] h-[120px] top-[62%] right-[20%] xl:scale-x-[1] scale-x-[-1] md:top-[62%] md:right-[42%] md:w-[162px] md:h-[140px]"
-          />
-
+            ))}
+          </div>
+          <div className="xl:relative w-full h-[600px] xl:h-[150px]">
+            <img
+              src="/assets/Images/a3.png"
+              className="absolute xl:top-[28%] xl:left-[22%] xl:w-[162px] xl:h-[162px] w-[120px] h-[120px] top-[20%] left-[35%] md:top-[25%] md:left-[40%] md:w-[162px] md:h-[162px]"
+            />
+            <img
+              src="/assets/Images/a2.png"
+              className="absolute xl:top-[60%] xl:left-[41%] xl:w-[140px] xl:h-[162px] w-[120px] h-[120px] xl:rotate-0 rotate-180 top-[47%] left-[40%] md:top-[47%] md:left-[38%] md:w-[162px] md:h-[162px]"
+            />
+            <img
+              src="/assets/Images/a1.png"
+              className="absolute xl:top-[165%] xl:right-[25%] 2xl:right-[28%] xl:w-[120px] xl:h-[120px] xl:rotate-0 rotate-180 w-[120px] h-[120px] top-[62%] right-[20%] xl:scale-x-[1] scale-x-[-1] md:top-[62%] md:right-[42%] md:w-[162px] md:h-[140px]"
+            />
+          </div>
           {/* CTA Button */}
-          <div className="flex justify-center mt-20 ">
-            <button className="bg-white text-navborder xl:top-[420px] top-[900px] w-[330px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+          <div className="flex justify-center xl:mt-[-3%]">
+            <button className="bg-white text-navborder xl:top-[420px] top-[-545px] w-[330px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Get Started
               </span>
@@ -117,7 +159,7 @@ const HowItWorks = () => {
                 />
               </div>
             </button>
-            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] xl:bottom-[110px] bottom-[62px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[330px] h-12"></div>
+            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] top-[1200px] xl:top-[700px] xl:bottom-[110px] bottom-[62px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[330px] h-12"></div>
           </div>
         </div>
       </section>
