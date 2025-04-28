@@ -51,15 +51,15 @@ const DiscountPopup = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed flex items-center justify-center inset-0 z-20 bg-black bg-opacity-50 p-4">
-      <div className="bg-white p-6 rounded-2xl w-full max-w-lg xl:max-w-md md:max-w-xl xl:max-w-2xl border-4 border-navborder relative mt-20 mb-20">
+    <div className="fixed items-center bg-black bg-opacity-30 justify-center inset-0 z-20 p-4">
+      <div className="bg-white p-8 rounded-2xl h-full xl:h-full xl:ml-[20%] w-full max-w-lg xl:max-w-4xl md:max-w-xl border-4 border-navborder relative mt-20 mb-20">
         <button
-          className="absolute bg-black w-8 h-8 xl:w-10 xl:h-10 rounded-full top-4 right-4 text-xl xl:text-2xl text-white flex items-center justify-center"
+          className="absolute bg-black w-8 h-8 xl:w-10 xl:h-10 rounded-full top-4 right-8 text-xl xl:text-2xl text-white flex items-center justify-center"
           onClick={handleClose}
         >
           &times;
         </button>
-        <h2 className="text-3xl text-left xl:text-[44px]  font-extrabold text-[#0B2F3D] leading-tight mb-6 font-[Tropiline]">
+        <h2 className="text-xl text-left xl:text-[44px]  font-extrabold text-[#0B2F3D] leading-tight mb-6 font-[Tropiline]">
           Get An Extra $20 Off <br /> Your First Clean!
         </h2>
 
