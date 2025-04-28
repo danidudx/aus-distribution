@@ -37,12 +37,12 @@ export default function Navbar() {
         {/* Call Button & Search for Mobile */}
         <div className="flex flex-row pl-6 md:pl-[60%] gap-4 xl:hidden">
           {/* Call Button */}
-          <button className="bg-buttonyellow text-navborder w-12 h-12 rounded-full flex items-center justify-center shadow-md border-2 border-navborder ">
+          <button className="bg-buttonyellow text-navborder w-12 h-12 rounded-full xl:flex hidden items-center justify-center shadow-md border-2 border-navborder ">
             <FaPhoneAlt className=" text-navborder" />
           </button>
 
           {/* Search Icon */}
-          <div className="relative flex items-center justify-center">
+          <div className="xl:relative hidden xl:flex items-center justify-center">
             <FaSearch
               className="text-xl w-10 cursor-pointer relative z-10"
               color="0B2F3D"
@@ -117,7 +117,7 @@ export default function Navbar() {
             FAQ
             <span className="xl:hidden">&gt;</span>
           </Link>
-          <div className="w-[90%] px-4 py-4">
+          <div className="w-[90%] px-4 py-4 xl:hidden">
             <div className="relative flex items-center justify-center w-full">
               <input
                 type="text"
