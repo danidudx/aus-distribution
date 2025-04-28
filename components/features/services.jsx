@@ -72,7 +72,7 @@ const Services = () => {
         alt={service.title}
         className="2xl:w-[262px] xl:h-[160px] md:w-full md:h-[213px] 2xl:h-[213px] object-cover rounded-2xl"
       />
-      <h3 className="text-[#0B2F3D] font-[Tropiline] text-2xl text-center font-extrabold mt-6 leading-[150%]">
+      <h3 className="text-[#0B2F3D] font-[Tropiline] text-xl text-center font-extrabold mt-6 leading-[150%]">
         {service.title}
       </h3>
       <ul className="mt-4 text-[#0B2F3D] text-sm font-medium space-y-4 text-left">
@@ -129,7 +129,7 @@ const Services = () => {
         <img
           src="/assets/Images/star1.png"
           alt="Star1"
-          className="xl:top-[180px] xl:right-[8%] md:top-[14%] right-4 top-[250px] absolute"
+          className="xl:top-[200px] xl:right-[4%] 2xl:right-[10%] md:top-[14%] right-4 top-[250px] absolute"
         />
 
         {/* Header */}

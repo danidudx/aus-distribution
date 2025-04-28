@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { PiSealCheckFill } from "react-icons/pi";
 
 const ClientReviews = () => {
   const reviews = [
@@ -92,16 +93,26 @@ const ClientReviews = () => {
         >
           {reviews.map((review, index) => (
             <SwiperSlide key={index}>
-              <div className="bg-white p-6 md:p-8 rounded-2xl xl:min-w-[410px] mx-6 xl:mx-0 xl:h-[200px] text-left">
+            <div className="bg-white p-6 md:p-8 rounded-2xl xl:min-w-[410px] mx-6 xl:mx-0 xl:h-[200px] text-left flex flex-col justify-between">
+              <div>
                 <p className="text-gray-700 mb-4">⭐️⭐️⭐️⭐️⭐️</p>
                 <p className="text-[#0B2F3D] font-medium text-sm leading-[150%]">
                   {review.text}
                 </p>
-                <h4 className="text-[#0B2F3D] font-semibold text-base leading-[150%] mt-4">
+              </div>
+          
+              <div className="flex items-center flex-wrap gap-1 mt-4">
+                <span className="text-[#0B2F3D] font-semibold font-[Montserrat] text-base leading-[150%]">
+                  Verified Client
+                </span>
+                <PiSealCheckFill className="text-blue-600" />
+                <span className="text-gray-400">|</span>
+                <h4 className="text-[#0B2F3D] font-semibold font-[Montserrat] text-base leading-[150%]">
                   {review.name}
                 </h4>
               </div>
-            </SwiperSlide>
+            </div>
+          </SwiperSlide>
           ))}
         </Swiper>
       </div>

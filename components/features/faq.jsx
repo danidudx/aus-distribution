@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
+import { FiX } from "react-icons/fi";
 
 const faqs = [
   {
@@ -80,7 +81,7 @@ const FAQPage = () => {
                   {faq.question}
                 </h2>
                 <span className="text-[#0B2F3D] xl:text-xl text-lg mr-1">
-                  {openIndex === index ? <FaTimes /> : <FaPlus />}
+                  {openIndex === index ? <FiX className= "text-2xl" /> : <FaPlus />}
                 </span>
               </div>
               {openIndex === index && (

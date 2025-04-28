@@ -129,7 +129,7 @@ export default function HeroSection() {
             />
           </div>
           <div className="flex flex-col">
-            <h1 className="relative 2xl:left-20 text-[#0B2F3D] font-extrabold md:text-[48px] xl:text-[72px] text-[40px] xl:leading-[90px] md:leading-[60px] xl:top-[-60px] md:top-[-60px] font-[Tropiline] mt-6 md:mt-0">
+            <h1 className="relative 2xl:left-20 text-[#0B2F3D] font-extrabold md:text-[40px] xl:text-[72px] text-[40px] xl:leading-[90px] md:leading-[60px] xl:top-[-60px] md:top-[-60px] font-[Tropiline] mt-6 md:mt-0">
               We Clean <br />
               <span className="text-white">
                 Rockhampton,
