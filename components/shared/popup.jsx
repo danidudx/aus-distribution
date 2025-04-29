@@ -54,23 +54,23 @@ const DiscountPopup = () => {
     <div className="fixed items-center bg-black bg-opacity-30 justify-center inset-0 z-20 p-4">
       <div className="bg-white p-8 rounded-2xl h-full xl:h-full xl:ml-[20%] w-full max-w-lg xl:max-w-4xl md:max-w-xl border-4 border-navborder relative mt-20 mb-20">
         <button
-          className="absolute bg-black w-8 h-8 xl:w-10 xl:h-10 rounded-full top-4 right-8 text-xl xl:text-2xl text-white flex items-center justify-center"
+          className="absolute bg-black w-8 h-8 xl:w-10 xl:h-10 rounded-full top-4 right-4 text-xl xl:text-2xl text-white flex items-center justify-center"
           onClick={handleClose}
         >
           &times;
         </button>
-        <h2 className="text-xl text-left xl:text-[44px]  font-extrabold text-[#0B2F3D] leading-tight mb-6 font-[Tropiline]">
+        <h2 className="text-lg text-left xl:text-[44px]  font-extrabold text-[#0B2F3D] leading-tight mb-6 font-[Tropiline]">
           Get An Extra $20 Off <br /> Your First Clean!
         </h2>
 
-        <div className="flex justify-center items-center text-2xl xl:text-3xl md:text-4xl font-bold text-[#FF3366] my-10 gap-2 md:gap-4 relative">
+        <div className="flex justify-center items-center text-lg xl:text-3xl md:text-4xl font-bold text-[#FF3366] my-10 gap-2 md:gap-4 relative">
           {formatTime(timeLeft).map((char, index) => (
             <div key={index} className="flex flex-col items-center">
               <div
                 className={`$ {
                   char === ":"
                     ? "text-[46px] flex justify-center items-center -mt-1 px-2"
-                    : "bg-white border-2 xl:border-4 border-[#FF3366] rounded-xl px-4 py-2 text-center text-[28px] xl:text-[32px] md:text-[36px]"
+                    : "bg-white border-2 xl:border-4 border-[#FF3366] rounded-xl px-4 py-2 text-center text-[20px] xl:text-[32px] md:text-[36px]"
                 }}`}
               >
                 {char}
