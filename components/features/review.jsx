@@ -48,7 +48,7 @@ const ClientReviews = () => {
         />
 
         {/* Heading */}
-        <h2 className="xl:text-[64px] text-[30px] font-[Tropiline] text-center font-extrabold text-[#0B2F3D] mb-10 xl:leading-[90px] w-[90%]">
+        <h2 className="xl:text-[64px] text-[36px] font-[Tropiline] text-center xl:text-center font-extrabold text-[#0B2F3D] mb-10 xl:leading-[90px] w-auto">
           Reviews From <span className="text-[#FF3366]">Satisfied </span>Clients
         </h2>
 
@@ -101,13 +101,13 @@ const ClientReviews = () => {
                 </p>
               </div>
           
-              <div className="flex items-center flex-wrap gap-1 mt-4">
-                <span className="text-[#0B2F3D] font-semibold font-[Montserrat] text-sm leading-[150%]">
+              <div className="flex items-center xl:flex-wrap gap-1 mt-4">
+                <span className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
                   Verified Client
                 </span>
                 <PiSealCheckFill className="text-blue-600" />
                 <span className="text-gray-400">|</span>
-                <h4 className="text-[#0B2F3D] font-semibold font-[Montserrat] text-sm leading-[150%]">
+                <h4 className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
                   {review.name}
                 </h4>
               </div>

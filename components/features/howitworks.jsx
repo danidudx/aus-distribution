@@ -39,7 +39,7 @@ const steps = [
 const HowItWorks = () => {
   return (
     <div>
-      <section className="bg-[#FFEEB6] relative xl:h-[800px] h-[1280px]">
+      <section className="bg-[#FFEEB6] relative xl:h-[800px] h-[1500px]">
         <img
           src="/assets/Images/star2.png"
           alt="Star1"
@@ -61,7 +61,7 @@ const HowItWorks = () => {
           className="xl:top-[60px] xl:right-40 top-[35%] absolute"
         />
         <div className="xl:w-auto w-[90%] mx-auto">
-          <h2 className="xl:text-[64px] md:text-[48px] text-[30px] font-[Tropiline] font-extrabold text-center text-[#0B2F3D] xl:leading-[90px]">
+          <h2 className="xl:text-[64px] md:text-[48px] pt-6 text-[30px] font-[Tropiline] font-extrabold text-center text-[#0B2F3D] xl:leading-[90px]">
             How Does It <span className="text-[#FF3366]">Works</span>?
           </h2>
           <p className="text-[#0B2F3D] font-[Montserrat] text-xl font-medium text-center mt-4 mb-10 xl:leading-[150%]">
@@ -74,12 +74,12 @@ const HowItWorks = () => {
               <div key={index} className="flex items-start xl:items-center">
                 <div className="flex flex-col items-center xl:flex-row xl:items-center xl:gap-4 mr-4 xl:mr-0">
                   {/* Step Number Circle */}
-                  <div className="w-10 h-10 rounded-full bg-[#0B2F3D] text-white flex items-center justify-center text-lg font-bold mb-0">
+                  <div className="w-10 h-10 rounded-full bg-white text-black border-2 border-black flex items-center justify-center text-lg font-bold mb-0">
                     {index + 1}
                   </div>
 
                   {/* Dotted Line */}
-                  {index !== steps.length - 1 && (
+                  {index !== steps.length && (
                     <>
                       <div className="hidden xl:block h-0.5 w-20 border-t-2 border-dotted border-black"></div>
                       <div className="block xl:hidden h-56 w-px border-l-2 border-dotted border-black mt-0 mb-0"></div>
@@ -147,8 +147,8 @@ const HowItWorks = () => {
             />
           </div>
           {/* CTA Button */}
-          <div className="flex justify-center xl:mt-[-3%]">
-            <button className="bg-white text-navborder xl:top-[420px] top-[-545px] w-[330px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+          <div className="flex justify-center xl:mt-0">
+            <button className="bg-white text-navborder xl:top-[340px] top-[-515px] w-[280px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Get Started
               </span>
@@ -159,7 +159,7 @@ const HowItWorks = () => {
                 />
               </div>
             </button>
-            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] top-[1200px] xl:top-[700px] xl:bottom-[110px] bottom-[62px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[330px] h-12"></div>
+            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] top-[1300px] xl:top-[700px] xl:bottom-[110px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[280px] h-12"></div>
           </div>
         </div>
       </section>

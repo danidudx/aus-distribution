@@ -96,7 +96,7 @@ const Footer = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[22%] px-2 font-bold text-sm h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+                  className={`bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[22%] px-2 font-bold text-[10px] xl:text-lg h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
                 >
                   {isSubmitting ? "Wait..." : "Sign Up"}
                 </button>
@@ -114,9 +114,9 @@ const Footer = () => {
               />
             )}
           </div>
-
+            <hr className="xl:hidden my-2"/>
           {/* Right Section */}
-          <div className="flex-col gap-10 xl:flex-row xl:gap-[12%] 2xl:gap-[15%] xl:pl-40 xl:w-[800px] text-left justify-center flex xl:flex">
+          <div className="flex-col gap-4 xl:flex-row xl:gap-[12%] 2xl:gap-[15%] xl:pl-25 xl:ml-14 xl:w-[800px] text-left justify-center flex">
             {/* Services */}
             <div className="flex flex-col font-[Montserrat]">
               <div className="flex items-center justify-between xl:block">
@@ -141,6 +141,7 @@ const Footer = () => {
                 </div>
               )}
             </div>
+            <hr className="xl:hidden"/>
 
             {/* Contact */}
             <div className="flex flex-col font-[Montserrat] xl:mt-0">
@@ -165,7 +166,7 @@ const Footer = () => {
                 </div>
               )}
             </div>
-
+            <hr className="xl:hidden"/>
             {/* Social */}
             <div className="flex flex-col xl:gap-6 font-[Montserrat]">
               <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
@@ -199,7 +200,7 @@ const Footer = () => {
         <hr className="my-8 xl:mx-40" />
 
         <div className="xl:mt-8 flex flex-col xl:flex-row md:justify-center text-left text-sm text-gray-400">
-          <div className="flex items-center justify-center gap-10">
+          <div className="flex items-center xl:justify-center mx-6 gap-10">
             <p>©Ausiwipe 2025</p>
             <img
               src="assets/Images/footerlogo.png"

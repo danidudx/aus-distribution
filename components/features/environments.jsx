@@ -16,7 +16,7 @@ const TransformSpaces = () => {
   return (
     <div className="bg-[#fffae7] xl:h-[670px] h-auto pb-20 xl:p-20">
       <div className="flex flex-col w-[90%] mx-auto ">
-        <h1 className="xl:text-7xl md:text-[48px] text-[40px] font-extrabold xl:text-left text-center font-[Tropiline] xl:leading-[90px] xl:mt-0 mt-10">
+        <h1 className="xl:text-7xl md:text-[48px] text-[30px] font-extrabold xl:text-left text-center font-[Tropiline] xl:leading-[90px] xl:mt-0 mt-10">
           <span className="text-[#0B2F3D]">
             At AusiWipe We Transform Spaces Into{" "}
           </span>

@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <div className="w-full">
       {/* Promo Bar */}
-      <div className="bg-navbackground text-white text-center h-[40px] py-2 font-medium font-[Montserrat] text-[16px] leading-[150%]">
+      <div className="bg-navbackground text-white text-center h-[40px] py-2 text-sm xl:text-xl font-[Montserrat] leading-[150%]">
         10% off weekly & fortnightly cleans{" "}
         <Link href="/Booking" className="font-bold cursor-pointer">
           Book Now
@@ -25,7 +25,7 @@ export default function Navbar() {
       </div>
 
       {/* Navbar */}
-      <nav className="bg-primary text-white h-[88px] py-4 px-6 flex items-center justify-between border-b-2 border-navborder relative">
+      <nav className="bg-primary text-white h-[88px] py-4 px-14 flex items-center justify-between border-b-2 border-navborder relative">
         {/* Left - Brand Logo */}
         <Link
           href="/"
@@ -61,16 +61,16 @@ export default function Navbar() {
 
         {/* Center - Navigation Links */}
         <div
-          className={`absolute top-[88px] flex flex-col items-center justify-start left-0 w-full bg-[#FFF8E5] xl:bg-transparent xl:static xl:flex xl:items-center xl:gap-6 text-lg font-[Montserrat] font-semibold text-[20px] leading-[200%] transition-transform xl:pl-20 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} xl:translate-x-0 xl:flex-row xl:gap-10 py-8 xl:py-0 shadow-md xl:shadow-none z-10`}
+          className={`absolute top-[88px] flex flex-col items-center justify-start left-0 w-full bg-[#FFF8E5] xl:bg-transparent xl:static xl:flex xl:items-center xl:justify-center xl:gap-6 text-lg xl:text-2xl font-[Montserrat] font-semibold text-[20px] leading-[200%] transition-transform xl:pl-20 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} xl:translate-x-0 xl:flex-row xl:gap-10 py-8 xl:py-0 shadow-md xl:shadow-none z-10`}
         >
           <Link
             href="/Booking"
-            className="relative text-[#0B2F3D] xl:text-white w-[90%] px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform flex justify-between items-center"
+            className="relative text-[#0B2F3D] xl:text-white w-auto px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform flex justify-between items-center"
           >
             Book
             <span className="xl:hidden">&gt;</span>
           </Link>
-          <div className="relative w-[90%] px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none">
+          <div className="relative w-auto px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none">
             <button
               onMouseEnter={() => setIsDropdownOpen(true)}
               onMouseLeave={() => setIsDropdownOpen(false)}
@@ -80,7 +80,7 @@ export default function Navbar() {
               <FaChevronDown className="text-sm xl:ml-1" />
             </button>
             {isDropdownOpen && (
-              <div className="absolute bg-white text-black rounded-md shadow-md mt-2 py-2 w-40">
+              <div className="absolute text-lg bg-white text-black rounded-md shadow-md mt-2 py-2 w-60">
                 <Link
                   href="/CleaningDetails"
                   className="block px-4 py-2 hover:bg-gray-100"
@@ -98,26 +98,26 @@ export default function Navbar() {
           </div>
           <Link
             href="/Contact"
-            className="relative text-[#0B2F3D] xl:text-white w-[90%] px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform flex justify-between items-center"
+            className="relative text-[#0B2F3D] xl:text-white w-auto px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform justify-between items-center"
           >
             Contact Us
             <span className="xl:hidden">&gt;</span>
           </Link>
           <Link
             href="/Blog"
-            className="relative text-[#0B2F3D] xl:text-white w-[90%] px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform flex justify-between items-center"
+            className="relative text-[#0B2F3D] xl:text-white w-auto px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform justify-between items-center"
           >
             Blog
             <span className="xl:hidden">&gt;</span>
           </Link>
           <Link
             href="/FAQ"
-            className="relative text-[#0B2F3D] xl:text-white w-[90%] px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform flex justify-between items-center"
+            className="relative text-[#0B2F3D] xl:text-white w-auto px-4 py-4 border-b border-[#0B2F3D]/20 xl:border-none after:block after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform justify-between items-center"
           >
             FAQ
             <span className="xl:hidden">&gt;</span>
           </Link>
-          <div className="w-[90%] px-4 py-4 xl:hidden">
+          <div className="w-auto px-4 py-4 xl:hidden">
             <div className="relative flex items-center justify-center w-full">
               <input
                 type="text"
@@ -139,7 +139,7 @@ export default function Navbar() {
             <button className="bg-buttonyellow text-navborder px-6 w-[217px] h-12 rounded-full flex items-center shadow-md relative z-10 border-2 border-navborder transition-all duration-300 ">
               Call 0423 383 684
               <FaPhoneAlt
-                className="left-7 w-3.5 h-3.5 cursor-pointer relative z-10"
+                className="left-5 w-3.5 h-3.5 cursor-pointer text-center relative z-10"
                 color="#FFC914"
               />
               <div className="absolute right-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-navbackground rounded-full"></div>

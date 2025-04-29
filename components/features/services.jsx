@@ -85,7 +85,7 @@ const Services = () => {
           </li>
         ))}
       </ul>
-      <button className="bg-white text-navborder top-4 mb-4 w-[262px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+      <button className="bg-white text-navborder top-4 mb-4 w-[232px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
         <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
           Book Now
         </span>
@@ -96,7 +96,7 @@ const Services = () => {
           />
         </div>
       </button>
-      <div className="absolute transform -translate-x-1/2 bg-[#FF4081] bottom-[19px] left-[51%] rounded-full w-[262px] h-12"></div>
+      <div className="absolute transform -translate-x-1/2 bg-[#FF4081] bottom-[19px] left-[51%] rounded-full w-[232px] h-12"></div>
     </div>
   );
 

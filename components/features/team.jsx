@@ -29,14 +29,14 @@ const MeetTheTeam = () => {
             </span>{" "}
             Behind Clean.
           </h2>
-          <p className="text-[#0B2F3D] font-[Montserrat] xl:text-xl text-sm text-center xl:font-medium xl:w-[500px] xl:mb-10 mb-0 xl:leading-[150%]">
-            Since 2021 our dedicated team at AusiWipe has <br />
-            been professionally transforming spaces with <br />
-            unparalleled expertise & commitment. We are <br />
+          <p className="text-[#0B2F3D] font-[Montserrat] text-wrap xl:text-xl text-sm text-center xl:text-left xl:font-medium xl:w-[500px] xl:mb-10 mb-0 xl:leading-[150%]">
+            Since 2021 our dedicated team at AusiWipe has
+            been professionally transforming spaces with
+            unparalleled expertise & commitment. We are
             here to cater to clean spaces, better places.
           </p>
           <div className="flex justify-center items-center top-0 absolute">
-            <button className="bg-white text-navborder xl:top-[450px] top-[220px] w-[330px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+            <button className="bg-white text-navborder xl:top-[450px] md:top-[180px] top-[230px] w-[280px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Book Now
               </span>
@@ -47,7 +47,7 @@ const MeetTheTeam = () => {
                 />
               </div>
             </button>
-            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] xl:top-[455px] top-[224px] left-[51%] rounded-full w-[330px] h-12"></div>
+            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] xl:top-[455px] md:top-[184px] top-[234px] left-[51%] rounded-full w-[280px] h-12"></div>
           </div>
         </div>
 
@@ -61,7 +61,7 @@ const MeetTheTeam = () => {
           />
 
           {/* Swiper for mobile/tablet */}
-          <div className="xl:hidden w-full">
+          <div className="xl:hidden w-full px-4">
             <Swiper
               spaceBetween={10}
               slidesPerView={1.2}
@@ -70,20 +70,23 @@ const MeetTheTeam = () => {
                 768: { slidesPerView: 3 },
               }}
             >
-              {["c2.jpg", "c3.jpg", "c4.jpg"].map((img, idx) => (
-                <SwiperSlide key={idx}>
-                  <img
-                    className="rounded-2xl w-[80%] mr-0 gap-2 md:w-[90%] h-auto object-cover"
-                    src={`/assets/Images/${img}`}
-                    alt={`Team member ${idx + 2}`}
-                  />
-                </SwiperSlide>
-              ))}
+              {["c2.jpg", "c3.jpg", "c4.jpg"].map((img, idx) => {
+                const imgPath = `/assets/Images/${img}`;
+                return (
+                  <SwiperSlide key={idx}>
+                    <img
+                      className="rounded-2xl w-full h-auto object-cover"
+                      src={imgPath}
+                      alt={`Team member ${idx + 2}`}
+                    />
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
           </div>
 
           {/* Static row for desktop */}
-          <div className="hidden xl:flex gap-6 w-full">
+          <div className="hidden xl:flex gap-6 w-full items-center justify-center">
             {["c2.jpg", "c3.jpg", "c4.jpg"].map((img, idx) => (
               <img
                 key={idx}
