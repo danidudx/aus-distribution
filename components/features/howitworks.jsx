@@ -8,7 +8,7 @@ const steps = [
     title: "Get An Instant <br /> Quote",
     description: "Ideal for home maintenance <br /> and upkeep",
     position:
-      "xl:top-[20%] xl:left-[12%] top-[8%] left-[5%] md:top-[15%] md:left-[20%]",
+      "xl:top-[20%] xl:left-[12%] top-[8%] left-[5%] md:top-[10%] md:left-[10%]",
   },
   {
     icon: "/assets/Images/w2.png",
@@ -16,7 +16,7 @@ const steps = [
     description:
       "Customize your cleaning service <br /> request according to your needs and <br /> enjoy a fast checkout process",
     position:
-      "xl:top-[280px] xl:left-[32%] top-[25%] right-[5%] items-center xl:items-start md:top-[30%] md:left-[55%] md:items-start",
+      "xl:top-[280px] xl:left-[32%] top-[25%] right-[5%] items-center xl:items-start md:top-[25%] md:left-[55%] md:items-start",
   },
   {
     icon: "/assets/Images/w3.png",
@@ -24,7 +24,7 @@ const steps = [
     description:
       "Relax as our experienced cleaning <br /> professional cleans your space for <br /> you on your selected schedule",
     position:
-      "xl:top-[20%] xl:left-[55%] top-[45%] left-[5%] md:top-[45%] md:left-[20%]",
+      "xl:top-[20%] xl:left-[55%] top-[5%] left-[5%] md:top-[40%] md:left-[20%]",
   },
   {
     icon: "/assets/Images/w4.png",
@@ -32,7 +32,7 @@ const steps = [
     description:
       "If you are happy with our service <br /> provide feedback and receive a <br /> discount for your next home clean!",
     position:
-      "xl:bottom-[25%] xl:right-[8%] 2xl:right-[15%] bottom-[10%] right-[5%] items-center xl:items-start md:bottom-[10%] md:right-[22%] md:items-start",
+      "xl:bottom-[25%] xl:right-[8%] 2xl:right-[15%] bottom-[10%] right-[5%] items-center xl:items-start md:bottom-[20%] md:right-[15%] md:items-start",
   },
 ];
 
@@ -64,25 +64,25 @@ const HowItWorks = () => {
           <h2 className="xl:text-[64px] md:text-[48px] pt-6 text-[30px] font-[Tropiline] font-extrabold text-center text-[#0B2F3D] xl:leading-[90px]">
             How Does It <span className="text-[#FF3366]">Works</span>?
           </h2>
-          <p className="text-[#0B2F3D] font-[Montserrat] text-xl font-medium text-center mt-4 mb-10 xl:leading-[150%]">
+          <p className="text-[#0B2F3D] font-[Montserrat] text-xl font-medium text-center mt-4 xl:mb-10 xl:leading-[150%]">
             You are just four steps away.
           </p>
 
           {/* Mobile View */}
-          <div className="flex xl:hidden flex-col xl:flex-row xl:justify-between xl:items-start relative">
+          <div className="flex md:hidden xl:hidden flex-col xl:flex-row xl:justify-between xl:items-start relative">
             {steps.map((step, index) => (
               <div key={index} className="flex items-start xl:items-center">
-                <div className="flex flex-col items-center xl:flex-row xl:items-center xl:gap-4 mr-4 xl:mr-0">
+                <div className="flex flex-col items-center xl:flex-row xl:items-center xl:gap-4 mr-4 xl:mr-0 py-0">
                   {/* Step Number Circle */}
-                  <div className="w-10 h-10 rounded-full bg-white text-black border-2 border-black flex items-center justify-center text-lg font-bold mb-0">
+                  <div className="w-10 h-10 rounded-full bg-white text-black border-2 border-black flex items-center justify-center text-lg font-bold mb-0 py-0">
                     {index + 1}
                   </div>
 
                   {/* Dotted Line */}
                   {index !== steps.length && (
                     <>
-                      <div className="hidden xl:block h-0.5 w-20 border-t-2 border-dotted border-black"></div>
-                      <div className="block xl:hidden h-56 w-px border-l-2 border-dotted border-black mt-0 mb-0"></div>
+                      <div className="hidden xl:block h-0.5 w-20 border-t-2 border-dotted border-black py-0"></div>
+                      <div className="block xl:hidden h-56 w-px border-l-2 border-dotted border-black mt-0 mb-0 py-0"></div>
                     </>
                   )}
                 </div>
@@ -108,7 +108,7 @@ const HowItWorks = () => {
           </div>
 
           {/* Desktop View */}
-          <div className="hidden xl:block w-full">
+          <div className="hidden xl:block md:block w-full md:w-auto">
             {steps.map((step, index) => (
               <div
                 key={index}
@@ -118,37 +118,37 @@ const HowItWorks = () => {
                   <img
                     src={step.icon}
                     alt={step.title}
-                    className="w-14 h-14 xl:w-auto xl:h-auto xl:mx-0"
+                    className="w-14 h-14 xl:w-auto xl:h-auto xl:mx-0 "
                   />
                 </div>
                 <h3
-                  className="text-[#0B2F3D] font-[Tropiline] font-extrabold text-left text-2xl mt-6 leading-[150%]"
+                  className="text-[#0B2F3D] font-[Tropiline] font-extrabold text-left text-2xl md:text-lg mt-6 leading-[150%]"
                   dangerouslySetInnerHTML={{ __html: step.title }}
                 />
                 <p
-                  className="xl:text-sm text-base text-[#0B2F3D] mt-2 font-medium text-left font-[Montserrat] leading-[150%]"
+                  className="xl:text-sm text-base md:text-base text-[#0B2F3D] mt-2 font-medium text-left font-[Montserrat] leading-[150%]"
                   dangerouslySetInnerHTML={{ __html: step.description }}
                 />
               </div>
             ))}
           </div>
-          <div className="xl:relative w-full h-[600px] xl:h-[150px]">
+          <div className="hidden md:block xl:relative w-full h-[600px] xl:h-[150px]">
             <img
               src="/assets/Images/a3.png"
-              className="absolute xl:top-[28%] xl:left-[22%] xl:w-[162px] xl:h-[162px] w-[120px] h-[120px] top-[20%] left-[35%] md:top-[25%] md:left-[40%] md:w-[162px] md:h-[162px]"
+              className="absolute xl:top-[28%] xl:left-[22%] xl:w-[162px] xl:h-[162px] w-[120px] h-[120px] top-[20%] left-[35%] md:top-[20%] md:left-[40%] md:w-[162px] md:h-[162px]"
             />
             <img
               src="/assets/Images/a2.png"
-              className="absolute xl:top-[60%] xl:left-[41%] xl:w-[140px] xl:h-[162px] w-[120px] h-[120px] xl:rotate-0 rotate-180 top-[47%] left-[40%] md:top-[47%] md:left-[38%] md:w-[162px] md:h-[162px]"
+              className="absolute xl:top-[60%] xl:left-[41%] xl:w-[140px] xl:h-[162px] w-[120px] h-[120px] xl:rotate-0 rotate-180 top-[47%] left-[40%] md:top-[40%] md:left-[38%] md:w-[162px] md:h-[162px]"
             />
             <img
               src="/assets/Images/a1.png"
-              className="absolute xl:top-[165%] xl:right-[25%] 2xl:right-[28%] xl:w-[120px] xl:h-[120px] xl:rotate-0 rotate-180 w-[120px] h-[120px] top-[62%] right-[20%] xl:scale-x-[1] scale-x-[-1] md:top-[62%] md:right-[42%] md:w-[162px] md:h-[140px]"
+              className="absolute xl:top-[165%] xl:right-[25%] 2xl:right-[28%] xl:w-[120px] xl:h-[120px] xl:rotate-0 rotate-180 w-[120px] h-[120px] top-[62%] right-[20%] xl:scale-x-[1] scale-x-[-1] md:top-[58%] md:right-[38%] md:w-[162px] md:h-[140px]"
             />
           </div>
           {/* CTA Button */}
-          <div className="flex justify-center xl:mt-0">
-            <button className="bg-white text-navborder xl:top-[340px] top-[-515px] w-[280px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+          <div className="hidden md:flex justify-center xl:mt-0 mt-20 md:mt-0">
+            <button className="bg-white text-navborder xl:top-[340px] md:top-[555px] w-[280px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Get Started
               </span>
@@ -159,7 +159,15 @@ const HowItWorks = () => {
                 />
               </div>
             </button>
-            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] top-[1300px] xl:top-[700px] xl:bottom-[110px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[280px] h-12"></div>
+            <div className="absolute transform -translate-x-1/2 mt-14 md:mt-0 bg-[#FF4081] md:top-[1300px] top-[1200px] xl:top-[700px] xl:bottom-[110px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[280px] h-12"></div>
+          </div>
+          <div className="xl:hidden md:hidden flex flex-col items-center justify-center mt-10">
+            <button className="w-[240px] h-10 text-sm rounded-full border-2 border-navborder bg-white text-navborder flex items-center justify-center gap-2 hover:scale-105 active:scale-95">
+              <span className="font-semibold">Get Started</span>
+              <div className="w-5 h-5 bg-navbackground rounded-full flex items-center justify-center">
+                <FaArrowRight className="w-3 h-3" color="white" />
+              </div>
+            </button>
           </div>
         </div>
       </section>
