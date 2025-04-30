@@ -36,7 +36,7 @@ export default function Navbar() {
         {/* Left - Brand Logo */}
         <Link
           href="/"
-          className="font-[Tropiline] font-bold text-[30px] xl:text-[40px] leading-[150%]"
+          className="font-[Tropiline] font-bold text-[20px] xl:text-[40px] leading-[150%]"
         >
           AusiWipe
         </Link>
@@ -136,17 +136,17 @@ export default function Navbar() {
         {/* Right - Call Button, User Avatar & Search */}
         <div className="flex items-center gap-8 relative">
           {/* Call Button with Rectangle Below */}
-          <div className="hidden md:flex xl:flex relative hover:scale-105 active:scale-95">
-            <button className="bg-buttonyellow text-navborder px-6 w-[217px] h-12 rounded-full flex items-center shadow-md relative z-10 border-2 border-navborder transition-all duration-300 ">
+          <div className="md:flex xl:flex relative hover:scale-105 active:scale-95">
+            <button className="bg-buttonyellow text-navborder text-[10px] xl:text-lg px-4 w-auto xl:w-[220px] h-auto xl:h-12 py-2 rounded-full flex items-center justify-between gap-2 xl:gap-0 shadow-md relative z-10 border-2 border-navborder transition-all duration-300 ">
               Call 0423 383 684
               <FaPhoneAlt
-                className="left-5 w-3.5 h-3.5 cursor-pointer text-center relative z-10"
+                className="left-0 w-3.5 h-3.5 cursor-pointer text-center relative z-10"
                 color="#FFC914"
               />
               <div className="absolute right-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-navbackground rounded-full"></div>
             </button>
             {/* Rectangle below button */}
-            <div className="absolute transform -translate-x-1/2 bg-navborder bottom-[-5px] left-[51%] rounded-full w-[217px] h-12"></div>
+            <div className="absolute transform -translate-x-1/2 bg-navborder bottom-[-5px] left-[51%] rounded-full w-auto h-12"></div>
           </div>
 
           {/* Search Icon with Circle */}
