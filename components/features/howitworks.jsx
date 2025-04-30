@@ -82,7 +82,7 @@ const HowItWorks = () => {
                   {index !== steps.length && (
                     <>
                       <div className="hidden xl:block h-0.5 w-20 border-t-2 border-dotted border-black py-0"></div>
-                      <div className="block xl:hidden h-56 w-px border-l-2 border-dotted border-black mt-0 mb-0 py-0"></div>
+                      <div className="block xl:hidden h-64 w-px border-l-2 border-dotted border-black mt-0 mb-0 py-0"></div>
                     </>
                   )}
                 </div>
