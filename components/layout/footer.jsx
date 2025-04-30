@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { useState } from "react";
 import SuccessPopup from "../shared/success-popup";
+import { FaArrowRight } from "react-icons/fa";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -114,7 +115,7 @@ const Footer = () => {
               />
             )}
           </div>
-            <hr className="xl:hidden my-2"/>
+          <hr className="xl:hidden my-2" />
           {/* Right Section */}
           <div className="flex-col gap-4 xl:flex-row xl:gap-[12%] 2xl:gap-[15%] xl:pl-25 xl:ml-14 xl:w-[800px] text-left justify-center flex">
             {/* Services */}
@@ -141,7 +142,7 @@ const Footer = () => {
                 </div>
               )}
             </div>
-            <hr className="xl:hidden"/>
+            <hr className="xl:hidden" />
 
             {/* Contact */}
             <div className="flex flex-col font-[Montserrat] xl:mt-0">
@@ -166,7 +167,7 @@ const Footer = () => {
                 </div>
               )}
             </div>
-            <hr className="xl:hidden"/>
+            <hr className="xl:hidden" />
             {/* Social */}
             <div className="flex flex-col xl:gap-6 font-[Montserrat]">
               <h3 className="font-bold xl:text-xl text-lg leading-[150%]">
@@ -216,6 +217,21 @@ const Footer = () => {
             relationship to the land and pay our respects to Elders past,
             present and emerging.
           </p>
+          </div>
+          <div className="flex items-center justify-center my-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`bg-[#FFC914] flex items-center justify-between xl:flex-wrap xl:w-[20%] md:w-[20%] w-[40%] px-4 font-bold text-[10px] xl:text-2xl h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+          >
+            {"Booking Now"}
+            <div className="w-6 h-6 bg-navbackground rounded-full flex items-center justify-center">
+              <FaArrowRight
+                className="w-3.5 h-3.5 cursor-pointer relative z-10"
+                color="white"
+              />
+            </div>
+          </button>
         </div>
       </footer>
     </div>

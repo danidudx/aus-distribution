@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { PiSealCheckFill } from "react-icons/pi";
+import { FaStar } from "react-icons/fa";
 
 const ClientReviews = () => {
   const reviews = [
@@ -93,27 +94,37 @@ const ClientReviews = () => {
         >
           {reviews.map((review, index) => (
             <SwiperSlide key={index}>
-            <div className="bg-white p-6 md:p-8 rounded-2xl xl:min-w-[410px] mx-6 xl:mx-0 xl:h-[200px] text-left flex flex-col justify-between">
-              <div>
-                <p className="text-gray-700 mb-4">⭐️⭐️⭐️⭐️⭐️</p>
-                <p className="text-[#0B2F3D] font-medium text-sm leading-[150%]">
-                  {review.text}
-                </p>
-              </div>
-          
-              <div className="flex flex-wrap items-start justify-start gap-1 mt-4 text-left">
-  <span className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
-    Verified Client
-  </span>
-  <PiSealCheckFill className="text-blue-600" />
-  <span className="text-gray-400">|</span>
-  <h4 className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
-    {review.name}
-  </h4>
+              <div className="bg-white p-6 md:p-8 rounded-2xl xl:min-w-[410px] xl:mx-0 xl:h-[200px] text-left">
+                <div>
+                <div className="flex justify-end gap-1 mb-4">
+  {Array(5)
+    .fill(0)
+    .map((_, index) => (
+      <img
+        key={index}
+        src="/assets/images/review-star.png"
+        alt="Star"
+        className="w-5 h-5"
+      />
+    ))}
 </div>
 
-            </div>
-          </SwiperSlide>
+                  <p className="text-[#0B2F3D] font-medium text-sm leading-[150%]">
+                    {review.text}
+                  </p>
+                </div>
+                <div className="flex justify-end gap-2 items-center mt-4">
+                  <span className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
+                    Verified Client
+                  </span>
+                  <PiSealCheckFill className="text-blue-600" />
+                  <span className="text-gray-400">|</span>
+                  <h4 className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
+                    {review.name}
+                  </h4>
+                </div>
+              </div>
+            </SwiperSlide>
           ))}
         </Swiper>
       </div>

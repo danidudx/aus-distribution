@@ -32,7 +32,7 @@ const ComparisonTable = () => {
           className="top-[-12%] xl:top-[-15%] xl:right-[8%] md:right-[80%] md:top-[-4%] absolute"
         />
         <div className="flex flex-col">
-          <h2 className="xl:text-[64px] md:text-[48px] text-[30px] font-[Tropiline] font-extrabold text-[#0B2F3D] xl:leading-[90px] xl:mt-28 text-center xl:text-left md:text-center">
+          <h2 className="xl:text-[64px] md:text-[48px] text-[28px] font-[Tropiline] font-extrabold text-[#0B2F3D] xl:leading-[90px] xl:mt-28 text-center xl:text-left md:text-center">
             Still Doubt
             <br /> <span className="text-[#FF3366]">Choosing </span> Us?
           </h2>

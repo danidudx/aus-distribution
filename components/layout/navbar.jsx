@@ -42,7 +42,7 @@ export default function Navbar() {
         </Link>
 
         {/* Call Button & Search for Mobile */}
-        <div className="flex flex-row pl-6 md:pl-[60%] gap-4 xl:hidden">
+        <div className="hidden flex-row pl-6 md:pl-[60%] gap-4 xl:hidden">
           {/* Call Button */}
           <button className="bg-buttonyellow text-navborder w-12 h-12 rounded-full xl:flex hidden items-center justify-center shadow-md border-2 border-navborder ">
             <FaPhoneAlt className=" text-navborder" />
@@ -134,9 +134,9 @@ export default function Navbar() {
         </div>
 
         {/* Right - Call Button, User Avatar & Search */}
-        <div className="hidden xl:flex items-center gap-8 relative">
+        <div className="flex items-center gap-8 relative">
           {/* Call Button with Rectangle Below */}
-          <div className="relative hover:scale-105 active:scale-95">
+          <div className="hidden md:flex xl:flex relative hover:scale-105 active:scale-95">
             <button className="bg-buttonyellow text-navborder px-6 w-[217px] h-12 rounded-full flex items-center shadow-md relative z-10 border-2 border-navborder transition-all duration-300 ">
               Call 0423 383 684
               <FaPhoneAlt
@@ -150,7 +150,7 @@ export default function Navbar() {
           </div>
 
           {/* Search Icon with Circle */}
-          <div className="relative active:scale-95 hover:scale-105">
+          <div className="hidden xl:flex  relative active:scale-95 hover:scale-105">
             <FaSearch
               className="text-xl w-10 cursor-pointer relative z-10 transition-all duration-300 hover:text-gray-600"
               color="0B2F3D"
