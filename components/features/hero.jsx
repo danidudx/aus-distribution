@@ -256,9 +256,9 @@ export default function HeroSection() {
                     `/Booking?bedrooms=${selectedBedroom}&bathrooms=${selectedBathroom}&service=${selectedService}&frequency=${selectedDiscount}&method=${selectedMethod}`
                   );
                 }}
-                className="bg-buttonyellow text-navborder px-6 w-[100%] h-[56px] rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3"
+                className="bg-buttonyellow text-navborder px-2 w-[100%] h-[56px] rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3"
               >
-                <span className="text-xl font-semibold">
+                <span className="text-sm md:text-lg xl:text-xl xl:font-semibold">
                   ${totalPrice} | Book Now
                 </span>
                 <div className="w-8 h-8 bg-navbackground rounded-full flex items-center justify-center">

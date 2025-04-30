@@ -120,7 +120,7 @@ const Footer = () => {
             {/* Services */}
             <div className="flex flex-col font-[Montserrat]">
               <div className="flex items-center justify-between xl:block">
-                <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
+                <h3 className="font-bold xl:text-xl text-lg leading-[150%]">
                   Services
                 </h3>
                 <button
@@ -146,7 +146,7 @@ const Footer = () => {
             {/* Contact */}
             <div className="flex flex-col font-[Montserrat] xl:mt-0">
               <div className="flex items-center justify-between xl:block">
-                <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
+                <h3 className="font-bold xl:text-xl text-lg leading-[150%]">
                   Contact
                 </h3>
                 <button
@@ -169,7 +169,7 @@ const Footer = () => {
             <hr className="xl:hidden"/>
             {/* Social */}
             <div className="flex flex-col xl:gap-6 font-[Montserrat]">
-              <h3 className="font-bold xl:text-xl text-2xl leading-[150%]">
+              <h3 className="font-bold xl:text-xl text-lg leading-[150%]">
                 Social
               </h3>
               <div className="flex gap-4 text-base items-center justify-start my-6 xl:my-0">

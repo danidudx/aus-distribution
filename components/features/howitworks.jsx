@@ -64,7 +64,7 @@ const HowItWorks = () => {
           <h2 className="xl:text-[64px] md:text-[48px] pt-6 text-[30px] font-[Tropiline] font-extrabold text-center text-[#0B2F3D] xl:leading-[90px]">
             How Does It <span className="text-[#FF3366]">Works</span>?
           </h2>
-          <p className="text-[#0B2F3D] font-[Montserrat] text-xl font-medium text-center mt-4 xl:mb-10 xl:leading-[150%]">
+          <p className="text-[#0B2F3D] font-[Montserrat] text-xl font-medium text-center mt-4 mb-6 xl:mb-10 xl:leading-[150%]">
             You are just four steps away.
           </p>
 
@@ -148,7 +148,7 @@ const HowItWorks = () => {
           </div>
           {/* CTA Button */}
           <div className="hidden md:flex justify-center xl:mt-0 mt-20 md:mt-0">
-            <button className="bg-white text-navborder xl:top-[340px] md:top-[555px] w-[280px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+            <button className="bg-white text-navborder xl:top-[340px] md:top-[530px] w-[280px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Get Started
               </span>

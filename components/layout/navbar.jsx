@@ -25,7 +25,14 @@ export default function Navbar() {
       </div>
 
       {/* Navbar */}
-      <nav className="bg-primary text-white h-[88px] py-4 px-14 flex items-center justify-between border-b-2 border-navborder relative">
+      <nav className="bg-primary text-white h-[88px] py-4 px-2 flex items-center justify-between border-b-2 border-navborder relative">
+        {/* Mobile Menu Button */}
+        <button
+          className="xl:hidden mx-2 text-white text-2xl justify-start"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
         {/* Left - Brand Logo */}
         <Link
           href="/"
@@ -51,17 +58,11 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="xl:hidden text-white text-2xl"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <FaTimes /> : <FaBars />}
-        </button>
+        
 
         {/* Center - Navigation Links */}
         <div
-          className={`absolute top-[88px] flex flex-col items-center justify-start left-0 w-full bg-[#FFF8E5] xl:bg-transparent xl:static xl:flex xl:items-center xl:justify-center xl:gap-6 text-lg xl:text-2xl font-[Montserrat] font-semibold text-[20px] leading-[200%] transition-transform xl:pl-20 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} xl:translate-x-0 xl:flex-row xl:gap-10 py-8 xl:py-0 shadow-md xl:shadow-none z-10`}
+          className={`absolute top-[88px] flex flex-col items-left justify-start left-0 w-full bg-[#FFF8E5] xl:bg-transparent xl:static xl:flex xl:items-center xl:justify-center xl:gap-6 text-lg xl:text-2xl font-[Montserrat] font-semibold text-[20px] leading-[200%] transition-transform xl:pl-20 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} xl:translate-x-0 xl:flex-row xl:gap-10 py-8 xl:py-0 shadow-md xl:shadow-none z-10`}
         >
           <Link
             href="/Booking"

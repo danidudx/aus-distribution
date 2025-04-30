@@ -77,7 +77,7 @@ const FAQPage = () => {
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => toggleFAQ(index)}
               >
-                <h2 className="text-[#0B2F3D] xl:text-2xl text-xl font-semibold leading-[150%] font-[Montserrat]">
+                <h2 className="text-[#0B2F3D] xl:text-2xl text-sm font-semibold leading-[150%] font-[Montserrat]">
                   {faq.question}
                 </h2>
                 <span className="text-[#0B2F3D] xl:text-xl text-base mr-1">
@@ -85,7 +85,7 @@ const FAQPage = () => {
                 </span>
               </div>
               {openIndex === index && (
-                <p className="mt-2 text-[#0B2F3D] text-lg font-[Montserrat] font-medium">
+                <p className="mt-2 text-[#0B2F3D] text-sm font-[Montserrat] font-medium">
                   {faq.answer}
                 </p>
               )}

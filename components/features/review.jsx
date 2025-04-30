@@ -101,16 +101,17 @@ const ClientReviews = () => {
                 </p>
               </div>
           
-              <div className="flex items-center xl:flex-wrap gap-1 mt-4">
-                <span className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
-                  Verified Client
-                </span>
-                <PiSealCheckFill className="text-blue-600" />
-                <span className="text-gray-400">|</span>
-                <h4 className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
-                  {review.name}
-                </h4>
-              </div>
+              <div className="flex flex-wrap items-start justify-start gap-1 mt-4 text-left">
+  <span className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
+    Verified Client
+  </span>
+  <PiSealCheckFill className="text-blue-600" />
+  <span className="text-gray-400">|</span>
+  <h4 className="text-[#0B2F3D] font-semibold font-[Montserrat] text-[10px] xl:text-sm leading-[150%]">
+    {review.name}
+  </h4>
+</div>
+
             </div>
           </SwiperSlide>
           ))}
