@@ -94,22 +94,21 @@ const ClientReviews = () => {
         >
           {reviews.map((review, index) => (
             <SwiperSlide key={index}>
-              <div className="bg-white p-6 md:p-8 rounded-2xl xl:min-w-[410px] xl:mx-0 xl:h-[200px] text-left">
+              <div className="bg-white p-6 mx-4 md:p-8 rounded-2xl xl:min-w-[410px] xl:mx-0 xl:h-[200px] text-left">
                 <div>
-                <div className="flex justify-end gap-1 mb-4">
-  {Array(5)
-    .fill(0)
-    .map((_, index) => (
-      <img
-        key={index}
-        src="/assets/images/review-star.png"
-        alt="Star"
-        className="w-5 h-5"
-      />
-    ))}
-</div>
-
-                  <p className="text-[#0B2F3D] font-medium text-sm leading-[150%]">
+                  <div className="flex justify-end gap-1 mb-4">
+                    {Array(5)
+                      .fill(0)
+                      .map((_, index) => (
+                        <img
+                          key={index}
+                          src="/assets/images/review-star.png"
+                          alt="Star"
+                          className="w-5 h-5"
+                        />
+                      ))}
+                  </div>
+                  <p className="text-[#0B2F3D] font-medium text-[12px] leading-[150%]">
                     {review.text}
                   </p>
                 </div>
