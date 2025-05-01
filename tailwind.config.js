@@ -27,6 +27,11 @@ module.exports = {
       animation: {
         marquee: 'marquee 30s linear infinite',
       },
+      screens: {
+        '3xs': '320px',
+        '2xs': '375px',
+        'xs': '412px',
+      },
     },
   },
   plugins: [],

@@ -147,8 +147,8 @@ const HowItWorks = () => {
             />
           </div>
           {/* CTA Button */}
-          <div className="hidden md:flex justify-center xl:mt-0 mt-20 md:mt-0">
-            <button className="bg-white text-navborder xl:top-[340px] md:top-[530px] w-[280px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+          <div className="flex justify-center xl:mt-0 mt-20 md:mt-0">
+            <button className="bg-white text-navborder xl:top-[340px] md:top-[530px] -top-8 w-[280px] h-12 rounded-full flex items-center justify-center relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Get Started
               </span>
@@ -159,15 +159,7 @@ const HowItWorks = () => {
                 />
               </div>
             </button>
-            <div className="absolute transform -translate-x-1/2 mt-14 md:mt-0 bg-[#FF4081] md:top-[1300px] top-[1200px] xl:top-[700px] xl:bottom-[110px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[280px] h-12"></div>
-          </div>
-          <div className="xl:hidden md:hidden flex flex-col items-center justify-center mt-10">
-            <button className="w-[240px] h-10 text-sm rounded-full border-2 border-navborder bg-white text-navborder flex items-center justify-center gap-2 hover:scale-105 active:scale-95">
-              <span className="font-semibold">Get Started</span>
-              <div className="w-5 h-5 bg-navbackground rounded-full flex items-center justify-center">
-                <FaArrowRight className="w-3 h-3" color="white" />
-              </div>
-            </button>
+            <div className="absolute transform -translate-x-1/2 mt-14 md:mt-0 bg-[#FF4081] md:top-[1300px] 2xs:top-[1320px] 3xs:top-[1365px] xl:top-[700px] xl:bottom-[110px] md:bottom-[4.2%] left-[51%] xl:left-[50.2%] md:left-[50.2%] rounded-full w-[280px] h-12"></div>
           </div>
         </div>
       </section>
