@@ -29,7 +29,7 @@ const MeetTheTeam = () => {
             </span>{" "}
             Behind Clean.
           </h2>
-          <p className="text-[#0B2F3D] font-[Montserrat] text-wrap xl:text-xl text-sm text-left xl:text-left xl:font-medium xl:w-[500px] xl:mb-10 mb-0 xl:leading-[150%]">
+          <p className="text-[#0B2F3D] font-[Montserrat] text-wrap xl:text-xl md:text-base text-sm text-center md:text-left xl:text-left xl:font-medium xl:w-[500px] xl:mb-10 mb-0 xl:leading-[150%]">
             Since 2021 our dedicated team at AusiWipe has
             been professionally transforming spaces with
             unparalleled expertise & commitment. We are
