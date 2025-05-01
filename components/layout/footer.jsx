@@ -222,7 +222,7 @@ const Footer = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`bg-[#FFC914] flex items-center justify-between xl:flex-wrap xl:w-[20%] md:w-[20%] w-[40%] px-4 font-bold text-[10px] xl:text-2xl h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+            className={`bg-[#FFC914] xl:hidden flex items-center justify-between xl:flex-wrap xl:w-[20%] md:w-[20%] w-[40%] px-4 font-bold text-[10px] xl:text-2xl h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
           >
             {"Booking Now"}
             <div className="w-6 h-6 bg-navbackground rounded-full flex items-center justify-center">
