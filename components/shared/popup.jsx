@@ -51,8 +51,8 @@ const DiscountPopup = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed items-center bg-black bg-opacity-30 justify-center inset-0 z-20 p-4">
-      <div className="bg-white p-8 rounded-2xl h-auto xl:h-auto md:ml-[20%] xl:ml-[20%] w-full max-w-lg xl:max-w-4xl md:max-w-lg border-4 border-navborder relative mt-20 mb-20">
+    <div className="fixed flex items-center bg-black bg-opacity-30 justify-center inset-0 z-20 p-4">
+      <div className="bg-white p-8 rounded-2xl justify-center h-auto xl:h-auto w-full max-w-lg xl:max-w-4xl md:max-w-lg border-4 border-navborder relative mt-20 mb-20">
         <button
           className="absolute bg-black w-8 h-8 xl:w-10 xl:h-10 rounded-full top-4 right-4 text-xl xl:text-2xl text-white flex items-center justify-center"
           onClick={handleClose}

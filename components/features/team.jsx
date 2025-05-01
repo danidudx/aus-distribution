@@ -22,7 +22,7 @@ const MeetTheTeam = () => {
 
         {/* Left content */}
         <div className="flex flex-col xl:items-left items-center mb-20">
-          <h2 className="xl:text-[64px] text-[30px] text-center font-[Tropiline] font-extrabold text-[#0B2F3D] mb-6 xl:leading-[90px] xl:mt-20">
+          <h2 className="xl:text-[64px] text-[30px] text-center md:text-center xl:text-left font-[Tropiline] font-extrabold text-[#0B2F3D] mb-6 xl:leading-[90px] xl:mt-20">
             Meet{" "}
             <span className="text-[#FF3366]">
               The Team <br />
@@ -35,8 +35,8 @@ const MeetTheTeam = () => {
             unparalleled expertise & commitment. We are
             here to cater to clean spaces, better places.
           </p>
-          <div className="flex justify-center items-center top-0 absolute">
-            <button className="bg-white text-navborder xl:top-[450px] md:top-[180px] top-[230px] w-[280px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+          <div className="xl:block justify-center items-center top-0 md:top-6 xl:top-0 absolute">
+            <button className="bg-white text-navborder xl:top-[450px] md:top-[180px] top-[230px] w-[280px] h-12 rounded-full flex items-center justify-center xl:-ml-52 shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Book Now
               </span>
@@ -47,7 +47,7 @@ const MeetTheTeam = () => {
                 />
               </div>
             </button>
-            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] xl:top-[455px] md:top-[184px] top-[234px] left-[51%] rounded-full w-[280px] h-12"></div>
+            <div className="absolute transform -translate-x-1/2 bg-[#FF4081] xl:top-[455px] md:top-[184px] top-[234px] left-[51%] rounded-full w-[280px] h-12 xl:-ml-24"></div>
           </div>
         </div>
 
