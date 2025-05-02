@@ -38,7 +38,7 @@ const ClientReviews = () => {
   ];
 
   return (
-    <section className="bg-[#fffae7] py-16 overflow-hidden">
+    <section className="bg-[#fffae7] py-16 -mt-1 overflow-hidden">
       <div className="w-auto relative">
         {/* Decorative Stars */}
         <img

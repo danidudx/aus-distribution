@@ -37,7 +37,7 @@ export default function Navbar() {
         {/* Left - Brand Logo */}
         <Link
           href="/"
-          className="font-[Tropiline] font-bold text-[20px] xl:text-[40px] leading-[150%]"
+          className="font-[Tropiline] font-bold text-[20px] md:text-3xl xl:text-[40px] leading-[150%]"
         >
           AusiWipe
         </Link>

@@ -92,7 +92,7 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="relative w-full xl:h-[832px] bg-gradient-to-b from-[#FF3366] to-[#FFD143] text-white flex items-center px-8">
+    <div className="relative w-full xl:h-[832px] bg-gradient-to-b from-[#FF3366] to-[#FFD143] text-white flex items-center px-4 md:px-8">
       <div className="flex flex-col xl:flex-row md:flex-row w-full xl:pl-20 md:pl-10 items-center gap-8">
         {/* Left Section */}
         <div className="xl:w-1/2 md:w-1/2 text-center xl:text-left md:text-left">
@@ -119,7 +119,7 @@ export default function HeroSection() {
           <img
             src="/assets/Images/8.png"
             alt="curveArrow"
-            className="absolute xl:top-[75%] xl:left-[27%] top-[32%] left-[80%] xl:w-auto xl:h-auto w-12 h-18 md:top-[68%] md:left-[30%]"
+            className="absolute xl:top-[75%] xl:left-[27%] top-[32%] left-[80%] xl:w-auto xl:h-auto w-12 h-18 md:top-[68%] md:left-[40%] 2md:left-[30%]"
           />
           <div className="flex items-center gap-2 mb-4 justify-center xl:justify-start md:justify-start">
             <img

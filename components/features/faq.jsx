@@ -58,10 +58,10 @@ const FAQPage = () => {
         <img
           src="/assets/Images/Vector1.png"
           alt="Vector"
-          className="w-full h-full mt-[-5%]"
+          className="w-full h-full mt-[-7%]"
         />
       </div>
-      <div className="bg-[#FFEEB6] min-h-full xl:pb-40 pb-20">
+      <div className="bg-[#FFEEB6] min-h-full h-auto xl:pb-40 pb-20">
         <h1 className="xl:text-[50px] font-extrabold text-[32px] xl:mb-12 mb-6 xl:pt-10 pt-6 text-center font-[Tropiline] xl:leading-[90px]">
           <span className="text-[#0B2F3D]">
             {" "}

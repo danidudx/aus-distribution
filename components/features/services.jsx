@@ -106,7 +106,7 @@ const Services = () => {
         <img
           src="/assets/Images/Vector1.png"
           alt="Vector"
-          className="w-full h-full mt-[-5%]"
+          className="w-full h-full mt-[-6%]"
         />
       </div>
       <div className="bg-[#FFEEB6] py-20 relative">

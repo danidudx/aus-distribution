@@ -69,7 +69,7 @@ const Footer = () => {
           className="w-full h-full mt-[-5%]"
         />
       </div>
-      <footer className="bg-[#0B2F3D] xl:pt-16 md:pt-10 pt-6 text-white xl:pb-8 pb-10">
+      <footer className="bg-[#0B2F3D] -mt-[1px] xl:pt-16 md:pt-10 pt-6 text-white xl:pb-8 pb-10">
         <div className="xl:grid xl:grid-cols-3 xl:w-[90%] 2xl:w-[80%] w-[90%] mx-auto xl:gap-26 2xl:gap-32">
           {/* Left Section */}
           <div className="xl:w-[515px]">
@@ -97,7 +97,7 @@ const Footer = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[22%] px-2 font-bold text-[10px] xl:text-lg h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+                  className={`bg-[#FFC914] xl:w-[110px] md:w-[10%] w-[22%] px-2 font-bold font-[Montserrat] text-[10px] xl:text-lg h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
                 >
                   {isSubmitting ? "Wait..." : "Sign Up"}
                 </button>
@@ -201,7 +201,8 @@ const Footer = () => {
         <hr className="my-8 xl:mx-40" />
 
         <div className="xl:mt-8 flex flex-col xl:flex-row md:justify-center text-left text-sm text-gray-400">
-          <div className="flex items-center xl:justify-center mx-6 gap-10">
+          {/* Desktop view */}
+          <div className="hidden xl:flex items-center xl:justify-center mx-6 gap-10">
             <p>©Ausiwipe 2025</p>
             <img
               src="assets/Images/footerlogo.png"
@@ -209,7 +210,16 @@ const Footer = () => {
               className="xl:ml-12"
             />
           </div>
-          <p className="xl:ml-12 mx-6 mt-6">
+          {/* Mobile view */}
+          <div className="flex xl:hidden items-center xl:justify-center mx-6 gap-10">
+            <img
+              src="assets/Images/footerlogo.png"
+              alt="footerlogo"
+              className="xl:ml-12"
+            />
+            <p>©Ausiwipe 2025</p>
+          </div>
+          <p className="xl:ml-12 mx-6 mt-6 font-[Montserrat]">
             AusiWipe acknowledges the Gubbi Gubbi people and the Jinibara people
             who are the Traditional Custodians of this <br /> land on which we
             work. We acknowledge the Traditional Custodians of Country
@@ -217,15 +227,15 @@ const Footer = () => {
             relationship to the land and pay our respects to Elders past,
             present and emerging.
           </p>
-          </div>
-          <div className="flex items-center justify-center my-4">
+        </div>
+        <div className="flex items-center justify-center my-4">
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`bg-[#FFC914] xl:hidden flex items-center justify-between xl:flex-wrap xl:w-[20%] md:w-[20%] w-[40%] px-4 font-bold text-[10px] xl:text-2xl h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+            className={`bg-[#FFC914] font-[Montserrat] xl:hidden flex items-center justify-between xl:flex-wrap w-auto px-4 font-semibold text-[12px] xl:text-2xl h-10 xl:h-16 text-black xl:ml-8 ml-4 rounded-full hover:scale-105 active:scale-95 z-[10] gap-2 ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
           >
             {"Booking Now"}
-            <div className="w-6 h-6 bg-navbackground rounded-full flex items-center justify-center">
+            <div className="w-6 h-6 bg-[#0B2F3D] rounded-full flex items-center justify-center">
               <FaArrowRight
                 className="w-3.5 h-3.5 cursor-pointer relative z-10"
                 color="white"

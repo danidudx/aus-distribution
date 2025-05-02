@@ -6,7 +6,7 @@ import "swiper/css";
 
 const MeetTheTeam = () => {
   return (
-    <section className="bg-[#fffae7] xl:h-[824px] xl:py-0 py-20">
+    <section className="bg-[#fffae7] -m-1 xl:h-[824px] xl:py-0 py-20">
       <div className="container flex xl:flex-row flex-col xl:w-[90%] 2xl:w-[80%] w-[90%] mx-auto relative xl:justify-between">
         {/* Decorative Stars */}
         <img
@@ -17,7 +17,7 @@ const MeetTheTeam = () => {
         <img
           src="/assets/Images/star1.png"
           alt="Star2"
-          className="xl:top-[500px] top-[280px] right-[-20px] xl:left-[400px] md:left-[80%] absolute"
+          className="xl:top-[500px] top-[260px] right-[-20px] xl:left-[400px] md:left-[80%] absolute"
         />
 
         {/* Left content */}
@@ -61,7 +61,7 @@ const MeetTheTeam = () => {
           />
 
           {/* Swiper for mobile/tablet */}
-          <div className="xl:hidden w-full px-4">
+          <div className="xl:hidden w-full">
             <Swiper
               spaceBetween={10}
               slidesPerView={1.2}
@@ -86,7 +86,7 @@ const MeetTheTeam = () => {
           </div>
 
           {/* Static row for desktop */}
-          <div className="hidden xl:flex gap-6 w-full items-center justify-center">
+          <div className="hidden xl:flex gap-6 xl:w-[90%] items-center justify-center">
             {["c2.jpg", "c3.jpg", "c4.jpg"].map((img, idx) => (
               <img
                 key={idx}
