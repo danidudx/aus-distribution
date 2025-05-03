@@ -69,7 +69,7 @@ export async function POST(request) {
         );
       }
 
-      // Convert hours and minutes to total hours (e.g., 2 hours 30 minutes = 2.5 hours)
+      // hours and minutes to total hours (e.g., 2 hours 30 minutes = 2.5 hours)
       let totalHours = hours + minutes / 60;
 
       // Add 3 more hours if the type is "deep clean"
