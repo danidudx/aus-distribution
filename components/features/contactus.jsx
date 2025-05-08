@@ -50,17 +50,15 @@ export default function ContactForm() {
   };
   return (
     <div className="bg-[#fffae7] flex justify-center xl:pt-6 pb-10 md:pb-16 xl:pb-40">
-      <div className="xl:w-[90%] p-8 rounded-lg">
-        <h2 className="xl:text-[50px] text-[40px] font-extrabold text-[#0B2F3D] text-center mb-4 leading-[90px] font-[Tropiline]">
+      <div className="xl:w-[90%] md:p-8 p-4 rounded-lg">
+        <h2 className="xl:text-[50px] text-[30px] font-extrabold text-[#0B2F3D] text-center mb-4 leading-[90px] font-[Tropiline]">
           Get In <span className="text-[#FF3366]">Touch!</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 xl:mt-10 ">
           <div className="xl:max-w-[737px]">
-            <p className="text-[#0B2F3D] text-left mb-8 font-[Montserrat] xl:text-xl text-lg xl:tracking-wide ">
-              Have questions or need assistance? Don't hesitate to contact our
-              team today. We are available every day of the week via phone,
-              email, or SMS.
+            <p className="text-[#0B2F3D] text-wrap text-left mb-8 font-[Montserrat] xl:text-xl text-lg xl:tracking-wide ">
+              Have questions or need assistance? Don't hesitate to contact our team today. We are available every day of the week via phone, email, or SMS.
             </p>
             <h3 className="font-medium text-[#0B2F3D] font-[Montserrat] xl:text-[32px] text-2xl leading-[150%] pb-6">
               Payment Details
@@ -68,19 +66,19 @@ export default function ContactForm() {
 
             <div className="space-y-4">
               <div className="flex justify-between">
-                <span className="font-medium xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#3C5964]">
+                <span className="font-medium xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#3C5964]">
                   Phone/SMS:
                 </span>
-                <span className="font-semibold xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#0B2F3D]">
+                <span className="font-semibold xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#0B2F3D]">
                   0423 383 684
                 </span>
               </div>
 
               <div className="flex justify-between">
-                <span className="font-medium xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#3C5964]">
+                <span className="font-medium xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#3C5964]">
                   Email:
                 </span>
-                <ul className="font-semibold xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#0B2F3D] text-right">
+                <ul className="font-semibold xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#0B2F3D] text-right">
                   <li>hello@ausiwipe.com.au</li>
                   <li>support@ausiwipe.com.au</li>
                   <li>joinus@ausiwipe.com.au</li>
@@ -88,19 +86,19 @@ export default function ContactForm() {
               </div>
 
               <div className="flex justify-between">
-                <span className="font-medium xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#3C5964]">
+                <span className="font-medium xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#3C5964]">
                   Address:
                 </span>{" "}
-                <span className="font-semibold xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#0B2F3D]">
+                <span className="font-semibold xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#0B2F3D]">
                   13/A Park Street, Melbourne
                 </span>
               </div>
 
               <div className="flex justify-between">
-                <span className="font-medium xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#3C5964]">
+                <span className="font-medium xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#3C5964]">
                   Opening Hours:
                 </span>
-                <div className="font-semibold xl:text-2xl text-lg font-[Montserrat] leading-[150%] text-[#0B2F3D] text-right">
+                <div className="font-semibold xl:text-2xl text-sm font-[Montserrat] leading-[150%] text-[#0B2F3D] text-right">
                   <p>Mon - Fri: 9am - 5pm</p>
                   <p>Sat - Sun: 9am - 12pm</p>
                 </div>
