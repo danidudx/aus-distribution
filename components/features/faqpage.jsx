@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaTimes } from "react-icons/fa";
 
 const faqs = [
   {
@@ -53,7 +53,7 @@ const FAQsPage = () => {
 
   return (
     <div className="bg-[#fffae7] min-h-full xl:pb-40 pb-10 md:pb-20">
-      <h1 className="xl:text-[50px] text-[40px] font-extrabold xl:mb-12 mb-6 xl:pt-10 pt-6 text-center font-[Tropiline] xl:leading-[90px]">
+      <h1 className="xl:text-[50px] text-[30px] font-extrabold xl:mb-12 mb-6 xl:pt-10 pt-6 text-center font-[Tropiline] xl:leading-[90px]">
         <span className="text-[#0B2F3D]">
           {" "}
           Frequently <span className="text-[#FF3366] ">
@@ -62,7 +62,7 @@ const FAQsPage = () => {
         </span>
       </h1>
 
-      <h3 className="text-[#0B2F3D] xl:text-xl text-lg leading-[150%] font-[Montserrat] text-center pb-10">
+      <h3 className="text-[#0B2F3D] xl:text-xl text-lg leading-[150%] font-[Montserrat] md:text-center text-left mx-auto 2xl:w-[80%] w-[90%] pb-10">
         A Compiled list of frequently asked question is below. Can’t find the
         answer you’re looking for? Reach out to{" "}
         <span className="text-[#FF3366] leading-[200%] xl:font-semibold">
@@ -82,11 +82,11 @@ const FAQsPage = () => {
                 {faq.question}
               </h2>
               <span className="text-[#0B2F3D] xl:text-xl text-lg mr-1">
-                {openIndex === index ? <FaMinus /> : <FaPlus />}
+                {openIndex === index ? <FaTimes /> : <FaPlus />}
               </span>
             </div>
             {openIndex === index && (
-              <p className="mt-2 text-[#0B2F3D] text-xl font-[Montserrat] font-medium">
+              <p className="my-4 text-[#0B2F3D] md:text-xl text-base font-[Montserrat] font-medium">
                 {faq.answer}
               </p>
             )}

@@ -30,13 +30,17 @@ const MeetTheTeam = () => {
             Behind Clean.
           </h2>
           <p className="text-[#0B2F3D] font-[Montserrat] text-wrap xl:text-xl md:text-base text-sm text-center md:text-left xl:text-left xl:font-medium xl:w-[500px] xl:mb-10 mb-0 xl:leading-[150%]">
-            Since 2021 our dedicated team at AusiWipe has
-            been professionally transforming spaces with
-            unparalleled expertise & commitment. We are
+            Since 2021 our dedicated team at AusiWipe has been professionally
+            transforming spaces with unparalleled expertise & commitment. We are
             here to cater to clean spaces, better places.
           </p>
           <div className="xl:block justify-center items-center top-0 md:top-6 xl:top-0 absolute">
-            <button className="bg-white text-navborder xl:top-[450px] md:top-[180px] top-[230px] w-[280px] h-12 rounded-full flex items-center justify-center xl:-ml-52 shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+            <button
+              className="bg-white text-navborder xl:top-[450px] md:top-[180px] top-[230px] w-[280px] h-12 rounded-full flex items-center justify-center xl:-ml-52 shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95"
+              onClick={() => {
+                router.push("/Booking");
+              }}
+            >
               <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
                 Book Now
               </span>

@@ -85,7 +85,12 @@ const Services = () => {
           </li>
         ))}
       </ul>
-      <button className="bg-white text-navborder top-4 mb-4 w-[232px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95">
+      <button
+        className="bg-white text-navborder top-4 mb-4 w-[232px] h-12 rounded-full flex items-center justify-center shadow-md relative z-10 border-2 border-navborder gap-3 hover:scale-105 active:scale-95"
+        onClick={() => {
+          router.push('/Booking');
+        }}
+      >
         <span className="text-base font-[Montserrat] font-semibold leading-[150%]">
           Book Now
         </span>

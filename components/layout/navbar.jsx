@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   FaSearch,
@@ -14,6 +14,21 @@ import {
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1280); // Tailwind xl breakpoint
+    };
+
+    handleResize(); // initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
 
   return (
     <div className="w-full">
@@ -70,18 +85,22 @@ export default function Navbar() {
             Book
             <FaChevronRight className="xl:hidden" />
           </Link>
-          <div className="relative w-auto mx-2 px-2 my-1 py-1 rounded-lg bg-white xl:bg-transparent xl:border-none">
+          <div
+            className="relative w-auto mx-2 px-2 my-1 py-1 rounded-lg bg-white xl:bg-transparent xl:border-none"
+            onMouseEnter={() => !isMobile && setIsDropdownOpen(true)}
+            onMouseLeave={() => !isMobile && setIsDropdownOpen(false)}
+          >
             <button
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
+              onClick={isMobile ? toggleDropdown : undefined}
               className="flex items-center justify-between w-full text-[#0B2F3D] xl:text-white xl:w-auto"
             >
               Services
               <FaChevronDown className="hidden xl:flex text-sm xl:ml-1" />
               <FaChevronRight className="xl:hidden" />
             </button>
+
             {isDropdownOpen && (
-              <div className="absolute text-lg bg-white text-black rounded-md shadow-md mt-2 py-2 w-60">
+              <div className="absolute z-50 text-lg bg-white text-black rounded-md shadow-md mt-2 py-2 w-60">
                 <Link
                   href="/CleaningDetails"
                   className="block px-4 py-2 hover:bg-gray-100"
@@ -92,11 +111,12 @@ export default function Navbar() {
                   href="/CustomerDetails"
                   className="block px-4 py-2 hover:bg-gray-100"
                 >
-                  FaChevronRight Customer Details
+                  Customer Details
                 </Link>
               </div>
             )}
           </div>
+
           <Link
             href="/Contact"
             className="relative text-[#0B2F3D] xl:text-white w-auto mx-2 px-2 my-1 py-2 rounded-lg bg-white xl:bg-transparent text-base xl:text-2xl flex xl:border-none justify-between items-center after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
@@ -113,7 +133,7 @@ export default function Navbar() {
             <FaChevronRight className="xl:hidden" />
           </Link>
           <Link
-            href="/FAQ"
+            href="/Faq"
             className="relative text-[#0B2F3D] xl:text-white w-auto mx-2 px-2 my-1 py-2 rounded-lg bg-white xl:bg-transparent text-base xl:text-2xl flex xl:border-none justify-between items-center after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left"
           >
             FAQ
