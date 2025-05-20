@@ -25,7 +25,7 @@ const steps = [
     description:
       "Relax as our experienced cleaning professional cleans your space for you on your selected schedule",
     position:
-      "xl:top-[20%] xl:left-[55%] top-[5%] left-[5%] md:top-[40%] md:left-[20%] flex-warp xl:w-64 md:w-72",
+      "xl:top-[20%] xl:left-[52%] top-[5%] left-[5%] md:top-[40%] md:left-[20%] flex-warp xl:w-64 md:w-72",
   },
   {
     icon: "/assets/Images/w4.png",
@@ -33,14 +33,14 @@ const steps = [
     description:
       "If you are happy with our service provide feedback and receive a discount for your next home clean!",
     position:
-      "xl:bottom-[25%] xl:right-[8%] 2xl:right-[15%] bottom-[10%] right-[5%] items-center xl:items-start md:bottom-[20%] md:right-[15%] md:items-start flex-warp xl:w-64 md:w-72",
+      "xl:bottom-[25%] xl:right-[8%] 2xl:right-[10%] bottom-[10%] right-[5%] items-center xl:items-start md:bottom-[16%] md:right-[15%] md:items-start flex-warp xl:w-64 md:w-72",
   },
 ];
 
 const HowItWorks = () => {
   return (
     <div>
-      <section className="bg-[#FFEEB6] relative mt-[-1px] xl:h-[800px] h-[1500px]">
+      <section className="bg-[#FFEEB6] relative mt-[-1px] xl:h-[800px] h-[1280px]">
         <img
           src="/assets/Images/star2.png"
           alt="Star1"
@@ -158,11 +158,11 @@ const HowItWorks = () => {
             />
             <img
               src="/assets/Images/a1.png"
-              className="absolute xl:top-[165%] xl:right-[25%] 2xl:right-[28%] xl:w-[120px] xl:h-[120px] xl:rotate-0 rotate-180 w-[120px] h-[120px] top-[62%] right-[20%] xl:scale-x-[1] scale-x-[-1] md:top-[55%] md:right-[38%] md:w-[162px] md:h-[140px]"
+              className="absolute xl:top-[165%] xl:right-[25%] 2xl:right-[28%] xl:w-[120px] xl:h-[120px] xl:rotate-0 rotate-180 w-[120px] h-[120px] top-[62%] right-[20%] xl:scale-x-[1] scale-x-[-1] md:top-[57%] md:right-[38%] md:w-[162px] md:h-[140px]"
             />
           </div>
           {/* CTA Button */}
-          <div className="flex justify-center xl:mt-72 md:mt-96 md:pt-32 xl:pt-0 pt-0 mt-20 relative">
+          <div className="flex justify-center xl:mt-72 md:mt-96 xl:pt-0 pt-0 mt-20 relative">
             {/* Pink Shadow Background */}
             <div className="absolute w-[280px] h-12 bg-[#FF4081] rounded-full z-0 translate-x-[6px] translate-y-[6px]"></div>
 

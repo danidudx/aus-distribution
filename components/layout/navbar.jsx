@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <div className="w-full">
       {/* Promo Bar */}
-      <div className="bg-navbackground text-white text-center h-[40px] py-2 text-sm xl:text-xl font-[Montserrat] leading-[150%]">
+      <div className="bg-navbackground text-white text-center h-[40px] py-2 text-sm xl:text-base font-[Montserrat] leading-[150%]">
         10% off weekly & fortnightly cleans{" "}
         <Link href="/Booking" className="font-bold cursor-pointer">
           Book Now

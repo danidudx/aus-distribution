@@ -287,11 +287,11 @@ export default function BookingSummary({ bookingData }) {
           )}
         </div>
 
-        <div className="bg-[#FFC914] text-[#0B2F3D] mt-10 xl:px-8 xl:py-3 py-2 rounded-full font-[Montserrat] text-xl font-normal leading-[150%] border-2 border-[#0B2F3D] flex items-center justify-center gap-4">
+        <div className="bg-[#FFC914] text-[#0B2F3D] mt-10 xl:px-8 xl:py-3 py-2 rounded-full font-[Montserrat] text-lg font-normal leading-[150%] border-2 border-[#0B2F3D] flex items-center justify-center gap-4">
           <span>
             Total: <span className="xl:font-semibold">${totalPrice} | </span>{" "}
             Duration:
-            <span className="xl:font-semibold"> {duration} hrs | </span>
+            <span className="xl:font-semibold"> {duration}h</span>
           </span>
         </div>
       </div>

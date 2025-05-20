@@ -266,6 +266,14 @@ export default function CleaningDetails({ onNext, bookingData }) {
       }
     }
   };
+  const handleTimeChange = (date) => {
+    setTime(date);
+    if (formSubmitted) {
+      setValidationErrors({
+        time: date ? "" : "Time is required",
+      });
+    }
+  };
 
   return (
     <div className="bg-[#fffae7] w-full pb-20 xl:pb-40">
@@ -578,18 +586,28 @@ export default function CleaningDetails({ onNext, bookingData }) {
             {/*normal Date time selection */}
             <div className="mt-10">
               <div className="flex flex-row">
-                <img
+                {/* <img
                   src="/assets/Images/date.png"
                   alt="Date"
                   className="xl:w-10 xl:h-10"
-                />
-                <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] xl:text-xl text-lg leading-[150%] flex items-center pl-4">
-                  Date & Time*
+                /> */}
+                <h4 className="font-medium text-[#0B2F3D] font-[Montserrat] xl:text-[32px] text-lg leading-[150%] flex items-center">
+                  Choose a Date & Time
                 </h4>
               </div>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative" data-field="date">
-                  <BsCalendarDate className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-[#0B2F3D]" />
+                  <div className="flex text-black items-center mb-4">
+                    <img
+                      src="/assets/Images/date.png"
+                      alt="Date"
+                      className="xl:w-10 xl:h-10"
+                    />
+                    <span className="text-xl pl-4 font-[Montserrat] font">
+                      Date <span className="text-red-600 font-bold">*</span>
+                    </span>
+                  </div>
+                  {/* <BsCalendarDate className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-[#0B2F3D]" /> */}
                   <input
                     type="date"
                     value={date}
@@ -605,7 +623,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
                         }));
                       }
                     }}
-                    className={`pl-16 w-full xl:h-16 h-12 border-2 ${validationErrors.date ? "border-red-500" : "border-[#0B2F3D]"} rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]`}
+                    className={`w-full xl:h-16 h-12 border-4 text-center font-[Tropiline] font-bold text-[24px] ${validationErrors.date ? "border-red-500" : "border-[#0B2F3D]"} rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]`}
                     required
                   />
                   {validationErrors.date && (
@@ -615,7 +633,17 @@ export default function CleaningDetails({ onNext, bookingData }) {
                   )}
                 </div>
                 <div className="relative" data-field="time">
-                  <BiTimeFive className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-[#0B2F3D]" />
+                  <div className="flex text-black items-center mb-4">
+                    <img
+                      src="/assets/Images/time.png"
+                      alt="Date"
+                      className="xl:w-10 xl:h-10"
+                    />
+                    <span className="text-xl pl-4 font-[Montserrat] font">
+                      Time <span className="text-red-600 font-bold">*</span>
+                    </span>
+                  </div>
+                  {/* <BiTimeFive className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-[#0B2F3D]" /> */}
                   <input
                     type="time"
                     value={time.replace(" AM", "").replace(" PM", "")}
@@ -634,7 +662,7 @@ export default function CleaningDetails({ onNext, bookingData }) {
                         }));
                       }
                     }}
-                    className={`pl-16 w-full xl:h-16 h-12 border-2 ${validationErrors.time ? "border-red-500" : "border-[#0B2F3D]"} rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]`}
+                    className={`w-full xl:h-16 h-12 border-4 text-center text-[24px] font-[Tropiline] font-bold ${validationErrors.time ? "border-red-500" : "border-[#0B2F3D]"} rounded-xl bg-white text-[#0B2F3D] font-[Montserrat]`}
                     required
                   />
                   {validationErrors.time && (
