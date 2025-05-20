@@ -2,17 +2,17 @@ import React from "react";
 
 const logo = [
   {
-    src: "assets/Images/LOGO1.png",
+    src: "assets/logos/LOGO1.png",
     alt: "Elite Real Estate Agency Rockhampton",
   },
-  { src: "assets/Images/LOGO2.png", alt: "HHH Accountants" },
-  { src: "assets/Images/LOGO3.png", alt: "JUCY Rentals" },
-  { src: "assets/Images/LOGO4.png", alt: "Konnect" },
-  { src: "assets/Images/LOGO5.png", alt: "LeapIn" },
-  { src: "assets/Images/LOGO6.png", alt: "LJ Hooker Rockhampton" },
-  { src: "assets/Images/LOGO7.png", alt: "Mr Real Estate Rockhampton" },
-  { src: "assets/Images/LOGO8.png", alt: "Pat O'Driscoll Real Estate" },
-  { src: "assets/Images/LOGO9.png", alt: "Ray White Rockhampton" },
+  { src: "assets/logos/LOGO2.png", alt: "HHH Accountants" },
+  { src: "assets/logos/LOGO3.png", alt: "JUCY Rentals" },
+  { src: "assets/logos/LOGO4.png", alt: "Konnect" },
+  { src: "assets/logos/LOGO5.png", alt: "LeapIn" },
+  { src: "assets/logos/LOGO6.png", alt: "LJ Hooker Rockhampton" },
+  { src: "assets/logos/LOGO7.png", alt: "Mr Real Estate Rockhampton" },
+  { src: "assets/logos/LOGO8.png", alt: "Pat O'Driscoll Real Estate" },
+  { src: "assets/logos/LOGO9.png", alt: "Ray White Rockhampton" },
 ];
 
 const Logos = () => {
