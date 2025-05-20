@@ -7,7 +7,7 @@ export default function CleaningServices() {
     <div className="bg-[#fffae7] xl:py-10 md:py-10 xl:px-6 py-5 xl:pb-40 pb-10 md:pb-20">
       <div className="flex flex-col justify-center w-[90%] mx-auto">
         <h1 className="xl:text-[32px] text-2xl text-[#0B2F3D] font-extrabold text-center mb-6 xl:leading-[48px] font-[Tropiline]">
-          Want To Change Cleaning Companies For 2025? AusiWipe Is Here
+          Want To Change Cleaning Companies For 2025? AusiWipe Is Here.
         </h1>
         <div className="flex justify-center">
           <Image
