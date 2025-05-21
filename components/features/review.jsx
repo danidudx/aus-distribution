@@ -102,7 +102,7 @@ const ClientReviews = () => {
                       .map((_, index) => (
                         <img
                           key={index}
-                          src="/assets/images/review-star.png"
+                          src="/assets/images/review/review-star.png"
                           alt="Star"
                           className="w-5 h-5"
                         />

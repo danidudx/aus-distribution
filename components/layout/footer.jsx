@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import SuccessPopup from "../shared/success-popup";
 import { FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -121,7 +122,7 @@ const Footer = () => {
             {/* Services */}
             <div className="flex flex-col font-[Montserrat]">
               <div className="flex items-center justify-between xl:block">
-                <h3 className="font-bold xl:text-xl text-lg leading-[150%]">
+                <h3 className="font-bold xl:text-xl text-lg leading-[150%] md:mb-4">
                   Services
                 </h3>
                 <button
@@ -135,10 +136,18 @@ const Footer = () => {
                 (typeof window !== "undefined" &&
                   window.innerWidth >= 1280)) && (
                 <div className="flex flex-col xl:gap-4 gap-2 xl:font-medium text-base md:text-lg mt-4 xl:mt-0">
-                  <p>Once-off Cleaning</p>
-                  <p>Recurring Cleaning</p>
-                  <p>Standard Cleaning</p>
-                  <p>Deep Cleaning</p>
+                  <p className="hover:font-semibold">
+                    <Link href="#">Once-off Cleaning</Link>
+                  </p>
+                  <p className="hover:font-semibold ">
+                    <Link href="#">Recurring Cleaning</Link>
+                  </p>
+                  <p className="hover:font-semibold">
+                    <Link href="#">Standard Cleaning</Link>
+                  </p>
+                  <p className="hover:font-semibold">
+                    <Link href="#">Deep Cleaning</Link>
+                  </p>
                 </div>
               )}
             </div>
@@ -147,7 +156,7 @@ const Footer = () => {
             {/* Contact */}
             <div className="flex flex-col font-[Montserrat] xl:mt-0">
               <div className="flex items-center justify-between xl:block">
-                <h3 className="font-bold xl:text-xl text-lg leading-[150%]">
+                <h3 className="font-bold xl:text-xl text-lg leading-[150%] md:mb-4">
                   Contact
                 </h3>
                 <button
@@ -161,9 +170,15 @@ const Footer = () => {
                 (typeof window !== "undefined" &&
                   window.innerWidth >= 1280)) && (
                 <div className="flex flex-col xl:gap-4 gap-2 xl:font-medium text-base md:text-lg mt-4 xl:mt-0">
-                  <p>FAQ</p>
-                  <p>Contact Us</p>
-                  <p>Reviews</p>
+                  <p className="hover:font-semibold">
+                    <Link href="/Faq">FAQ</Link>
+                  </p>
+                  <p className="hover:font-semibold">
+                    <Link href="/Contact">Contact Us</Link>
+                  </p>
+                  <p className="hover:font-semibold">
+                    <Link href="#">Reviews</Link>
+                  </p>
                 </div>
               )}
             </div>

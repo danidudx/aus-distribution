@@ -177,8 +177,8 @@ export default function HeroSection() {
             {carouselImages.map((_, index) => (
               <div
                 key={index}
-                className={`w-3 h-3 rounded-full cursor-pointer ${
-                  index === activeIndex ? "bg-white" : "bg-gray-400"
+                className={`w-3 h-3 rounded-full cursor-pointer border-2 border-white ${
+                  index === activeIndex ? "bg-white" : "bg-transparent"
                 }`}
                 onClick={() => setActiveIndex(index)}
               ></div>

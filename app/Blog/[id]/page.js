@@ -53,7 +53,7 @@ const BlogPost = () => {
 
   return (
     <article className="bg-[#fffae7] py-12 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-4xl mb-20 mx-auto px-4">
         <h1 className="text-4xl font-extrabold text-[#0B2F3D] font-[Tropiline] mb-8">
           {post.title}
         </h1>
@@ -65,7 +65,7 @@ const BlogPost = () => {
               alt={post.mainImage.alt || post.title}
               width={1200}
               height={600}
-              className="rounded-lg object-cover w-full h-[400px]"
+              className="rounded-lg object-cover w-full md:h-[400px] h-[200px]"
             />
           </div>
         )}
